@@ -1,0 +1,149 @@
+  @font-face {
+            font-family: 'Brice-Bold';
+            src: url('../fonts/Brice-BoldSemiCondensed.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'BasisGrotesque-Regular';
+            src: url('../fonts/BasisGrotesqueArabicPro-Regular.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Brice-SemiBoldSemi';
+            src: url('../fonts/Brice-SemiBoldSemiCondensed.ttf');
+        }
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body{
+            margin: 0;
+            background-color: #fefaf1 !important;
+            font-family: 'BasisGrotesque-Regular';
+        }
+
+        .sidebar {
+            height: 100vh;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar a {
+            padding: 15px 25px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+
+        .sidebar .spacer {
+            flex: 0.9;
+        }
+
+        .main {
+            margin-left: 250px;
+            padding: 15px;
+        }
+
+        .main h1 {
+            font-family: 'Brice-Bold';
+            font-size: 40px;
+        }
+
+        .main h1 spam {
+            -webkit-text-stroke-width: 1px;
+            -webkit-text-stroke-color: #131646;
+            -webkit-text-fill-color: #ff9a52;
+        }
+
+        .dicas {
+            margin-top: 20px;
+            padding: 15px;
+        }
+
+        .dicas h2 {
+            font-family: 'Brice-Bold';
+            font-size: 35px;
+            color: #131646;
+            margin-bottom: 40px;
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px; /* Espaçamento entre os cards */
+            justify-content: center;
+        }
+
+        .card {
+            align-items: center;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            height: 100%;
+        }
+
+        .card-icon {
+            width: 60px; /* Tamanho do ícone */
+            height: auto; /* Mantém a proporção do ícone */
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-family: 'Brice-SemiBoldSemi';
+            font-size: 20px;
+            color: #131646;
+        }
+
+        .card p {
+            font-size: 16px;
+            color: #555555; /* Cor do texto da descrição */
+        }
+
+        .dicas ul {
+            list-style-type: disc; /* Estilo da lista */
+            padding-left: 20px; /* Espaçamento à esquerda */
+        }
+
+        .dicas li {
+            margin-bottom: 10px; /* Espaçamento entre itens */
+            font-size: 16px;
+        }
+
+          /* Estilo para posicionar o botão no canto superior direito */
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #fc8835;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.5s;
+        }
+
+        .logout-btn:hover {
+            background-color: #ff7b00;
+            transform: scale(1.05);
+            border-bottom-right-radius: 0px;
+            border-top-left-radius: 0px;
+        }

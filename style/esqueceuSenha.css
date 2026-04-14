@@ -1,0 +1,51 @@
+   @font-face {
+            font-family: 'BasisGrotesque-Regular';
+            src: url('../../fonts/BasisGrotesqueArabicPro-Regular.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Brice-SemiBoldSemi';
+            src: url('../../fonts/Brice-SemiBoldSemiCondensed.ttf');
+        }
+
+        body {
+            background-color: #f8f9fa;
+            font-family: 'BasisGrotesque-Regular';
+        }
+
+        .form-container {
+            max-width: 400px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+            font-family: 'Brice-SemiBoldSemi';
+        }
+
+        .form-container .btn-primary {
+            background-color: #ff9a52;
+            border-color: black;
+            transition: all 0.3s;
+        }
+
+        .form-container .btn-primary:hover {
+            background-color: #d54e21;
+           
+        }
+
+
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #6c757d;
+        }
