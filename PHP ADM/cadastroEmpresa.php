@@ -35,7 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $codigo_verificacao = rand(1000, 9999);
 
     // Iniciar sessão para salvar temporariamente os dados do cadastro
-    session_start();
     $_SESSION['nome_empresa'] = $nome_empresa;
     $_SESSION['cnpj'] = $cnpj;
     $_SESSION['nome_usuario'] = $nome_usuario;
@@ -51,13 +50,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';  // Seu provedor SMTP
         $mail->SMTPAuth = true;
-        $mail->Username = 'lorismigz.pam@gmail.com'; // Seu e-mail SMTP
-        $mail->Password = 'edts pdst pvfj ffkv'; // Sua senha SMTP
+        $mail->Username = 'projGuiar@gmail.com'; // Seu e-mail SMTP
+        $mail->Password = 'projGuiar@123'; // Sua senha SMTP
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
         // Configurações de envio
-        $mail->setFrom('lorismigz.pam@gmail.com', 'GUIAR');
+        $mail->setFrom('projGuiar@gmail.com', 'GUIAR');
         $mail->addAddress($email);
 
         // Conteúdo do email

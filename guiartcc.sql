@@ -96,7 +96,7 @@ CREATE TABLE `entregador` (
 INSERT INTO `entregador` (`id_entregador`, `nome_completo`, `CPF`, `telefone`, `nome_foto3x4`, `email`, `nome_usuario`, `senha`, `nome_cnh`, `FK_EMPRESA_id_empresa`) VALUES
 (14, 'Pedro h', '22222222222', '1994161981', '', 'adsafa@gmail.com', 'pedro01', '123', '', 9),
 (17, 'Lorena Silva', '746.523.856-54', '19 986341234', 'images.jpeg', 'lorena.aa295@gmail.com', 'loris29', '123456', 'cnh.jpeg', 9),
-(18, 'Paulo Vitor', '423.745.752-98', '19 986341232', '3X4.jpeg', 'lorismigz.pam@gmail.coml', 'Paulo', '12345', 'cnh2.jpeg', 9);
+(18, 'Paulo Vitor', '423.745.752-98', '19 986341232', '3X4.jpeg', 'lorismigz.pam@gmail.com', 'Paulo', '12345', 'cnh2.jpeg', 9);
 
 -- --------------------------------------------------------
 

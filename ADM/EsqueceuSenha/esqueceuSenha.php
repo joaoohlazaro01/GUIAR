@@ -80,13 +80,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com'; // Use o servidor SMTP do Gmail ou de outro provedor
         $mail->SMTPAuth = true;
-        $mail->Username = 'lorismigz.pam@gmail.com'; // Substitua pelo seu e-mail
+        $mail->Username = 'projGuiar@gmail.com'; // Substitua pelo seu e-mail
         $mail->Password = 'edts pdst pvfj ffkv'; // Substitua pela sua senha ou App Password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
         // Configuração do e-mail
-        $mail->setFrom('lorismigz.pam@gmail.com', 'GUIAR');
+        $mail->setFrom('projGuiar@gmail.com', 'GUIAR');
         $mail->addAddress($email);
 
         $resetLink = "http://localhost/GUIAR/GUIAR/ADM/EsqueceuSenha/redefinirSenha.php?token=$token";
