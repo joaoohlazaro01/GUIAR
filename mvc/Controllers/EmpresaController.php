@@ -21,7 +21,7 @@ class EmpresaController {
 
             if ($empresa) {
                 $_SESSION['company_id'] = $empresa['id_empresa'];
-                header("Location: /GUIAR_desfunc/PHP ADM/escolherAdm.php"); // Path ajustado
+                header("Location: /GUIAR_desfunc/routes.php?action=escolherAdm");
                 exit;
             } else {
                 $erro = 'Nome de usuário ou senha incorretos';

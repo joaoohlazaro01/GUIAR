@@ -51,6 +51,31 @@ switch ($action) {
         $controller->cadastro();
         break;
 
+    case 'escolherAdm':
+        $controller = new \mvc\Controllers\AdministradorController($pdo);
+        $controller->escolher();
+        break;
+
+    case 'adicionarAdm':
+        $controller = new \mvc\Controllers\AdministradorController($pdo);
+        $controller->adicionar();
+        break;
+
+    case 'loginAdm':
+        $controller = new \mvc\Controllers\AdministradorController($pdo);
+        $controller->login();
+        break;
+
+    case 'logoutAdm':
+        $controller = new \mvc\Controllers\AdministradorController($pdo);
+        $controller->logout();
+        break;
+
+    case 'dashboardAdm':
+        $controller = new \mvc\Controllers\AdministradorController($pdo);
+        $controller->dashboard();
+        break;
+
     default:
         // Por padrão, se a rota não for encontrada, redireciona para a home
         header("Location: /GUIAR_desfunc/index.html");
