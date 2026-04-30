@@ -75,7 +75,7 @@ window.onload = function() {
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label">Senha</label>
               <input type="password" class="form-control" id="exampleInputPassword1" name="password" required>
-              <a id="esqueceusenha" href="/GUIAR_desfunc/ADM/EsqueceuSenha/esqueceuSenha.php">Esqueceu sua senha?</a>
+              <a id="esqueceusenha" href="/GUIAR_desfunc/routes.php?action=esqueceuSenha">Esqueceu sua senha?</a>
             </div>
             <br>
             <input type="submit" class="btn btn-primary" id="botao" value="Entrar"><br>
