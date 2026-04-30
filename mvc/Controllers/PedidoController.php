@@ -37,7 +37,7 @@ class PedidoController {
         $stmt->execute();
         $resultEntregadores = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
-        require_once __DIR__ . '/../Views/Pedido/pedidos.php';
+        require_once __DIR__ . '/../Views/Administrador/pedidos.php';
     }
 
     public function entregues() {
@@ -46,7 +46,7 @@ class PedidoController {
         
         $pedidos = $this->pedidoModel->getAllByEmpresa($company_id, 'entregue');
 
-        require_once __DIR__ . '/../Views/Pedido/pedidosEntregues.php';
+        require_once __DIR__ . '/../Views/Administrador/pedidosEntregues.php';
     }
 
     public function adicionar() {

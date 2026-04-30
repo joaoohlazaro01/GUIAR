@@ -13,15 +13,15 @@
     <div class="sidebar">
         <!-- Manteremos as rotas antigas até elas serem refatoradas, mas o início já usa o MVC -->
         <a href="/GUIAR_desfunc/routes.php?action=dashboardAdm">Início</a>
-        <a href="/GUIAR_desfunc/PHP ADM/pedidos.php">Pedidos</a>
-        <a href="/GUIAR_desfunc/PHP ADM/entregadores.php">Entregadores</a>
-        <a href="/GUIAR_desfunc/PHP ADM/pedidosEntregues.php">Pedidos Entregues</a>
+        <a href="/GUIAR_desfunc/routes.php?action=pedidos">Pedidos</a>
+        <a href="/GUIAR_desfunc/routes.php?action=entregadores">Entregadores</a>
+        <a href="/GUIAR_desfunc/routes.php?action=pedidosEntregues">Pedidos Entregues</a>
         <div class="spacer"></div>
-        <a href="/GUIAR_desfunc/PHP ADM/meuPerfil.php">Meu perfil</a>
+        <a href="/GUIAR_desfunc/routes.php?action=perfilAdm">Meu perfil</a>
     </div>
 
     <!-- Botão de logout (do Administrador) -->
-    <a href="/GUIAR_desfunc/routes.php?action=logoutAdm" class="logout-btn">Logout</a>
+    <a href="/GUIAR_desfunc/routes.php?action=sair" class="logout-btn">Logout</a>
 
     <div class="main">
         <h1>Olá, <spam><?php echo htmlspecialchars($nomeAdmin) . "!"; ?></spam></h1>

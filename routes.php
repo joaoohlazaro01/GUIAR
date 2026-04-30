@@ -111,6 +111,27 @@ switch ($action) {
         $controller->concluirEntrega();
         break;
 
+    // --- Rotas de Entregador ---
+    case 'entregadores':
+        $controller = new \mvc\Controllers\EntregadorController($pdo);
+        $controller->index();
+        break;
+
+    case 'adicionarEntregador':
+        $controller = new \mvc\Controllers\EntregadorController($pdo);
+        $controller->adicionar();
+        break;
+
+    case 'editarEntregador':
+        $controller = new \mvc\Controllers\EntregadorController($pdo);
+        $controller->editar();
+        break;
+
+    case 'excluirEntregador':
+        $controller = new \mvc\Controllers\EntregadorController($pdo);
+        $controller->excluir();
+        break;
+
     default:
         // Por padrão, se a rota não for encontrada, redireciona para a home
         header("Location: /GUIAR_desfunc/index.html");
