@@ -1,17 +1,21 @@
 <?php
+
 namespace mvc\Models;
 
 use PDO;
 use PDOException;
 
-class Administrador {
+class Administrador
+{
     private $pdo;
 
-    public function __construct($pdo) {
+    public function __construct($pdo)
+    {
         $this->pdo = $pdo;
     }
 
-    public function getByEmpresaId($company_id) {
+    public function getByEmpresaId($company_id)
+    {
         try {
             $sql = "SELECT * FROM administrador WHERE FK_EMPRESA_id_empresa = :company_id";
             $stmt = $this->pdo->prepare($sql);
@@ -24,7 +28,8 @@ class Administrador {
         }
     }
 
-    public function create($data) {
+    public function create($data)
+    {
         try {
             $sql = "INSERT INTO administrador (nome_adm, nome_usuario, nome_foto, senha, FK_EMPRESA_id_empresa) 
                     VALUES (:nome_adm, :nome_usuario, :foto, :senha, :company_id)";
@@ -42,7 +47,8 @@ class Administrador {
         }
     }
 
-    public function login($username, $password) {
+    public function login($username, $password)
+    {
         try {
             $sql = "SELECT * FROM administrador WHERE nome_usuario = :nome_usuario AND senha = :senha";
             $stmt = $this->pdo->prepare($sql);
@@ -60,13 +66,14 @@ class Administrador {
         }
     }
 
-    public function getById($id) {
+    public function getById($id)
+    {
         try {
             $sql = "SELECT * FROM administrador WHERE id_adm = :id";
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
-            
+
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             error_log("Erro ao buscar administrador por ID: " . $e->getMessage());

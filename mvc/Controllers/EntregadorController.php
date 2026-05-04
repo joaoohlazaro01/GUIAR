@@ -1,18 +1,22 @@
 <?php
+
 namespace mvc\Controllers;
 
 use mvc\Models\Entregador;
 
-class EntregadorController {
+class EntregadorController
+{
     private $entregadorModel;
     private $pdo;
 
-    public function __construct($pdo) {
+    public function __construct($pdo)
+    {
         $this->pdo = $pdo;
         $this->entregadorModel = new Entregador($pdo);
     }
 
-    private function checkAuth() {
+    private function checkAuth()
+    {
         if (!isset($_SESSION['company_id'])) {
             header("Location: /GUIAR_desfunc/routes.php?action=loginEmpresa");
             exit;
@@ -23,24 +27,25 @@ class EntregadorController {
         }
     }
 
-    public function index() {
+    public function index()
+    {
         $this->checkAuth();
         $company_id = $_SESSION['company_id'];
         $nomeAdmin = $_SESSION['nome_usuario'] ?? '';
-        
+
         $result = $this->entregadorModel->getAllByEmpresa($company_id);
-        
+
         require_once __DIR__ . '/../Views/Administrador/entregadores.php';
     }
 
-    public function adicionar() {
+    public function cadastrar()
+    {
         $this->checkAuth();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $company_id = $_SESSION['company_id'];
 
-            // Lógica de upload (copiada da versão procedural)
-            $diretorio_3x4 = __DIR__ . '/../../PHP ADM/admin_fotos/Entregadores/';
-            $diretorio_CNH = __DIR__ . '/../../PHP ADM/admin_fotos/Entregadores/';
+            $diretorio_3x4 = __DIR__ . '/../../public/uploads/entregadores/fotos/';
+            $diretorio_CNH = __DIR__ . '/../../public/uploads/entregadores/CNH/';
 
             if (!is_dir($diretorio_3x4)) {
                 mkdir($diretorio_3x4, 0777, true);
@@ -64,7 +69,7 @@ class EntregadorController {
 
             $data = [
                 'nome_completo' => $_POST['nome_completo'] ?? '',
-                'cpf' => $_POST['CPF'] ?? '',
+                'cpf' => $_POST['cpf'] ?? '',
                 'telefone' => $_POST['telefone'] ?? '',
                 'email' => $_POST['email'] ?? '',
                 'nome_usuario' => $_POST['nome_usuario'] ?? '',
@@ -81,14 +86,19 @@ class EntregadorController {
             }
             exit;
         }
+        
+        // Se acessar por GET acidentalmente, redireciona para a listagem
+        header("Location: /GUIAR_desfunc/routes.php?action=entregadores");
+        exit;
     }
 
-    public function editar() {
+    public function editar()
+    {
         $this->checkAuth();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $company_id = $_SESSION['company_id'];
             $id = $_POST['id'] ?? null;
-            
+
             $data = [
                 'nome_completo' => $_POST['nome_completo'] ?? '',
                 'cpf' => $_POST['CPF'] ?? '',
@@ -105,7 +115,8 @@ class EntregadorController {
         }
     }
 
-    public function excluir() {
+    public function excluir()
+    {
         $this->checkAuth();
         if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
             $company_id = $_SESSION['company_id'];

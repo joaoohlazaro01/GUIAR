@@ -1,19 +1,23 @@
 <?php
+
 namespace mvc\Models;
 
 use PDO;
 use PDOException;
 
-class Entregador {
+class Entregador
+{
     private $pdo;
 
-    public function __construct($pdo) {
+    public function __construct($pdo)
+    {
         $this->pdo = $pdo;
     }
 
-    public function getAllByEmpresa($company_id) {
+    public function getAllByEmpresa($company_id)
+    {
         try {
-            $sql = "SELECT id_entregador, nome_completo, CPF, telefone, email, foto_3x4, foto_CNH, status 
+            $sql = "SELECT id_entregador, nome_completo, CPF, telefone, email, nome_foto3x4 AS foto_3x4, nome_cnh AS foto_CNH 
                     FROM entregador 
                     WHERE FK_EMPRESA_id_empresa = :company_id";
             $stmt = $this->pdo->prepare($sql);
@@ -26,9 +30,10 @@ class Entregador {
         }
     }
 
-    public function create($data) {
+    public function create($data)
+    {
         try {
-            $sql = "INSERT INTO entregador (nome_completo, CPF, telefone, foto_3x4, email, nome_usuario, senha, foto_CNH, FK_EMPRESA_id_empresa) 
+            $sql = "INSERT INTO entregador (nome_completo, CPF, telefone, nome_foto3x4, email, nome_usuario, senha, nome_cnh, FK_EMPRESA_id_empresa) 
                     VALUES (:nome_completo, :cpf, :telefone, :foto_3x4, :email, :nome_usuario, :senha, :foto_CNH, :company_id)";
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(':nome_completo', $data['nome_completo']);
@@ -47,7 +52,8 @@ class Entregador {
         }
     }
 
-    public function update($id, $company_id, $data) {
+    public function update($id, $company_id, $data)
+    {
         try {
             $sql = "UPDATE entregador 
                     SET nome_completo = :nome_completo, CPF = :cpf, telefone = :telefone, email = :email 
@@ -66,7 +72,8 @@ class Entregador {
         }
     }
 
-    public function delete($id, $company_id) {
+    public function delete($id, $company_id)
+    {
         try {
             // Verifica se o entregador tem pedidos associados que não podem ser excluídos, ou tenta excluir com FK cascade (depende do banco).
             // Apenas tentamos excluir.
