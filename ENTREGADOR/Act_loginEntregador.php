@@ -13,6 +13,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         session_start();
         foreach($data as $entregador){
             $_SESSION['entregadorID'] = $entregador['id_entregador'];
+            $_SESSION['entregador_id'] = $entregador['id_entregador'];
         }
         header('Location: ../mapa/mapa.php');
     }

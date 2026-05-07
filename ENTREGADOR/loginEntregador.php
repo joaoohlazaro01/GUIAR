@@ -122,6 +122,7 @@ if (isset($_POST['entrar']) && !empty($_POST['email']) && !empty($_POST['senha']
     if ($res && $res['senha'] === $senha) {
         session_start();
         $_SESSION['entregadorID'] = $res['id_entregador'];
+        $_SESSION['entregador_id'] = $res['id_entregador'];
         header('Location: ../mapa/mapa.php');
         exit;
     } else {

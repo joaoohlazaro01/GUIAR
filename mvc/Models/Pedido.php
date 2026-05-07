@@ -1,17 +1,21 @@
 <?php
+
 namespace mvc\Models;
 
 use PDO;
 use PDOException;
 
-class Pedido {
+class Pedido
+{
     private $pdo;
 
-    public function __construct($pdo) {
+    public function __construct($pdo)
+    {
         $this->pdo = $pdo;
     }
 
-    public function getAllByEmpresa($company_id, $status = null) {
+    public function getAllByEmpresa($company_id, $status = null)
+    {
         try {
             $sql = "
                 SELECT p.*, e.nome_completo AS nome_entregador
@@ -19,7 +23,7 @@ class Pedido {
                 LEFT JOIN entregador e ON p.id_entregador = e.id_entregador
                 WHERE p.id_empresa = :company_id
             ";
-            
+
             if ($status === 'entregue') {
                 $sql .= " AND p.status = 'entregue'";
             } elseif ($status === 'pendente') {
@@ -36,7 +40,24 @@ class Pedido {
         }
     }
 
-    public function getById($id) {
+    public function getAllByEntregador($entregador_id)
+    {
+        try {
+            $sql = "SELECT id_pedido, nome_cliente, preco, endereco, bairro, descricao 
+                    FROM pedido 
+                    WHERE id_entregador = :entregador_id AND status != 'entregue'";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':entregador_id', $entregador_id, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Erro ao buscar pedidos do entregador: " . $e->getMessage());
+            return [];
+        }
+    }
+
+    public function getById($id)
+    {
         try {
             $sql = "SELECT * FROM pedido WHERE id_pedido = :id";
             $stmt = $this->pdo->prepare($sql);
@@ -49,7 +70,8 @@ class Pedido {
         }
     }
 
-    public function create($data) {
+    public function create($data)
+    {
         try {
             $sql = "INSERT INTO pedido (nome_cliente, preco, endereco, bairro, descricao, id_empresa, id_adm, latitude, longitude, status) 
                     VALUES (:nome_cliente, :preco, :endereco, :bairro, :descricao, :id_empresa, :id_adm, :latitude, :longitude, 'Pendente')";
@@ -70,7 +92,8 @@ class Pedido {
         }
     }
 
-    public function update($id, $data) {
+    public function update($id, $data)
+    {
         try {
             $sql = "UPDATE pedido SET 
                     nome_cliente = :nome_cliente, 
@@ -97,7 +120,8 @@ class Pedido {
         }
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         try {
             $sql = "DELETE FROM pedido WHERE id_pedido = :id";
             $stmt = $this->pdo->prepare($sql);
@@ -109,7 +133,8 @@ class Pedido {
         }
     }
 
-    public function assignToEntregador($pedido_ids, $entregador_id) {
+    public function assignToEntregador($pedido_ids, $entregador_id)
+    {
         try {
             $ids = implode(',', array_map('intval', $pedido_ids));
             $sql = "UPDATE pedido SET id_entregador = :entregador_id, status = 'A caminho' WHERE id_pedido IN ($ids)";
@@ -122,7 +147,8 @@ class Pedido {
         }
     }
 
-    public function deleteDeliveredByEmpresa($company_id) {
+    public function deleteDeliveredByEmpresa($company_id)
+    {
         try {
             $sql = "DELETE FROM pedido WHERE status = 'entregue' AND id_empresa = :company_id";
             $stmt = $this->pdo->prepare($sql);
@@ -134,7 +160,8 @@ class Pedido {
         }
     }
 
-    public function updateStatus($id, $status) {
+    public function updateStatus($id, $status)
+    {
         try {
             $sql = "UPDATE pedido SET status = :status WHERE id_pedido = :id";
             $stmt = $this->pdo->prepare($sql);

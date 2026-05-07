@@ -112,6 +112,11 @@ switch ($action) {
         break;
 
     // --- Rotas de Entregador ---
+    case 'meusPedidosEntregador':
+        $controller = new \mvc\Controllers\PedidoController($pdo);
+        $controller->meusPedidos();
+        break;
+
     case 'entregadores':
         $controller = new \mvc\Controllers\EntregadorController($pdo);
         $controller->index();

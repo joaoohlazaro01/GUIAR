@@ -34,7 +34,6 @@ class EntregadorController
         $nomeAdmin = $_SESSION['nome_usuario'] ?? '';
 
         $result = $this->entregadorModel->getAllByEmpresa($company_id);
-
         require_once __DIR__ . '/../Views/Administrador/entregadores.php';
     }
 
@@ -86,7 +85,7 @@ class EntregadorController
             }
             exit;
         }
-        
+
         // Se acessar por GET acidentalmente, redireciona para a listagem
         header("Location: /GUIAR_desfunc/routes.php?action=entregadores");
         exit;

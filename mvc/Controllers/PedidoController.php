@@ -1,19 +1,26 @@
 <?php
+
 namespace mvc\Controllers;
 
 use mvc\Models\Pedido;
 use mvc\Models\Administrador;
+use mvc\Models\Entregador;
 
-class PedidoController {
+class PedidoController
+{
     private $pedidoModel;
+    private $entregadorModel;
     private $pdo;
 
-    public function __construct($pdo) {
+    public function __construct($pdo)
+    {
         $this->pdo = $pdo;
         $this->pedidoModel = new Pedido($pdo);
+        $this->entregadorModel = new Entregador($pdo);
     }
 
-    private function checkAuth() {
+    private function checkAuth()
+    {
         if (!isset($_SESSION['company_id'])) {
             header("Location: /GUIAR_desfunc/routes.php?action=loginEmpresa");
             exit;
@@ -24,32 +31,28 @@ class PedidoController {
         }
     }
 
-    public function index() {
+    public function index()
+    {
         $this->checkAuth();
         $company_id = $_SESSION['company_id'];
-        
-        $result = $this->pedidoModel->getAllByEmpresa($company_id, 'pendente');
-        
-        // Buscar entregadores para o modal de envio
-        $sqlEntregadores = "SELECT id_entregador, nome_completo FROM entregador WHERE FK_EMPRESA_id_empresa = :company_id";
-        $stmt = $this->pdo->prepare($sqlEntregadores);
-        $stmt->bindParam(':company_id', $company_id, PDO::PARAM_INT);
-        $stmt->execute();
-        $resultEntregadores = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
+        $result = $this->pedidoModel->getAllByEmpresa($company_id, 'pendente');
+        $resultEntregadores = $this->entregadorModel->getAllByEmpresa($company_id);
         require_once __DIR__ . '/../Views/Administrador/pedidos.php';
     }
 
-    public function entregues() {
+    public function entregues()
+    {
         $this->checkAuth();
         $company_id = $_SESSION['company_id'];
-        
+
         $pedidos = $this->pedidoModel->getAllByEmpresa($company_id, 'entregue');
 
         require_once __DIR__ . '/../Views/Administrador/pedidosEntregues.php';
     }
 
-    public function adicionar() {
+    public function adicionar()
+    {
         $this->checkAuth();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = [
@@ -72,7 +75,8 @@ class PedidoController {
         }
     }
 
-    public function editar() {
+    public function editar()
+    {
         $this->checkAuth();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = $_POST['id_pedido'];
@@ -94,7 +98,8 @@ class PedidoController {
         }
     }
 
-    public function excluir() {
+    public function excluir()
+    {
         $this->checkAuth();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = $_POST['id_pedido'];
@@ -106,7 +111,8 @@ class PedidoController {
         }
     }
 
-    public function enviar() {
+    public function enviar()
+    {
         $this->checkAuth();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $pedido_ids = explode(',', $_POST['pedido_ids']);
@@ -120,7 +126,8 @@ class PedidoController {
         }
     }
 
-    public function finalizarTurno() {
+    public function finalizarTurno()
+    {
         $this->checkAuth();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($this->pedidoModel->deleteDeliveredByEmpresa($_SESSION['company_id'])) {
@@ -131,16 +138,36 @@ class PedidoController {
         }
     }
 
-    public function concluirEntrega() {
+    public function concluirEntrega()
+    {
         // Geralmente chamado via AJAX ou pelo entregador
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $id = $_POST['id_pedido'];
-            if ($this->pedidoModel->updateStatus($id, 'entregue')) {
+            // Suporta form-data ou json
+            $id = $_POST['id_pedido'] ?? null;
+            if (!$id) {
+                $data = json_decode(file_get_contents("php://input"), true);
+                $id = $data['id_pedido'] ?? null;
+            }
+
+            if ($id && $this->pedidoModel->updateStatus($id, 'entregue')) {
                 echo "success";
             } else {
                 echo "error";
             }
             exit;
         }
+    }
+
+    public function meusPedidos()
+    {
+        if (!isset($_SESSION['entregador_id'])) {
+            header("Location: /GUIAR_desfunc/ENTREGADOR/loginEntregador.php");
+            exit;
+        }
+
+        $entregador_id = $_SESSION['entregador_id'];
+        $result = $this->pedidoModel->getAllByEntregador($entregador_id);
+
+        require_once __DIR__ . '/../Views/Entregador/meusPedidos.php';
     }
 }
