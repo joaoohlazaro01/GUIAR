@@ -10,6 +10,7 @@
 <body>
     <div class="sidebar">
         <div class="spacer"></div>
+        <a href="/GUIAR_desfunc/routes.php?action=mapaEntregador">Abrir Mapa</a>
         <a href="#">Meu Perfil</a>
         <a href="/GUIAR_desfunc/ENTREGADOR/loginEntregador.php">Sair</a>
     </div>

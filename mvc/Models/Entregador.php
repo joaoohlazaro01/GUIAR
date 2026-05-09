@@ -87,4 +87,23 @@ class Entregador
             return false;
         }
     }
+
+    public function login($email, $senha)
+    {
+        try {
+            $sql = "SELECT * FROM entregador WHERE email = :email";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':email', $email);
+            $stmt->execute();
+            $user = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+            if ($user && $user['senha'] === $senha) {
+                return $user;
+            }
+            return false;
+        } catch (\PDOException $e) {
+            error_log("Erro ao realizar login do entregador: " . $e->getMessage());
+            return false;
+        }
+    }
 }

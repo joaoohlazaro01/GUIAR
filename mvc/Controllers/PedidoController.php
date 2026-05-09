@@ -161,7 +161,7 @@ class PedidoController
     public function meusPedidos()
     {
         if (!isset($_SESSION['entregador_id'])) {
-            header("Location: /GUIAR_desfunc/ENTREGADOR/loginEntregador.php");
+            header("Location: /GUIAR_desfunc/routes.php?action=loginEntregador");
             exit;
         }
 
@@ -169,5 +169,20 @@ class PedidoController
         $result = $this->pedidoModel->getAllByEntregador($entregador_id);
 
         require_once __DIR__ . '/../Views/Entregador/meusPedidos.php';
+    }
+
+    public function getPedidosMapa()
+    {
+        if (!isset($_SESSION['entregador_id'])) {
+            echo json_encode(['success' => false, 'error' => 'Não autenticado']);
+            exit;
+        }
+
+        $entregador_id = $_SESSION['entregador_id'];
+        $pedidos = $this->pedidoModel->getAllByEntregador($entregador_id);
+
+        header('Content-Type: application/json');
+        echo json_encode($pedidos);
+        exit;
     }
 }

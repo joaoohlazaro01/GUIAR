@@ -129,4 +129,77 @@ class EntregadorController
             exit;
         }
     }
+
+    public function login()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if (isset($_SESSION['entregador_id'])) {
+            header("Location: /GUIAR_desfunc/routes.php?action=mapaEntregador");
+            exit;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $email = $_POST['email'] ?? '';
+            $senha = $_POST['senha'] ?? '';
+
+            $user = $this->entregadorModel->login($email, $senha);
+
+            if ($user) {
+                $_SESSION['entregador_id'] = $user['id_entregador'];
+                header("Location: /GUIAR_desfunc/routes.php?action=mapaEntregador");
+                exit;
+            } else {
+                header("Location: /GUIAR_desfunc/routes.php?action=loginEntregador&erro=" . urlencode('Email ou senha incorreto'));
+                exit;
+            }
+        }
+
+        require_once __DIR__ . '/../Views/entregador/login.php';
+    }
+
+    public function logout()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        unset($_SESSION['entregador_id']);
+        header("Location: /GUIAR_desfunc/routes.php?action=loginEntregador");
+        exit;
+    }
+
+    public function mapa()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if (!isset($_SESSION['entregador_id'])) {
+            header("Location: /GUIAR_desfunc/routes.php?action=loginEntregador");
+            exit;
+        }
+
+        require_once __DIR__ . '/../Views/entregador/mapa.php';
+    }
+
+    public function atualizarLocalizacao()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if (!isset($_SESSION['entregador_id'])) {
+            echo json_encode(['success' => false, 'error' => 'Não autenticado']);
+            exit;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Apenas retorna success = true por enquanto, pois as colunas de 
+            // latitude e longitude não existem na tabela entregador
+            echo json_encode(['success' => true]);
+            exit;
+        }
+    }
 }

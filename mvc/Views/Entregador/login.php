@@ -1,5 +1,3 @@
-
-
 <!doctype html>
 <html lang="pt-br">
 
@@ -9,19 +7,19 @@
   <title>Login Entregador | Guiar</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <link href="../style/CssnavbarRodape.css" rel="stylesheet" />
-   <link href="../style/loginEntregador.css" rel="stylesheet" />
+  <link href="/GUIAR_desfunc/style/CssnavbarRodape.css" rel="stylesheet" />
+   <link href="/GUIAR_desfunc/style/loginEntregador.css" rel="stylesheet" />
   <link
     rel="Shortcut Icon" 
     type="image/png"
-    href="../img/G.png">
+    href="/GUIAR_desfunc/img/G.png">
 
 </head>
 
 <body>
 <nav class="navbar navbar-expand-lg custom-navbar" id="gblur">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../index.html"><img style= "height: 90px;" src="../img/Guiar.png" alt="LOGO"></img></a>
+            <a class="navbar-brand" href="/GUIAR_desfunc/index.html"><img style= "height: 90px;" src="/GUIAR_desfunc/img/Guiar.png" alt="LOGO"></img></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -29,16 +27,16 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link" href="../index.html">Home</a>
+            <a class="nav-link" href="/GUIAR_desfunc/index.html">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../ADM/loginEmpresa.php">Empresa</a>
+            <a class="nav-link" href="/GUIAR_desfunc/ADM/loginEmpresa.php">Empresa</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="ativado" href="loginEntregador.php">Entregador</a>
+            <a class="nav-link" id="ativado" href="/GUIAR_desfunc/routes.php?action=loginEntregador">Entregador</a>
           </li>
           <li class="nav-item">
-                        <a class="nav-link" href="../contato.php">Contato</a>
+                        <a class="nav-link" href="/GUIAR_desfunc/contato.php">Contato</a>
           </li>
         </ul>
       </div>
@@ -55,10 +53,10 @@
 
           <!-- Exibir mensagem de erro se houver -->
           <?php if (isset($_GET['erro'])): ?>
-            <p class="error-message"><?php echo htmlspecialchars($_GET['erro']); ?></p>
+            <p class="error-message" style="color: red;"><?php echo htmlspecialchars($_GET['erro']); ?></p>
           <?php endif ?>
 
-          <form method="post" action="">
+          <form method="post" action="/GUIAR_desfunc/routes.php?action=loginEntregador">
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Email</label>
               <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" required>
@@ -106,30 +104,3 @@
 </body>
 
 </html>
-
-<?php
-if (isset($_POST['entrar']) && !empty($_POST['email']) && !empty($_POST['senha'])) {
-    require '../config.php';
-    $email = $_POST['email'];
-    $senha = $_POST['senha'];
-
-    $sql = "SELECT * FROM entregador WHERE email = :email";
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':email', $email);
-    $stmt->execute();
-    $res = $stmt->fetch();
-
-    if ($res && $res['senha'] === $senha) {
-        session_start();
-        $_SESSION['entregadorID'] = $res['id_entregador'];
-        $_SESSION['entregador_id'] = $res['id_entregador'];
-        header('Location: ../mapa/mapa.php');
-        exit;
-    } else {
-        // Redireciona com uma mensagem de erro
-        header('Location: loginEntregador.php?erro=' . urlencode('Email ou senha incorreto'));
-        exit;
-    }
-}
-?>
-

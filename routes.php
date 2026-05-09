@@ -112,6 +112,16 @@ switch ($action) {
         break;
 
     // --- Rotas de Entregador ---
+    case 'loginEntregador':
+        $controller = new \mvc\Controllers\EntregadorController($pdo);
+        $controller->login();
+        break;
+
+    case 'logoutEntregador':
+        $controller = new \mvc\Controllers\EntregadorController($pdo);
+        $controller->logout();
+        break;
+
     case 'meusPedidosEntregador':
         $controller = new \mvc\Controllers\PedidoController($pdo);
         $controller->meusPedidos();
@@ -135,6 +145,21 @@ switch ($action) {
     case 'excluirEntregador':
         $controller = new \mvc\Controllers\EntregadorController($pdo);
         $controller->excluir();
+        break;
+
+    case 'mapaEntregador':
+        $controller = new \mvc\Controllers\EntregadorController($pdo);
+        $controller->mapa();
+        break;
+
+    case 'apiLocalizacaoEntregador':
+        $controller = new \mvc\Controllers\EntregadorController($pdo);
+        $controller->atualizarLocalizacao();
+        break;
+
+    case 'apiPedidosMapa':
+        $controller = new \mvc\Controllers\PedidoController($pdo);
+        $controller->getPedidosMapa();
         break;
 
     default:

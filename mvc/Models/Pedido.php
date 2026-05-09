@@ -43,7 +43,7 @@ class Pedido
     public function getAllByEntregador($entregador_id)
     {
         try {
-            $sql = "SELECT id_pedido, nome_cliente, preco, endereco, bairro, descricao 
+            $sql = "SELECT id_pedido, nome_cliente, preco, endereco, bairro, descricao, latitude, longitude 
                     FROM pedido 
                     WHERE id_entregador = :entregador_id AND status != 'entregue'";
             $stmt = $this->pdo->prepare($sql);
