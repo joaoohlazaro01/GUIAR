@@ -5,26 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciamento de Pedidos</title>
-    <!-- Considerando que este arquivo está rodando a partir do routes.php, a base é /GUIAR_desfunc/ -->
-    <link rel="stylesheet" href="/GUIAR_desfunc/CSSadm/pedidos.css"> 
+    <!-- Considerando que este arquivo está rodando a partir do routes.php, a base é definida pela constante BASE_URL -->
+    <link rel="stylesheet" href="<?= BASE_URL ?>/CSSadm/pedidos.css"> 
     <link
     rel="Shortcut Icon" 
     type="image/png"
-    href="/GUIAR_desfunc/img/G.png">
+    href="<?= BASE_URL ?>/img/G.png">
     <style>
         @font-face {
             font-family: 'Brice-Bold';
-            src: url('/GUIAR_desfunc/fonts/Brice-BoldSemiCondensed.ttf') format('truetype');
+            src: url('<?= BASE_URL ?>/fonts/Brice-BoldSemiCondensed.ttf') format('truetype');
         }
 
         @font-face {
             font-family: 'BasisGrotesque-Regular';
-            src: url('/GUIAR_desfunc/fonts/BasisGrotesqueArabicPro-Regular.ttf') format('truetype');
+            src: url('<?= BASE_URL ?>/fonts/BasisGrotesqueArabicPro-Regular.ttf') format('truetype');
         }
 
         @font-face {
             font-family: 'Brice-SemiBoldSemi';
-            src: url('/GUIAR_desfunc/fonts/Brice-SemiBoldSemiCondensed.ttf');
+            src: url('<?= BASE_URL ?>/fonts/Brice-SemiBoldSemiCondensed.ttf');
         }
 
         *{
@@ -173,20 +173,20 @@
 
     
 <div class="sidebar">
-        <a href="/GUIAR_desfunc/routes.php?action=dashboardAdm">Início</a>
-        <a href="/GUIAR_desfunc/routes.php?action=pedidos">Pedidos</a>
-        <a href="/GUIAR_desfunc/routes.php?action=entregadores">Entregadores</a>
-        <a href="/GUIAR_desfunc/routes.php?action=pedidosEntregues">Pedidos Entregues</a>
-        <a href="/GUIAR_desfunc/mapa/mapaAdm.php">Mapa das Rotas</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=dashboardAdm">Início</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=pedidos">Pedidos</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=entregadores">Entregadores</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=pedidosEntregues">Pedidos Entregues</a>
+        <a href="<?= BASE_URL ?>/mapa/mapaAdm.php">Mapa das Rotas</a>
         <div class="spacer"></div>
-        <a href="/GUIAR_desfunc/routes.php?action=perfilAdm">Meu perfil</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=perfilAdm">Meu perfil</a>
     </div>
 
       <!-- Botão de logout -->
-      <a href="/GUIAR_desfunc/routes.php?action=logoutAdm" class="logout-btn">Logout</a>
+      <a href="<?= BASE_URL ?>/routes.php?action=logoutAdm" class="logout-btn">Logout</a>
 
     <div class="main">
-        <form id="sendOrdersForm" method="POST" action="/GUIAR_desfunc/routes.php?action=enviarPedidos">
+        <form id="sendOrdersForm" method="POST" action="<?= BASE_URL ?>/routes.php?action=enviarPedidos">
             <div class="container">
                 <?php
                 if (!empty($result) && count($result) > 0) {
@@ -232,7 +232,7 @@
         <div class="modal-content">
             <span class="close" id="closeNewOrderModal">&times;</span>
             <h2>Adicionar Novo Pedido</h2>
-            <form id="newOrderForm" method="POST" action="/GUIAR_desfunc/routes.php?action=adicionarPedido">
+            <form id="newOrderForm" method="POST" action="<?= BASE_URL ?>/routes.php?action=adicionarPedido">
                 <div class="form-group">
                     <label for="nome_cliente">Nome do Cliente:</label>
                     <input type="text" id="nome_cliente" name="nome_cliente" required>
@@ -275,7 +275,7 @@
         <div class="modal-content">
             <span class="close" id="closeSendOrdersModal">&times;</span>
             <h2>Enviar Pedidos Selecionados</h2>
-            <form id="sendOrdersToDeliveryForm" method="POST" action="/GUIAR_desfunc/routes.php?action=enviarPedidos">
+            <form id="sendOrdersToDeliveryForm" method="POST" action="<?= BASE_URL ?>/routes.php?action=enviarPedidos">
                 <div id="entregadoresContainer">
                     <?php
                     if (!empty($resultEntregadores) && count($resultEntregadores) > 0) {
@@ -302,7 +302,7 @@
     <div class="modal-content">
         <span class="close" id="closeEditOrderModal">&times;</span>
         <h2>Editar Pedido</h2>
-        <form id="editOrderForm" method="POST" action="/GUIAR_desfunc/routes.php?action=editarPedido">
+        <form id="editOrderForm" method="POST" action="<?= BASE_URL ?>/routes.php?action=editarPedido">
             <input type="hidden" id="edit_id_pedido" name="id_pedido">
             <div class="form-group">
                 <label for="edit_nome_cliente">Nome do Cliente:</label>
@@ -348,7 +348,7 @@
             <span class="close" id="closeDeleteOrderModal">&times;</span>
             <h2>Excluir Pedido</h2>
             <p>Tem certeza de que deseja cancelar este pedido?</p>
-            <form id="deleteOrderForm" method="POST" action="/GUIAR_desfunc/routes.php?action=excluirPedido">
+            <form id="deleteOrderForm" method="POST" action="<?= BASE_URL ?>/routes.php?action=excluirPedido">
                 <input type="hidden" id="delete_id_pedido" name="id_pedido">
                 <div class="form-group">
                     <button type="submit">Sim, cancelar</button>

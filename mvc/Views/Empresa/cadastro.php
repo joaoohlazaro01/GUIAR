@@ -7,11 +7,11 @@
     <title>Cadastro | Empresa</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href="/GUIAR_desfunc/style/CssnavbarRodape.css" rel="Stylesheet" />
+    <link href="<?= BASE_URL ?>/style/CssnavbarRodape.css" rel="Stylesheet" />
     <link
-    rel="Shortcut Icon" 
-    type="image/png"
-    href="/GUIAR_desfunc/img/G.png">
+        rel="Shortcut Icon"
+        type="image/png"
+        href="<?= BASE_URL ?>/img/G.png">
 
     <script>
         // Função para formatar o CNPJ enquanto o usuário digita
@@ -58,26 +58,26 @@
     <style>
         @font-face {
             font-family: 'Brice-Bold';
-            src: url('/GUIAR_desfunc/fonts/Brice-BoldSemiCondensed.ttf') format('truetype');
+            src: url('<?= BASE_URL ?>/fonts/Brice-BoldSemiCondensed.ttf') format('truetype');
         }
 
         @font-face {
             font-family: 'BasisGrotesque-Regular';
-            src: url('/GUIAR_desfunc/fonts/BasisGrotesqueArabicPro-Regular.ttf') format('truetype');
+            src: url('<?= BASE_URL ?>/fonts/BasisGrotesqueArabicPro-Regular.ttf') format('truetype');
         }
 
         @font-face {
             font-family: 'Brice-SemiBoldSemi';
-            src: url('/GUIAR_desfunc/fonts/Brice-SemiBoldSemiCondensed.ttf');
+            src: url('<?= BASE_URL ?>/fonts/Brice-SemiBoldSemiCondensed.ttf');
         }
 
-        *{
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body{
+        body {
             background-color: #fefaf1 !important;
             font-family: 'BasisGrotesque-Regular';
         }
@@ -88,7 +88,7 @@
             margin: 2%;
         }
 
-        .formulario h2{
+        .formulario h2 {
             font-family: 'Brice-SemiBoldSemi';
         }
 
@@ -133,7 +133,7 @@
 <body>
     <nav class="navbar navbar-expand-lg custom-navbar" id="gblur">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/GUIAR_desfunc/index.html"><img style= "height: 90px;" src="/GUIAR_desfunc/img/Guiar.png" alt="LOGO"></img></a>
+            <a class="navbar-brand" href="<?= BASE_URL ?>/index.html"><img style="height: 90px;" src="<?= BASE_URL ?>/img/Guiar.png" alt="LOGO"></img></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -141,16 +141,16 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/GUIAR_desfunc/index.html">Home</a>
+                        <a class="nav-link" href="<?= BASE_URL ?>/index.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="ativado" href="/GUIAR_desfunc/routes.php?action=loginEmpresa">Empresa</a>
+                        <a class="nav-link" id="ativado" href="<?= BASE_URL ?>/routes.php?action=loginEmpresa">Empresa</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/GUIAR_desfunc/ENTREGADOR/loginEntregador.php">Entregador</a>
+                        <a class="nav-link" href="<?= BASE_URL ?>routes.php?action=loginEntregador">Entregador</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/GUIAR_desfunc/contato.php">Contato</a>
+                        <a class="nav-link" href="<?= BASE_URL ?>/contato.php">Contato</a>
                     </li>
                 </ul>
             </div>
@@ -164,7 +164,7 @@
                     <h2>Cadastro | Empresa</h2>
                     <hr color="black" size="2px">
                     <br>
-                    <form class="row g-3" method="post" action="/GUIAR_desfunc/routes.php?action=cadastroEmpresa" id="cadaForm" enctype="multipart/form-data">
+                    <form class="row g-3" method="post" action="<?= BASE_URL ?>/routes.php?action=cadastroEmpresa" id="cadaForm" enctype="multipart/form-data">
                         <div class="col-md-6">
                             <label for="inputEmail4" class="form-label">Email</label>
                             <input type="email" class="form-control" id="email" name="email" required>
@@ -193,10 +193,10 @@
                         <div class="col-12">
                             <br>
                             <button type="submit" class="btn btn-primary" id="botao">Fazer Cadastro</button><br>
-                            <a id="cadastro" href="/GUIAR_desfunc/routes.php?action=loginEmpresa">Já tem uma conta? <spam>Faça login</spam></a>
+                            <a id="cadastro" href="<?= BASE_URL ?>/routes.php?action=loginEmpresa">Já tem uma conta? <spam>Faça login</spam></a>
                         </div>
                     </form>
-                    
+
                     <!-- Exibir mensagem de erro se houver -->
                     <?php if (isset($erro) && !empty($erro)): ?>
                         <p class="error-message" style="color: red; margin-top: 15px;"><?php echo htmlspecialchars($erro); ?></p>

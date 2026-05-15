@@ -7,19 +7,19 @@
   <title>Login Entregador | Guiar</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <link href="/GUIAR_desfunc/style/CssnavbarRodape.css" rel="stylesheet" />
-   <link href="/GUIAR_desfunc/style/loginEntregador.css" rel="stylesheet" />
+  <link href="<?= BASE_URL ?>/style/CssnavbarRodape.css" rel="stylesheet" />
+  <link href="<?= BASE_URL ?>/style/loginEntregador.css" rel="stylesheet" />
   <link
-    rel="Shortcut Icon" 
+    rel="Shortcut Icon"
     type="image/png"
-    href="/GUIAR_desfunc/img/G.png">
+    href="<?= BASE_URL ?>/img/G.png">
 
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg custom-navbar" id="gblur">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/GUIAR_desfunc/index.html"><img style= "height: 90px;" src="/GUIAR_desfunc/img/Guiar.png" alt="LOGO"></img></a>
+  <nav class="navbar navbar-expand-lg custom-navbar" id="gblur">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="<?= BASE_URL ?>/index.html"><img style="height: 90px;" src="<?= BASE_URL ?>/img/Guiar.png" alt="LOGO"></img></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -27,16 +27,16 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link" href="/GUIAR_desfunc/index.html">Home</a>
+            <a class="nav-link" href="<?= BASE_URL ?>/index.html">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/GUIAR_desfunc/ADM/loginEmpresa.php">Empresa</a>
+            <a class="nav-link" href="<?= BASE_URL ?>/routes.php?action=loginEmpresa">Empresa</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="ativado" href="/GUIAR_desfunc/routes.php?action=loginEntregador">Entregador</a>
+            <a class="nav-link" id="ativado" href="<?= BASE_URL ?>/routes.php?action=loginEntregador">Entregador</a>
           </li>
           <li class="nav-item">
-                        <a class="nav-link" href="/GUIAR_desfunc/contato.php">Contato</a>
+            <a class="nav-link" href="<?= BASE_URL ?>/contato.php">Contato</a>
           </li>
         </ul>
       </div>
@@ -56,7 +56,7 @@
             <p class="error-message" style="color: red;"><?php echo htmlspecialchars($_GET['erro']); ?></p>
           <?php endif ?>
 
-          <form method="post" action="/GUIAR_desfunc/routes.php?action=loginEntregador">
+          <form method="post" action="<?= BASE_URL ?>/routes.php?action=loginEntregador">
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Email</label>
               <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" required>
@@ -85,14 +85,14 @@
 
   <script>
     // Função para remover o parâmetro 'erro' da URL após carregar a página
-    window.onload = function () {
+    window.onload = function() {
       const url = new URL(window.location);
-      
+
       // Verifica se o parâmetro 'erro' está presenteeeee
       if (url.searchParams.has('erro')) {
         // Remove o parâmetro 'erro'
         url.searchParams.delete('erro');
-        
+
         // Atualiza a URL sem recarregar a página
         window.history.replaceState({}, document.title, url);
       }

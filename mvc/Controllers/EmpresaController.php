@@ -1,20 +1,24 @@
 <?php
+
 namespace mvc\Controllers;
 
 use mvc\Models\Empresa;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-class EmpresaController {
+class EmpresaController
+{
     private $empresaModel;
     private $pdo;
 
-    public function __construct($pdo) {
+    public function __construct($pdo)
+    {
         $this->pdo = $pdo;
         $this->empresaModel = new Empresa($pdo);
     }
 
-    public function login() {
+    public function login()
+    {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $nome_usuario = $_POST['username'] ?? '';
             $senha = $_POST['password'] ?? '';
@@ -23,12 +27,12 @@ class EmpresaController {
 
             if ($empresa) {
                 $_SESSION['company_id'] = $empresa['id_empresa'];
-                header("Location: /GUIAR_desfunc/routes.php?action=escolherAdm");
+                header("Location: " . BASE_URL . "/routes.php?action=escolherAdm");
                 exit;
             } else {
                 $erro = 'Nome de usuário ou senha incorretos';
                 // Redireciona com erro (usaremos o roteador)
-                header("Location: /GUIAR_desfunc/routes.php?action=loginEmpresa&erro=" . urlencode($erro));
+                header("Location: " . BASE_URL . "/routes.php?action=loginEmpresa&erro=" . urlencode($erro));
                 exit();
             }
         }
@@ -38,17 +42,30 @@ class EmpresaController {
         require_once __DIR__ . '/../Views/Empresa/login.php';
     }
 
-    public function cadastro() {
+    public function cadastro()
+    {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $nome_empresa = $_POST['nome_empresa'] ?? '';
             $cnpj = $_POST['cnpj'] ?? '';
             $nome_usuario = $_POST['nome_usuario'] ?? '';
-            $email = $_POST['email'] ?? '';
+            $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
             $senha = $_POST['senha'] ?? '';
+
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $erro = "E-mail inválido!";
+                require_once __DIR__ . '/../Views/Empresa/cadastro.php';
+                return;
+            }
+
+            if ($this->empresaModel->emailExists($email)) {
+                $erro = "Este e-mail já está em uso!";
+                require_once __DIR__ . '/../Views/Empresa/cadastro.php';
+                return;
+            }
 
             // Lógica para o upload da imagem
             $diretorio = __DIR__ . '/../../public/uploads/empresas/';
-            
+
             // Verifica se o diretório existe, se não existir, tenta criar
             if (!is_dir($diretorio)) {
                 mkdir($diretorio, 0777, true);
@@ -115,22 +132,23 @@ class EmpresaController {
                 $mail->send();
 
                 // Redirecionar para a página de verificação
-                header('Location: /GUIAR_desfunc/PHP ADM/verificarCodigo.php');
+                header('Location: ' . BASE_URL . '/routes.php?action=verificarCodigo');
                 exit();
-
             } catch (Exception $e) {
                 // Ao invés de um simples echo, envia como erro para a página de cadastro
                 $erro = "Erro ao enviar email: {$mail->ErrorInfo}";
-                header("Location: /GUIAR_desfunc/routes.php?action=cadastroEmpresa&erro=" . urlencode($erro));
+                header("Location: " . BASE_URL . "/routes.php?action=cadastroEmpresa&erro=" . urlencode($erro));
                 exit();
             }
         }
         // Se for GET, renderiza a View
-        $erro = $_GET['erro'] ?? null;'';
+        $erro = $_GET['erro'] ?? null;
+        '';
         require_once __DIR__ . '/../Views/Empresa/cadastro.php';
     }
 
-    public function esqueceuSenha(){
+    public function esqueceuSenha()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
 
@@ -173,9 +191,7 @@ class EmpresaController {
                 $mail->setFrom('projGuiar@gmail.com', 'GUIAR');
                 $mail->addAddress($email);
 
-                $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
-                $host = $_SERVER['HTTP_HOST'];
-                $resetLink = "$protocol://$host/GUIAR_desfunc/routes.php?action=redefinirSenha&token=$token";
+                $resetLink = BASE_URL . "/routes.php?action=redefinirSenha&token=$token";
 
                 $mail->isHTML(true);
                 $mail->Subject = 'GUIAR - Solicitacao de Redefinicao de Senha';
@@ -200,7 +216,7 @@ class EmpresaController {
                 ";
 
                 $mail->send();
-                
+
                 $sucesso = "Um e-mail foi enviado para " . htmlspecialchars($email) . " com as instruções.";
                 require_once __DIR__ . '/../Views/Empresa/esqueceuSenha.php';
                 return;
@@ -210,11 +226,12 @@ class EmpresaController {
                 return;
             }
         }
-        
+
         require_once __DIR__ . '/../Views/Empresa/esqueceuSenha.php';
     }
 
-    public function redefinirSenha(){
+    public function redefinirSenha()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $token = $_POST['token'] ?? '';
             $newPassword = $_POST['password'] ?? '';
@@ -244,11 +261,40 @@ class EmpresaController {
             require_once __DIR__ . '/../Views/Empresa/redefinirSenha.php';
             return;
         }
-        
+
         require_once __DIR__ . '/../Views/Empresa/redefinirSenha.php';
     }
 
-    private function emailVerificacao(){
+    public function verificarCodigo()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $codigo_inserido = $_POST['codigo_verificacao'] ?? '';
 
+            if (isset($_SESSION['codigo_verificacao']) && $codigo_inserido == $_SESSION['codigo_verificacao']) {
+                $data = [
+                    'nome_empresa' => $_SESSION['nome_empresa'] ?? '',
+                    'cnpj' => $_SESSION['cnpj'] ?? '',
+                    'nome_usuario' => $_SESSION['nome_usuario'] ?? '',
+                    'email' => $_SESSION['email'] ?? '',
+                    'senha' => $_SESSION['senha'] ?? '',
+                    'nome_arquivo' => $_SESSION['nome_imagem'] ?? ''
+                ];
+
+                if ($this->empresaModel->create($data)) {
+                    session_unset(); // Limpar a sessão após o sucesso
+                    header("Location: " . BASE_URL . "/routes.php?action=loginEmpresa");
+                    exit();
+                } else {
+                    $erro = 'Erro ao cadastrar a empresa.';
+                    require_once __DIR__ . '/../Views/Empresa/verificarCodigo.php';
+                }
+            } else {
+                $erro = 'Código de verificação incorreto.';
+                require_once __DIR__ . '/../Views/Empresa/verificarCodigo.php';
+            }
+        } else {
+            // Renderiza a view
+            require_once __DIR__ . '/../Views/Empresa/verificarCodigo.php';
+        }
     }
 }

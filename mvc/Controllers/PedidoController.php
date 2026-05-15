@@ -22,11 +22,11 @@ class PedidoController
     private function checkAuth()
     {
         if (!isset($_SESSION['company_id'])) {
-            header("Location: /GUIAR_desfunc/routes.php?action=loginEmpresa");
+            header("Location: " . BASE_URL . "/routes.php?action=loginEmpresa");
             exit;
         }
         if (!isset($_SESSION['id_adm'])) {
-            header("Location: /GUIAR_desfunc/routes.php?action=escolherAdm");
+            header("Location: " . BASE_URL . "/routes.php?action=escolherAdm");
             exit;
         }
     }
@@ -68,7 +68,7 @@ class PedidoController
             ];
 
             if ($this->pedidoModel->create($data)) {
-                header("Location: /GUIAR_desfunc/routes.php?action=pedidos");
+                header("Location: " . BASE_URL . "/routes.php?action=pedidos");
             } else {
                 echo "Erro ao adicionar pedido.";
             }
@@ -91,7 +91,7 @@ class PedidoController
             ];
 
             if ($this->pedidoModel->update($id, $data)) {
-                header("Location: /GUIAR_desfunc/routes.php?action=pedidos");
+                header("Location: " . BASE_URL . "/routes.php?action=pedidos");
             } else {
                 echo "Erro ao atualizar pedido.";
             }
@@ -104,7 +104,7 @@ class PedidoController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = $_POST['id_pedido'];
             if ($this->pedidoModel->delete($id)) {
-                header("Location: /GUIAR_desfunc/routes.php?action=pedidos");
+                header("Location: " . BASE_URL . "/routes.php?action=pedidos");
             } else {
                 echo "Erro ao excluir pedido.";
             }
@@ -119,7 +119,7 @@ class PedidoController
             $entregador_id = $_POST['entregador_id'];
 
             if ($this->pedidoModel->assignToEntregador($pedido_ids, $entregador_id)) {
-                header("Location: /GUIAR_desfunc/routes.php?action=pedidos");
+                header("Location: " . BASE_URL . "/routes.php?action=pedidos");
             } else {
                 echo "Erro ao enviar pedidos.";
             }
@@ -131,7 +131,7 @@ class PedidoController
         $this->checkAuth();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($this->pedidoModel->deleteDeliveredByEmpresa($_SESSION['company_id'])) {
-                header("Location: /GUIAR_desfunc/routes.php?action=pedidosEntregues");
+                header("Location: " . BASE_URL . "/routes.php?action=pedidosEntregues");
             } else {
                 echo "Erro ao finalizar turno.";
             }
@@ -161,7 +161,7 @@ class PedidoController
     public function meusPedidos()
     {
         if (!isset($_SESSION['entregador_id'])) {
-            header("Location: /GUIAR_desfunc/routes.php?action=loginEntregador");
+            header("Location: " . BASE_URL . "/routes.php?action=loginEntregador");
             exit;
         }
 

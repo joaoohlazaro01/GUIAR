@@ -18,11 +18,11 @@ class EntregadorController
     private function checkAuth()
     {
         if (!isset($_SESSION['company_id'])) {
-            header("Location: /GUIAR_desfunc/routes.php?action=loginEmpresa");
+            header("Location: " . BASE_URL . "/routes.php?action=loginEmpresa");
             exit;
         }
         if (!isset($_SESSION['id_adm']) && !isset($_SESSION['nome_usuario'])) {
-            header("Location: /GUIAR_desfunc/routes.php?action=escolherAdm");
+            header("Location: " . BASE_URL . "/routes.php?action=escolherAdm");
             exit;
         }
     }
@@ -79,7 +79,7 @@ class EntregadorController
             ];
 
             if ($this->entregadorModel->create($data)) {
-                header("Location: /GUIAR_desfunc/routes.php?action=entregadores");
+                header("Location: " . BASE_URL . "/routes.php?action=entregadores");
             } else {
                 echo "Erro ao adicionar entregador.";
             }
@@ -87,7 +87,7 @@ class EntregadorController
         }
 
         // Se acessar por GET acidentalmente, redireciona para a listagem
-        header("Location: /GUIAR_desfunc/routes.php?action=entregadores");
+        header("Location: " . BASE_URL . "/routes.php?action=entregadores");
         exit;
     }
 
@@ -106,7 +106,7 @@ class EntregadorController
             ];
 
             if ($this->entregadorModel->update($id, $company_id, $data)) {
-                header("Location: /GUIAR_desfunc/routes.php?action=entregadores");
+                header("Location: " . BASE_URL . "/routes.php?action=entregadores");
             } else {
                 echo "Erro ao editar entregador.";
             }
@@ -122,7 +122,7 @@ class EntregadorController
             $id = $_GET['id'];
 
             if ($this->entregadorModel->delete($id, $company_id)) {
-                header("Location: /GUIAR_desfunc/routes.php?action=entregadores");
+                header("Location: " . BASE_URL . "/routes.php?action=entregadores");
             } else {
                 echo "Erro ao excluir entregador.";
             }
@@ -137,7 +137,7 @@ class EntregadorController
         }
 
         if (isset($_SESSION['entregador_id'])) {
-            header("Location: /GUIAR_desfunc/routes.php?action=mapaEntregador");
+            header("Location: " . BASE_URL . "/routes.php?action=mapaEntregador");
             exit;
         }
 
@@ -149,10 +149,10 @@ class EntregadorController
 
             if ($user) {
                 $_SESSION['entregador_id'] = $user['id_entregador'];
-                header("Location: /GUIAR_desfunc/routes.php?action=mapaEntregador");
+                header("Location: " . BASE_URL . "/routes.php?action=mapaEntregador");
                 exit;
             } else {
-                header("Location: /GUIAR_desfunc/routes.php?action=loginEntregador&erro=" . urlencode('Email ou senha incorreto'));
+                header("Location: " . BASE_URL . "/routes.php?action=loginEntregador&erro=" . urlencode('Email ou senha incorreto'));
                 exit;
             }
         }
@@ -166,7 +166,7 @@ class EntregadorController
             session_start();
         }
         unset($_SESSION['entregador_id']);
-        header("Location: /GUIAR_desfunc/routes.php?action=loginEntregador");
+        header("Location: " . BASE_URL . "/routes.php?action=loginEntregador");
         exit;
     }
 
@@ -177,7 +177,7 @@ class EntregadorController
         }
 
         if (!isset($_SESSION['entregador_id'])) {
-            header("Location: /GUIAR_desfunc/routes.php?action=loginEntregador");
+            header("Location: " . BASE_URL . "/routes.php?action=loginEntregador");
             exit;
         }
 

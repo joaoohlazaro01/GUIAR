@@ -1,41 +1,3 @@
-
-
-
-
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Esqueceu sua senha</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-     <link href="../../style/esqueceuSenha.css" rel="stylesheet">
-   
-</head>
-<body>
-<div class="container-fluid">
-<div class="row align-items-center">
-    <center>
-    <div class="form-container">
-        <h1>Recuperar Senha</h1>
-            <form method="POST">
-                <div class="mb-3">
-                    <label for="email" class="form-label">Digite o e-mail cadastrado</label>
-                    <input type="email" name="email" class="form-control" id="email" placeholder="Digite seu e-mail" required>
-                </div>
-                <button type="submit" class="btn btn-primary w-100">Enviar</button>
-            </form>
-    </div>
-    </center>
-</div>
-</div>
-
-    <footer>
-        &copy; <?php echo date('Y'); ?> GUIAR. Todos os direitos reservados.
-    </footer>
-</body>
-</html>
-
 <?php
 require '../../vendor/autoload.php'; // Ajuste o caminho para a instalação do PHPMailer
 
@@ -80,13 +42,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com'; // Use o servidor SMTP do Gmail ou de outro provedor
         $mail->SMTPAuth = true;
-        $mail->Username = 'projGuiar@gmail.com'; // Substitua pelo seu e-mail
+        $mail->Username = 'lorismigz.pam@gmail.com'; // Substitua pelo seu e-mail
         $mail->Password = 'edts pdst pvfj ffkv'; // Substitua pela sua senha ou App Password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
         // Configuração do e-mail
-        $mail->setFrom('projGuiar@gmail.com', 'GUIAR');
+        $mail->setFrom('lorismigz.pam@gmail.com', 'GUIAR');
         $mail->addAddress($email);
 
         $resetLink = "http://localhost/GUIAR/GUIAR/ADM/EsqueceuSenha/redefinirSenha.php?token=$token";
@@ -101,3 +63,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esqueceu sua senha</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+     <link href="../../style/esqueceuSenha.css" rel="stylesheet">
+   
+</head>
+<body>
+<div class="container-fluid">
+<div class="row align-items-center">
+    <center>
+    <div class="form-container">
+        <h1>Recuperar Senha</h1>
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Digite o e-mail cadastrado</label>
+                    <input type="email" name="email" class="form-control" id="email" placeholder="Digite seu e-mail" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Enviar</button>
+            </form>
+    </div>
+    </center>
+</div>
+</div>
+
+    <footer>
+        &copy; <?php echo date('Y'); ?> GUIAR. Todos os direitos reservados.
+    </footer>
+</body>
+</html>

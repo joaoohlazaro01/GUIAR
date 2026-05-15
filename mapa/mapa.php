@@ -1,4 +1,18 @@
+<?php
+session_start();
+require_once '../config.php';
+if (empty($_SESSION['entregadorID'])) {
+    header('Location: ' . BASE_URL . '/routes.php?action=loginEntregador');
+    exit();
+}
 
+if (isset($_POST['sair'])) {
+    $_SESSION = [];
+    session_destroy();
+    header('Location: ' . BASE_URL . '/routes.php?action=loginEntregador');
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,11 +40,11 @@
             <div class="opcoes">
                 <button id="criarRota" type="button" class="btn btn-primary">Começar Percurso</button>
                 <form action="" method="post">
-                <button id="sair" type="submit" name="sair" class="btn btn-danger">Sair</button>
+                    <button id="sair" type="submit" name="sair" class="btn btn-danger">Sair</button>
                 </form>
             </div>
         </center>
-       
+
     </div>
 
 
@@ -40,43 +54,43 @@
     <script src="https://rawgit.com/bbecquet/Leaflet.RotatedMarker/master/leaflet.rotatedMarker.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
- <script>
-    // CRIA O MAPA
-    var map = L.map('map').setView([-22.3674, -46.9428], 15);
+    <script>
+        // CRIA O MAPA
+        var map = L.map('map').setView([-22.3674, -46.9428], 15);
 
-    // ÍCONE MOTO
-    var emojiIcon = L.divIcon({
-        className: 'emoji-icon',
-        html: '<div style="font-size:24px;">🏍️</div>',
-        iconSize: [32, 32], // ⚠️ arrumei (1250 tava gigante)
-        iconAnchor: [16, 32]
-    });
+        // ÍCONE MOTO
+        var emojiIcon = L.divIcon({
+            className: 'emoji-icon',
+            html: '<div style="font-size:24px;">🏍️</div>',
+            iconSize: [32, 32], // ⚠️ arrumei (1250 tava gigante)
+            iconAnchor: [16, 32]
+        });
 
-    // MAPA PADRÃO (CLARO)
-    var padrao = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; CartoDB'
-    }).addTo(map);
+        // MAPA PADRÃO (CLARO)
+        var padrao = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; CartoDB'
+        }).addTo(map);
 
-    // MAPA SATÉLITE
-    var satelite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-        attribution: 'Tiles © Esri'
-    });
+        // MAPA SATÉLITE
+        var satelite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles © Esri'
+        });
 
-    // MAPA ESCURO
-    var escuro = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; CartoDB'
-    });
+        // MAPA ESCURO
+        var escuro = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; CartoDB'
+        });
 
-    // CONTROLE DE TROCA
-    var baseMaps = {
-        "Claro": padrao,
-        "Satélite": satelite,
-        "Escuro": escuro
-    };
+        // CONTROLE DE TROCA
+        var baseMaps = {
+            "Claro": padrao,
+            "Satélite": satelite,
+            "Escuro": escuro
+        };
 
-    L.control.layers(baseMaps).addTo(map);
+        L.control.layers(baseMaps).addTo(map);
 
-  
+
 
         fetch('Action_PHP/getLocal.php')
             .then(response => response.json())
@@ -133,7 +147,7 @@
                         router: L.Routing.osrmv1({
                             serviceUrl: 'https://router.project-osrm.org/route/v1'
                         }),
-                        show:false,
+                        show: false,
                         LineOptions: {
                             styles: [{
                                 color: 'rgba(0,0,0,0)',
@@ -143,7 +157,7 @@
                         createMarker: function() {
                             return null;
                         }
-    
+
                     }).on('routesfound', function(e) {
                         var routeLength = e.routes[0].summary.totalDistance; // Distância da rota em metros
                         resolve({
@@ -170,7 +184,7 @@
                         currentUserPosition,
                         L.latLng(melhorRota.ponto.latitude, melhorRota.ponto.longitude)
                     ],
-                    show:false,
+                    show: false,
                     router: L.Routing.osrmv1({
                         serviceUrl: 'https://router.project-osrm.org/route/v1'
                     }),
@@ -263,101 +277,88 @@
                 });
         }
 
-     // ===== GEOLOCALIZAÇÃO DO MOTOBOY =====
-if (navigator.geolocation) {
+        // ===== GEOLOCALIZAÇÃO DO MOTOBOY =====
+        if (navigator.geolocation) {
 
-    navigator.geolocation.watchPosition(function(position) {
+            navigator.geolocation.watchPosition(function(position) {
 
-        let lat = position.coords.latitude;
-        let lng = position.coords.longitude;
+                let lat = position.coords.latitude;
+                let lng = position.coords.longitude;
 
-        var userLatLng = L.latLng(lat, lng);
-        currentUserPosition = userLatLng;
+                var userLatLng = L.latLng(lat, lng);
+                currentUserPosition = userLatLng;
 
-        // ===== ENVIA LOCALIZAÇÃO PRO BANCO (IMPORTANTE) =====
-        fetch('Action_PHP/atualizarLocalizacao.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                latitude: lat,
-                longitude: lng
-            })
-        }).catch(err => console.error("Erro ao atualizar localização:", err));
+                // ===== ENVIA LOCALIZAÇÃO PRO BANCO (IMPORTANTE) =====
+                fetch('Action_PHP/atualizarLocalizacao.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        latitude: lat,
+                        longitude: lng
+                    })
+                }).catch(err => console.error("Erro ao atualizar localização:", err));
 
-        // ===== ATUALIZA MARCADOR =====
-        if (userMarker) {
-            userMarker.setLatLng(userLatLng);
+                // ===== ATUALIZA MARCADOR =====
+                if (userMarker) {
+                    userMarker.setLatLng(userLatLng);
+                } else {
+                    userMarker = L.marker(userLatLng, {
+                            icon: emojiIcon
+                        }).addTo(map)
+                        .bindPopup("Você está aqui 🚀");
+                }
+
+                // CENTRALIZA MAPA
+                map.setView(userLatLng, 17);
+
+                // MONITORA ROTA
+                MonitorarProgressoRota();
+
+            }, function(error) {
+                console.error("Erro ao obter localização: " + error.message);
+            }, {
+                enableHighAccuracy: true,
+                maximumAge: 0,
+                timeout: 5000
+            });
+
         } else {
-            userMarker = L.marker(userLatLng, {
-                icon: emojiIcon
-            }).addTo(map)
-            .bindPopup("Você está aqui 🚀");
+            alert("Geolocalização não é suportada pelo seu navegador.");
         }
 
-        // CENTRALIZA MAPA
-        map.setView(userLatLng, 17);
 
-        // MONITORA ROTA
-        MonitorarProgressoRota();
+        // ===== BOTÃO CRIAR ROTA =====
+        document.getElementById('criarRota').addEventListener('click', function() {
 
-    }, function(error) {
-        console.error("Erro ao obter localização: " + error.message);
-    }, {
-        enableHighAccuracy: true,
-        maximumAge: 0,
-        timeout: 5000
-    });
-
-} else {
-    alert("Geolocalização não é suportada pelo seu navegador.");
-}
-
-
-// ===== BOTÃO CRIAR ROTA =====
-document.getElementById('criarRota').addEventListener('click', function() {
-
-    if (!currentUserPosition) {
-        alert("Localização ainda não foi carregada.");
-        return;
-    }
-
-    fetch('Action_PHP/getLocal.php')
-        .then(response => response.json())
-        .then(data => {
-
-            if (!data || data.length === 0) {
-                alert("Nenhuma entrega disponível.");
+            if (!currentUserPosition) {
+                alert("Localização ainda não foi carregada.");
                 return;
             }
 
-            points = data;
+            fetch('Action_PHP/getLocal.php')
+                .then(response => response.json())
+                .then(data => {
 
-            // CRIA ROTA PARA O MAIS PRÓXIMO
-            rotaParaPontoProximo();
+                    if (!data || data.length === 0) {
+                        alert("Nenhuma entrega disponível.");
+                        return;
+                    }
 
-        })
-        .catch(error => {
-            console.error("Erro ao buscar pedidos:", error);
+                    points = data;
+
+                    // CRIA ROTA PARA O MAIS PRÓXIMO
+                    rotaParaPontoProximo();
+
+                })
+                .catch(error => {
+                    console.error("Erro ao buscar pedidos:", error);
+                });
+
         });
-
-});
-</script>
+    </script>
 </body>
 
 </html>
-
-<?php
-session_start();
-if (empty($_SESSION['entregadorID'])) {
-    header('Location: pages/loginEntregador.php');
-    exit();
-}
-
-if(isset($_POST['sair'])){
-    $_SESSION = [];
-    session_destroy();
-    header('Location: ../ENTREGADOR/loginEntregador.php');
-}
-?>
+

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,39 +9,39 @@
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <title>Perfis de Administradores</title>
-  <link rel="Shortcut Icon" type="image/png" href="/GUIAR_desfunc/img/G.png">
+  <link rel="Shortcut Icon" type="image/png" href="<?= BASE_URL ?>/img/G.png">
   <style>
-        @font-face {
-            font-family: 'Brice-Bold';
-            src: url('/GUIAR_desfunc/fonts/Brice-BoldSemiCondensed.ttf') format('truetype');
-        }
+    @font-face {
+      font-family: 'Brice-Bold';
+      src: url('<?= BASE_URL ?>/fonts/Brice-BoldSemiCondensed.ttf') format('truetype');
+    }
 
-        @font-face {
-            font-family: 'BasisGrotesque-Regular';
-            src: url('/GUIAR_desfunc/fonts/BasisGrotesqueArabicPro-Regular.ttf') format('truetype');
-        }
+    @font-face {
+      font-family: 'BasisGrotesque-Regular';
+      src: url('<?= BASE_URL ?>/fonts/BasisGrotesqueArabicPro-Regular.ttf') format('truetype');
+    }
 
-        @font-face {
-            font-family: 'Brice-SemiBoldSemi';
-            src: url('/GUIAR_desfunc/fonts/Brice-SemiBoldSemiCondensed.ttf');
-        }
+    @font-face {
+      font-family: 'Brice-SemiBoldSemi';
+      src: url('<?= BASE_URL ?>/fonts/Brice-SemiBoldSemiCondensed.ttf');
+    }
 
-        *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body{
-            background-color: #fefaf1 !important;
-            font-family: 'BasisGrotesque-Regular';
-        }
+    body {
+      background-color: #fefaf1 !important;
+      font-family: 'BasisGrotesque-Regular';
+    }
 
     .container {
       margin-top: 50px;
     }
 
-    .container h1{
+    .container h1 {
       font-family: 'Brice-Bold';
     }
 
@@ -115,22 +116,25 @@
       border-bottom-right-radius: 0px;
       border-top-left-radius: 0px;
     }
+
     #error-message {
-        color: #d8000c;
-        text-decoration: none;
-        font-weight: bold;
+      color: #d8000c;
+      text-decoration: none;
+      font-weight: bold;
     }
   </style>
 </head>
+
 <body>
   <!-- Botão de logout (da Empresa) -->
-  <a href="/GUIAR_desfunc/routes.php?action=loginEmpresa" class="logout-btn" onclick="return confirm('Deseja sair da conta da empresa?');">Voltar ao Login (Sair)</a>
+  <a href="<?= BASE_URL ?>/routes.php?action=loginEmpresa" class="logout-btn" onclick="return confirm('Deseja sair da conta da empresa?');">Voltar ao Login (Sair)</a>
 
   <div class="container">
-    <h1>Administradores da Empresa: <spam><?php echo htmlspecialchars($nome_empresa); ?></spam></h1>
+    <h1>Administradores da Empresa: <spam><?php echo htmlspecialchars($nome_empresa); ?></spam>
+    </h1>
 
     <?php if ($erro): ?>
-        <div class="alert alert-danger"><?php echo htmlspecialchars($erro); ?></div>
+      <div class="alert alert-danger"><?php echo htmlspecialchars($erro); ?></div>
     <?php endif; ?>
 
     <div class="row">
@@ -138,15 +142,15 @@
       if (count($administradores) > 0) {
         foreach ($administradores as $row) {
           // Caminho da imagem ajustado para a rota correta onde as imagens foram salvas
-          $imagem_path = "/GUIAR_desfunc/PHP ADM/admin_fotos/" . htmlspecialchars($nome_empresa) . "/" . htmlspecialchars($row["nome_foto"]);
+          $imagem_path = "<?= BASE_URL ?>/public/uploads/" . htmlspecialchars($nome_empresa) . "/" . htmlspecialchars($row["nome_foto"]);
       ?>
           <div class="col-md-4">
             <div class="card">
               <img src="<?php echo $imagem_path; ?>" class="card-img-top" alt="Foto do Administrador" style="width: 100%; height: 300px; object-fit: cover;">
               <div class="card-body">
                 <center>
-                <h5 class="card-title"><?php echo htmlspecialchars($row["nome_adm"]); ?></h5>
-                <button class="btn" data-toggle="modal" data-target="#loginModal" data-username="<?php echo htmlspecialchars($row["nome_usuario"]); ?>">Entrar</button>
+                  <h5 class="card-title"><?php echo htmlspecialchars($row["nome_adm"]); ?></h5>
+                  <button class="btn" data-toggle="modal" data-target="#loginModal" data-username="<?php echo htmlspecialchars($row["nome_usuario"]); ?>">Entrar</button>
                 </center>
               </div>
             </div>
@@ -170,7 +174,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="/GUIAR_desfunc/routes.php?action=loginAdm" method="post" id="adminLoginForm">
+        <form action="<?= BASE_URL ?>/routes.php?action=loginAdm" method="post" id="adminLoginForm">
           <div class="modal-body">
             <div class="form-group">
               <label for="adminUsername">Nome de Usuário</label>
@@ -200,7 +204,7 @@
     });
 
     $('#adminLoginForm').submit(function(event) {
-      event.preventDefault(); 
+      event.preventDefault();
       var form = $(this);
       $.ajax({
         type: form.attr('method'),
@@ -209,7 +213,7 @@
         success: function(response) {
           response = response.trim();
           if (response === 'success') {
-            window.location.href = '/GUIAR_desfunc/routes.php?action=dashboardAdm';
+            window.location.href = '<?= BASE_URL ?>/routes.php?action=dashboardAdm';
           } else {
             $('#error-message').text('Senha incorreta. Tente novamente.').show();
             var senha = document.getElementById('adminPassword');
@@ -221,7 +225,9 @@
   </script>
 
   <!-- Botão fixo "Adicionar Administrador" -->
-  <button class="btn fixed-button" data-toggle="modal" data-target="#addAdminModal"><spam> + </spam> Adicionar Administrador</button>
+  <button class="btn fixed-button" data-toggle="modal" data-target="#addAdminModal">
+    <spam> + </spam> Adicionar Administrador
+  </button>
 
   <!-- Modal de Adicionar Administrador -->
   <div class="modal fade" id="addAdminModal" tabindex="-1" aria-labelledby="addAdminModalLabel" aria-hidden="true">
@@ -233,7 +239,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="/GUIAR_desfunc/routes.php?action=adicionarAdm" method="post" enctype="multipart/form-data">
+        <form action="<?= BASE_URL ?>/routes.php?action=adicionarAdm" method="post" enctype="multipart/form-data">
           <div class="modal-body">
             <div class="form-group">
               <label for="adminNome">Nome Completo</label>
@@ -261,4 +267,5 @@
     </div>
   </div>
 </body>
+
 </html>

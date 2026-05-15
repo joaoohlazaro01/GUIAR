@@ -7,21 +7,21 @@
     <link
     rel="Shortcut Icon" 
     type="image/png"
-    href="/GUIAR_desfunc/img/G.png">
+    href="<?= BASE_URL ?>/img/G.png">
     <style>
         @font-face {
             font-family: 'Brice-Bold';
-            src: url('/GUIAR_desfunc/fonts/Brice-BoldSemiCondensed.ttf') format('truetype');
+            src: url('<?= BASE_URL ?>/fonts/Brice-BoldSemiCondensed.ttf') format('truetype');
         }
 
         @font-face {
             font-family: 'BasisGrotesque-Regular';
-            src: url('/GUIAR_desfunc/fonts/BasisGrotesqueArabicPro-Regular.ttf') format('truetype');
+            src: url('<?= BASE_URL ?>/fonts/BasisGrotesqueArabicPro-Regular.ttf') format('truetype');
         }
 
         @font-face {
             font-family: 'Brice-SemiBoldSemi';
-            src: url('/GUIAR_desfunc/fonts/Brice-SemiBoldSemiCondensed.ttf');
+            src: url('<?= BASE_URL ?>/fonts/Brice-SemiBoldSemiCondensed.ttf');
         }
 
         *{
@@ -169,16 +169,16 @@
 </head>
 <body>
     <div class="sidebar">
-        <a href="/GUIAR_desfunc/routes.php?action=dashboardAdm">Início</a>
-        <a href="/GUIAR_desfunc/routes.php?action=pedidos">Pedidos</a>
-        <a href="/GUIAR_desfunc/routes.php?action=entregadores">Entregadores</a>
-        <a href="/GUIAR_desfunc/routes.php?action=pedidosEntregues">Pedidos Entregues</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=dashboardAdm">Início</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=pedidos">Pedidos</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=entregadores">Entregadores</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=pedidosEntregues">Pedidos Entregues</a>
         <div class="spacer"></div>
-        <a href="/GUIAR_desfunc/routes.php?action=perfilAdm">Meu perfil</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=perfilAdm">Meu perfil</a>
     </div>
 
     <!-- Botão de logout -->
-    <a href="/GUIAR_desfunc/routes.php?action=logoutAdm" class="logout-btn">Logout</a>
+    <a href="<?= BASE_URL ?>/routes.php?action=logoutAdm" class="logout-btn">Logout</a>
 
     <div class="main">
         <div class="card-container">
@@ -205,7 +205,7 @@
     </div>
 
     <!-- Botão "Finalizar Turno" -->
-    <form method="POST" action="/GUIAR_desfunc/routes.php?action=finalizarTurno">
+    <form method="POST" action="<?= BASE_URL ?>/routes.php?action=finalizarTurno">
         <button type="submit" name="finalizar_turno" class="finalizar-btn" onclick="return confirm('Deseja realmente finalizar o turno e limpar a lista?');">Finalizar Turno</button>
     </form>
 </body>

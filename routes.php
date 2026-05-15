@@ -42,6 +42,10 @@ switch ($action) {
         $controller = new \mvc\Controllers\EmpresaController($pdo);
         $controller->esqueceuSenha();
         break;
+    case 'verificarCodigo':
+        $controller = new \mvc\Controllers\EmpresaController($pdo);
+        $controller->verificarCodigo();
+        break;
     case 'redefinirSenha':
         $controller = new \mvc\Controllers\EmpresaController($pdo);
         $controller->redefinirSenha();
@@ -164,6 +168,6 @@ switch ($action) {
 
     default:
         // Por padrão, se a rota não for encontrada, redireciona para a home
-        header("Location: /GUIAR_desfunc/index.html");
+        header("Location: " . BASE_URL . "/index.html");
         exit;
 }

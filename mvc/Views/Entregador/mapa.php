@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="/GUIAR_desfunc/style/mapa.css" />
+    <link rel="stylesheet" href="<?= BASE_URL ?>/style/mapa.css" />
 </head>
 
 <body>
@@ -24,7 +24,7 @@
         <center>
             <div class="opcoes">
                 <button id="criarRota" type="button" class="btn btn-primary">Começar Percurso</button>
-                <a href="/GUIAR_desfunc/routes.php?action=meusPedidosEntregador" class="btn btn-secondary">Voltar para Pedidos</a>
+                <a href="<?= BASE_URL ?>/routes.php?action=meusPedidosEntregador" class="btn btn-secondary">Voltar para Pedidos</a>
             </div>
         </center>
        
@@ -73,7 +73,7 @@
 
     L.control.layers(baseMaps).addTo(map);
 
-    fetch('/GUIAR_desfunc/routes.php?action=apiPedidosMapa')
+    fetch('<?= BASE_URL ?>/routes.php?action=apiPedidosMapa')
         .then(response => response.json())
         .then(data => {
             if (data && !data.error) {
@@ -199,7 +199,7 @@
 
     // Função para concluir a entrega
     function concluirEntrega(pedidoId, marker) {
-        fetch('/GUIAR_desfunc/routes.php?action=concluirEntrega', {
+        fetch('<?= BASE_URL ?>/routes.php?action=concluirEntrega', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -258,7 +258,7 @@
             currentUserPosition = userLatLng;
 
             // ===== ENVIA LOCALIZAÇÃO PRO BANCO =====
-            fetch('/GUIAR_desfunc/routes.php?action=apiLocalizacaoEntregador', {
+            fetch('<?= BASE_URL ?>/routes.php?action=apiLocalizacaoEntregador', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -305,7 +305,7 @@
             return;
         }
 
-        fetch('/GUIAR_desfunc/routes.php?action=apiPedidosMapa')
+        fetch('<?= BASE_URL ?>/routes.php?action=apiPedidosMapa')
             .then(response => response.json())
             .then(data => {
 

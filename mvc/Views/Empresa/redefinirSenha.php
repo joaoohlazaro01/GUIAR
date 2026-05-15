@@ -16,7 +16,7 @@
     <?php endif; ?>
     <?php if (isset($sucesso)): ?>
         <div class="alert alert-success mt-3"><?php echo htmlspecialchars($sucesso); ?></div>
-        <a href="/GUIAR_desfunc/routes.php?action=loginEmpresa" class="btn btn-secondary w-50 mx-auto mt-3" style="background-color: #ff9a52; display: block; text-align: center;">Voltar ao Login</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=loginEmpresa" class="btn btn-secondary w-50 mx-auto mt-3" style="background-color: #ff9a52; display: block; text-align: center;">Voltar ao Login</a>
     <?php endif; ?>
 
     <form method="POST">

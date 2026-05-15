@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pedidos para Entregador</title>
-    <link rel="Shortcut Icon" type="image/png" href="/GUIAR_desfunc/img/G.png">
-    <link rel="stylesheet" href="/GUIAR_desfunc/style/indexEntregador.css" />
+    <link rel="Shortcut Icon" type="image/png" href="<?= BASE_URL ?>/img/G.png">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/style/indexEntregador.css" />
 </head>
 <body>
     <div class="sidebar">
         <div class="spacer"></div>
-        <a href="/GUIAR_desfunc/routes.php?action=mapaEntregador">Abrir Mapa</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=mapaEntregador">Abrir Mapa</a>
         <a href="#">Meu Perfil</a>
-        <a href="/GUIAR_desfunc/ENTREGADOR/loginEntregador.php">Sair</a>
+        <a href="<?= BASE_URL ?>/ENTREGADOR/loginEntregador.php">Sair</a>
     </div>
 
     <div class="main">
@@ -51,7 +51,7 @@
             button.addEventListener('click', function() {
                 const pedidoId = this.getAttribute('data-id');
                 
-                fetch('/GUIAR_desfunc/routes.php?action=concluirEntrega', {
+                fetch('<?= BASE_URL ?>/routes.php?action=concluirEntrega', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',

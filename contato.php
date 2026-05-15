@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +8,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-     <link rel="stylesheet" href="style/contato.css">
+    <link rel="stylesheet" href="style/contato.css">
     <link rel="Shortcut Icon" type="image/png" href="img/G.png">
     <link rel="stylesheet" href="CssnavbarRodape.css">
 
 </head>
+
 <body>
     <!--CABEÇALHO-->
     <nav class="navbar navbar-expand-lg custom-navbar" id="gblur">
@@ -25,8 +26,8 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="ADM/loginEmpresa.php">Empresa</a></li>
-                    <li class="nav-item"><a class="nav-link" href="ENTREGADOR/loginEntregador.php">Entregador</a></li>
+                    <li class="nav-item"><a class="nav-link" href="routes.php?action=loginEmpresa">Empresa</a></li>
+                    <li class="nav-item"><a class="nav-link" href="routes.php?action=loginEntregador">Entregador</a></li>
                     <li class="nav-item"><a class="nav-link active" href="contato.php">Contato</a></li>
                 </ul>
             </div>
@@ -93,10 +94,11 @@
     <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js'></script>
 
 </body>
+
 </html>
 
-<?php 
-session_start(); 
+<?php
+session_start();
 require 'config.php';
 
 // ===== SALVAR DADOS =====
@@ -118,11 +120,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->execute();
 
             echo "<script>alert('Mensagem enviada com sucesso!');</script>";
-
         } catch (PDOException $e) {
             echo "Erro: " . $e->getMessage();
         }
-
     } else {
         echo "<script>alert('Preencha todos os campos!');</script>";
     }

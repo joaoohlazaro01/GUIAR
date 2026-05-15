@@ -5,22 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard dos Motoboys</title>
-    <link rel="stylesheet" href="/GUIAR_desfunc/CSSadm/entregadores.css">
-    <link rel="shortcut icon" type="image/png" href="/GUIAR_desfunc/src/G.png">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/CSSadm/entregadores.css">
+    <link rel="shortcut icon" type="image/png" href="<?= BASE_URL ?>/src/G.png">
     <style>
         @font-face {
             font-family: 'Brice-Bold';
-            src: url('/GUIAR_desfunc/fonts/Brice-BoldSemiCondensed.ttf') format('truetype');
+            src: url('<?= BASE_URL ?>/fonts/Brice-BoldSemiCondensed.ttf') format('truetype');
         }
 
         @font-face {
             font-family: 'BasisGrotesque-Regular';
-            src: url('/GUIAR_desfunc/fonts/BasisGrotesqueArabicPro-Regular.ttf') format('truetype');
+            src: url('<?= BASE_URL ?>/fonts/BasisGrotesqueArabicPro-Regular.ttf') format('truetype');
         }
 
         @font-face {
             font-family: 'Brice-SemiBoldSemi';
-            src: url('/GUIAR_desfunc/fonts/Brice-SemiBoldSemiCondensed.ttf');
+            src: url('<?= BASE_URL ?>/fonts/Brice-SemiBoldSemiCondensed.ttf');
         }
 
         * {
@@ -118,16 +118,16 @@
 <body>
 
     <div class="sidebar">
-        <a href="/GUIAR_desfunc/routes.php?action=dashboardAdm">Início</a>
-        <a href="/GUIAR_desfunc/routes.php?action=pedidos">Pedidos</a>
-        <a href="/GUIAR_desfunc/routes.php?action=entregadores">Entregadores</a>
-        <a href="/GUIAR_desfunc/routes.php?action=pedidosEntregues">Pedidos Entregues</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=dashboardAdm">Início</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=pedidos">Pedidos</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=entregadores">Entregadores</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=pedidosEntregues">Pedidos Entregues</a>
         <div class="spacer"></div>
-        <a href="/GUIAR_desfunc/routes.php?action=perfilAdm">Meu perfil</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=perfilAdm">Meu perfil</a>
     </div>
 
     <!-- Botão de logout -->
-    <a href="/GUIAR_desfunc/routes.php?action=logoutAdm" class="logout-btn">Logout</a>
+    <a href="<?= BASE_URL ?>/routes.php?action=logoutAdm" class="logout-btn">Logout</a>
 
     <div class="main">
         <div class="container">
@@ -158,7 +158,7 @@
             <div class="modal-content">
                 <span class="close" id="closeNewMotoboyModal">&times;</span>
                 <h2>Cadastrar Motoboy</h2>
-                <form id="newMotoboyForm" method="POST" action="/GUIAR_desfunc/routes.php?action=cadastrarEntregador" enctype="multipart/form-data">
+                <form id="newMotoboyForm" method="POST" action="<?= BASE_URL ?>/routes.php?action=cadastrarEntregador" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="nome_completo">Digite o nome completo:</label>
                         <input type="text" id="nome_completo" name="nome_completo" required>
@@ -204,7 +204,7 @@
         <div class="modal-content">
             <span class="close" id="closeEdit">&times;</span>
             <h2>Editar Motoboy</h2>
-            <form id="editForm" method="POST" action="/GUIAR_desfunc/routes.php?action=editarEntregador">
+            <form id="editForm" method="POST" action="<?= BASE_URL ?>/routes.php?action=editarEntregador">
                 <div class="form-group">
                     <label for="edit_nome_completo">Nome Completo:</label>
                     <input type="text" id="edit_nome_completo" name="nome_completo" required>
@@ -234,7 +234,7 @@
             <span class="close" id="closeDelete">&times;</span>
             <h2>Excluir Motoboy</h2>
             <p>Tem certeza de que deseja excluir este motoboy?</p>
-            <form id="deleteForm" method="GET" action="/GUIAR_desfunc/routes.php">
+            <form id="deleteForm" method="GET" action="<?= BASE_URL ?>/routes.php">
                 <input type="hidden" name="action" value="excluirEntregador">
                 <input type="hidden" id="delete_id" name="id">
                 <div class="form-group">

@@ -61,4 +61,17 @@ class Empresa {
             return false;
         }
     }
+
+    public function emailExists($email) {
+        try {
+            $sql = "SELECT id_empresa FROM empresa WHERE email = :email";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':email', $email);
+            $stmt->execute();
+            return $stmt->rowCount() > 0;
+        } catch (PDOException $e) {
+            error_log("Erro ao verificar email: " . $e->getMessage());
+            return false;
+        }
+    }
 }

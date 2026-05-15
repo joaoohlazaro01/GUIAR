@@ -15,7 +15,7 @@ class AdministradorController {
 
     public function escolher() {
         if (!isset($_SESSION['company_id'])) {
-            header("Location: /GUIAR_desfunc/routes.php?action=loginEmpresa");
+            header("Location: " . BASE_URL . "/routes.php?action=loginEmpresa");
             exit;
         }
 
@@ -23,7 +23,7 @@ class AdministradorController {
         $empresa = $this->empresaModel->getById($company_id);
         
         if (!$empresa) {
-            header("Location: /GUIAR_desfunc/routes.php?action=loginEmpresa");
+            header("Location: " . BASE_URL . "/routes.php?action=loginEmpresa");
             exit;
         }
 
@@ -37,7 +37,7 @@ class AdministradorController {
 
     public function adicionar() {
         if (!isset($_SESSION['company_id'])) {
-            header("Location: /GUIAR_desfunc/routes.php?action=loginEmpresa");
+            header("Location: " . BASE_URL . "/routes.php?action=loginEmpresa");
             exit;
         }
 
@@ -46,7 +46,7 @@ class AdministradorController {
             $empresa = $this->empresaModel->getById($company_id);
             
             if (!$empresa) {
-                header("Location: /GUIAR_desfunc/routes.php?action=loginEmpresa");
+                header("Location: " . BASE_URL . "/routes.php?action=loginEmpresa");
                 exit;
             }
 
@@ -94,16 +94,16 @@ class AdministradorController {
                 ];
 
                 if ($this->administradorModel->create($data)) {
-                    header("Location: /GUIAR_desfunc/routes.php?action=escolherAdm");
+                    header("Location: " . BASE_URL . "/routes.php?action=escolherAdm");
                     exit();
                 } else {
                     $erro = "Erro ao adicionar administrador no banco de dados.";
-                    header("Location: /GUIAR_desfunc/routes.php?action=escolherAdm&erro=" . urlencode($erro));
+                    header("Location: " . BASE_URL . "/routes.php?action=escolherAdm&erro=" . urlencode($erro));
                     exit();
                 }
             } else {
                 $erro = "Erro ao fazer upload da foto.";
-                header("Location: /GUIAR_desfunc/routes.php?action=escolherAdm&erro=" . urlencode($erro));
+                header("Location: " . BASE_URL . "/routes.php?action=escolherAdm&erro=" . urlencode($erro));
                 exit();
             }
         }
@@ -132,18 +132,18 @@ class AdministradorController {
         unset($_SESSION['nome_usuario']);
         unset($_SESSION['id_adm']);
         
-        header("Location: /GUIAR_desfunc/routes.php?action=escolherAdm");
+        header("Location: " . BASE_URL . "/routes.php?action=escolherAdm");
         exit();
     }
 
     public function dashboard() {
         if (!isset($_SESSION['company_id'])) {
-            header("Location: /GUIAR_desfunc/routes.php?action=loginEmpresa");
+            header("Location: " . BASE_URL . "/routes.php?action=loginEmpresa");
             exit;
         }
 
         if (!isset($_SESSION['nome_usuario'])) {
-            header("Location: /GUIAR_desfunc/routes.php?action=escolherAdm&erro=" . urlencode("Administrador não identificado"));
+            header("Location: " . BASE_URL . "/routes.php?action=escolherAdm&erro=" . urlencode("Administrador não identificado"));
             exit;
         }
 
