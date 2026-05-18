@@ -1,19 +1,76 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro | Empresa</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href="<?= BASE_URL ?>/style/CssnavbarRodape.css" rel="Stylesheet" />
-    <link
-        rel="Shortcut Icon"
-        type="image/png"
-        href="<?= BASE_URL ?>/img/G.png">
+
+    <link rel="Shortcut Icon" type="image/png" href="<?= BASE_URL ?>/img/logo_branca.png">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            blue: '#001b69',
+                            yellow: '#ffd400',
+                            inputborder: '#c3d2e6',
+                            link: '#00288a'
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(30px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            },
+                        },
+                        float: {
+                            '0%, 100%': {
+                                transform: 'translateY(0)'
+                            },
+                            '50%': {
+                                transform: 'translateY(-15px)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #e6eaf0 0%, #f0f4f8 100%);
+        }
+    </style>
+
+    <script>
+        // Função para remover o parâmetro 'erro' da URL após carregar a página
+        window.onload = function() {
+            const url = new URL(window.location);
+            if (url.searchParams.has('erro')) {
+                url.searchParams.delete('erro');
+                window.history.replaceState({}, document.title, url);
+            }
+        };
+
         // Função para formatar o CNPJ enquanto o usuário digita
         function formatCNPJ(cnpj) {
             cnpj = cnpj.replace(/\D/g, ""); // Remove caracteres não numéricos
@@ -54,172 +111,179 @@
                 });
         }
     </script>
-
-    <style>
-        @font-face {
-            font-family: 'Brice-Bold';
-            src: url('<?= BASE_URL ?>/fonts/Brice-BoldSemiCondensed.ttf') format('truetype');
-        }
-
-        @font-face {
-            font-family: 'BasisGrotesque-Regular';
-            src: url('<?= BASE_URL ?>/fonts/BasisGrotesqueArabicPro-Regular.ttf') format('truetype');
-        }
-
-        @font-face {
-            font-family: 'Brice-SemiBoldSemi';
-            src: url('<?= BASE_URL ?>/fonts/Brice-SemiBoldSemiCondensed.ttf');
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: #fefaf1 !important;
-            font-family: 'BasisGrotesque-Regular';
-        }
-
-        .formulario {
-            width: 70%;
-            padding: 7%;
-            margin: 2%;
-        }
-
-        .formulario h2 {
-            font-family: 'Brice-SemiBoldSemi';
-        }
-
-        #form {
-            border-top: 3px solid #fc8835 !important;
-            border: 1px black;
-            border-radius: 5px;
-            box-shadow: 1px 1px 10px -5px black !important;
-        }
-
-        #botao {
-            width: 70%;
-            background-color: #fc8835;
-            border: 0px solid;
-            letter-spacing: 1px;
-            transition: 0.5s;
-        }
-
-        #botao:hover {
-            transform: scale(1.05);
-            border-bottom-right-radius: 0px;
-            border-top-left-radius: 0px;
-        }
-
-        #cadastro {
-            color: #000;
-            text-decoration: none;
-        }
-
-        #cadastro spam {
-            color: #ff9a52;
-        }
-
-        @media (max-width: 915px) {
-            .formulario {
-                width: 85%;
-            }
-        }
-    </style>
 </head>
 
-<body>
-    <nav class="navbar navbar-expand-lg custom-navbar" id="gblur">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="<?= BASE_URL ?>/index.html"><img style="height: 90px;" src="<?= BASE_URL ?>/img/Guiar.png" alt="LOGO"></img></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= BASE_URL ?>/index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="ativado" href="<?= BASE_URL ?>/routes.php?action=loginEmpresa">Empresa</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= BASE_URL ?>routes.php?action=loginEntregador">Entregador</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= BASE_URL ?>/contato.php">Contato</a>
-                    </li>
-                </ul>
-            </div>
+<body class="min-h-screen flex flex-col font-sans">
+
+    <!-- NAVBAR -->
+    <nav class="w-full bg-brand-blue px-6 py-3 flex flex-wrap items-center justify-between shadow-md z-50">
+        <a href="<?= BASE_URL ?>/index.html">
+            <img class="h-[90px] object-contain" src="<?= BASE_URL ?>/img/LogoBranca.png" alt="LOGO" onerror="this.outerHTML='<span class=\'text-white text-2xl font-extrabold\'>GUIAR</span>'">
+        </a>
+        <button id="nav-toggle" class="md:hidden p-2 text-white focus:outline-none hover:bg-white/10 rounded-lg transition-colors">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+        <div id="nav-menu" class="hidden w-full md:flex md:w-auto md:space-x-8 mt-4 md:mt-0 flex-col md:flex-row items-center">
+            <a href="<?= BASE_URL ?>/index.html" class="block py-2 text-[1.1rem] font-medium text-white/90 hover:text-brand-yellow transition-colors">Home</a>
+            <a href="<?= BASE_URL ?>/routes.php?action=loginEntregador" class="block py-2 text-[1.1rem] font-medium text-white/90 hover:text-brand-yellow transition-colors">Entregador</a>
+            <a href="<?= BASE_URL ?>/routes.php?action=loginEmpresa" class="block py-2 text-[1.1rem] font-semibold text-brand-yellow transition-colors underline decoration-2 underline-offset-4">Empresa</a>
+            <a href="<?= BASE_URL ?>/contato.php" class="block py-2 text-[1.1rem] font-medium text-white/90 hover:text-brand-yellow transition-colors">Contato</a>
         </div>
     </nav>
 
-    <div class="container-fluid">
-        <div class="row align-items-center">
-            <center>
-                <div class="formulario" id="form">
-                    <h2>Cadastro | Empresa</h2>
-                    <hr color="black" size="2px">
-                    <br>
-                    <form class="row g-3" method="post" action="<?= BASE_URL ?>/routes.php?action=cadastroEmpresa" id="cadaForm" enctype="multipart/form-data">
-                        <div class="col-md-6">
-                            <label for="inputEmail4" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
+    <!-- Container centralizador do formulário -->
+    <div class="flex-grow flex items-center justify-center p-4 sm:p-8">
+
+        <!-- Card Principal com Bordas Arredondadas -->
+        <div class="bg-white rounded-[2rem] shadow-2xl flex flex-col md:flex-row w-full max-w-[1050px] min-h-[580px] overflow-hidden opacity-0 animate-fade-in-up">
+
+            <!-- Painel Esquerdo (Azul) -->
+            <div class="bg-brand-blue w-full md:w-[40%] p-10 flex flex-col relative overflow-hidden">
+                <!-- Imagem do Mapa de Fundo -->
+                <img src="<?= BASE_URL ?>/img/mapapng.png" alt="Mapa Background" class="absolute inset-0 w-[150%] h-[150%] max-w-none -left-[20%] -top-[10%] object-contain opacity-30 pointer-events-none z-0 mix-blend-overlay animate-float">
+
+
+
+                <div class="absolute top-[75%] left-[25%] transform -translate-x-1/2 -translate-y-1/2 z-0 opacity-80 pointer-events-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-[4.5rem] w-[4.5rem] text-brand-yellow drop-shadow-md" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                    </svg>
+                </div>
+
+                <!-- Conteúdo da Lateral Esquerda -->
+                <div class="relative z-10 flex flex-col h-full">
+                    <!-- Logo GUIAR -->
+                    <div class="-mt-4">
+                        <img src="<?= BASE_URL ?>/img/LogoBranca.png" alt="GUIAR" class="h-[6.5rem] sm:h-[8rem] w-auto object-contain"
+                            onerror="this.outerHTML='<span class=\'text-white text-[2.5rem] font-extrabold tracking-widest\'>GUIAR</span>'">
+                    </div>
+
+                    <!-- Slogan e Linha Amarela -->
+                    <div class="my-auto">
+                        <h1 class="text-white text-[2rem] leading-[1.2] font-bold mb-5 tracking-tight">
+                            Junte-se ao Guiar e<br>cresça conosco.
+                        </h1>
+                        <div class="h-1 w-20 bg-brand-yellow"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Painel Direito (Formulário Cadastro) -->
+            <div class="w-full md:w-[60%] bg-white p-6 sm:p-10 flex flex-col justify-center items-center relative">
+
+                <div class="w-full max-w-[450px]">
+
+                    <!-- Cabeçalho: Ícone e Título -->
+                    <div class="flex items-center justify-center gap-3 mb-8">
+                        <div class="w-[4rem] h-[4rem] rounded-full bg-[#d6e0f5] flex items-center justify-center text-brand-blue shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                            </svg>
                         </div>
-                        <div class="col-md-6">
-                            <label for="inputPassword4" class="form-label">Senha</label>
-                            <input type="password" class="form-control" id="inputPassword4" name="senha" required>
-                        </div>
-                        <div class="col-12">
-                            <label for="inputAddress" class="form-label">Nome da Empresa</label>
-                            <input type="text" class="form-control" id="inputAddress" name="nome_empresa" required>
-                        </div>
-                        <div class="col-12">
-                            <label for="inputAddress2" class="form-label">Nome de Usuario</label>
-                            <input type="text" class="form-control" id="inputAddress2" name="nome_usuario">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="inputCity" class="form-label">CNPJ</label>
-                            <input type="text" class="form-control" id="inputCity" placeholder="CNPJ" pattern="\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}" title="Digite um CNPJ válido" oninput="validateCNPJInput(event)" name="cnpj" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="formFile" class="form-label">Imagem da Empresa</label>
-                            <input class="form-control" type="file" id="formFile" name="foto_logo">
+                        <h2 class="text-[1.6rem] font-bold text-gray-900 tracking-tight leading-none pt-2">Cadastro <span class="text-brand-blue font-semibold">| Empresa</span></h2>
+                    </div>
+
+                    <!-- Formulário -->
+                    <form class="flex flex-col gap-4" action="<?= BASE_URL ?>/routes.php?action=cadastroEmpresa" method="POST" id="cadaForm" enctype="multipart/form-data">
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Email -->
+                            <div>
+                                <label for="email" class="block text-[0.85rem] font-medium text-gray-700 mb-1 ml-1">Email</label>
+                                <input type="email" id="email" name="email" required
+                                    class="w-full px-4 py-2.5 rounded-xl border border-brand-inputborder focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-blue-100 transition-all text-gray-800 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
+                            </div>
+
+                            <!-- Senha -->
+                            <div>
+                                <label for="inputPassword4" class="block text-[0.85rem] font-medium text-gray-700 mb-1 ml-1">Senha</label>
+                                <input type="password" id="inputPassword4" name="senha" required
+                                    class="w-full px-4 py-2.5 rounded-xl border border-brand-inputborder focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-blue-100 transition-all text-gray-800 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
+                            </div>
                         </div>
 
-                        <div class="col-12">
-                            <br>
-                            <button type="submit" class="btn btn-primary" id="botao">Fazer Cadastro</button><br>
-                            <a id="cadastro" href="<?= BASE_URL ?>/routes.php?action=loginEmpresa">Já tem uma conta? <spam>Faça login</spam></a>
+                        <!-- Nome da Empresa -->
+                        <div>
+                            <label for="inputAddress" class="block text-[0.85rem] font-medium text-gray-700 mb-1 ml-1">Nome da Empresa</label>
+                            <input type="text" id="inputAddress" name="nome_empresa" required
+                                class="w-full px-4 py-2.5 rounded-xl border border-brand-inputborder focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-blue-100 transition-all text-gray-800 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
+                        </div>
+
+                        <!-- Nome de Usuario -->
+                        <div>
+                            <label for="inputAddress2" class="block text-[0.85rem] font-medium text-gray-700 mb-1 ml-1">Nome de Usuário</label>
+                            <input type="text" id="inputAddress2" name="nome_usuario"
+                                class="w-full px-4 py-2.5 rounded-xl border border-brand-inputborder focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-blue-100 transition-all text-gray-800 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- CNPJ -->
+                            <div>
+                                <label for="inputCity" class="block text-[0.85rem] font-medium text-gray-700 mb-1 ml-1">CNPJ</label>
+                                <input type="text" id="inputCity" name="cnpj" required pattern="\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}" title="Digite um CNPJ válido" oninput="validateCNPJInput(event)"
+                                    class="w-full px-4 py-2.5 rounded-xl border border-brand-inputborder focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-blue-100 transition-all text-gray-800 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
+                            </div>
+
+                            <!-- Imagem da Empresa -->
+                            <div>
+                                <label for="formFile" class="block text-[0.85rem] font-medium text-gray-700 mb-1 ml-1">Imagem da Empresa</label>
+                                <input type="file" id="formFile" name="foto_logo"
+                                    class="w-full px-3 py-2 rounded-xl border border-brand-inputborder focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-blue-100 transition-all text-gray-800 shadow-[0_2px_10px_rgba(0,0,0,0.02)] file:mr-3 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-[0.75rem] file:font-bold file:bg-blue-50 file:text-brand-blue hover:file:bg-blue-100 bg-white">
+                            </div>
+                        </div>
+
+                        <!-- Exibir mensagem de erro se houver -->
+                        <?php if (isset($erro) && !empty($erro)): ?>
+                            <div class="bg-red-50 border border-red-300 text-red-600 px-4 py-3 rounded-xl text-sm text-center font-medium shadow-sm mt-2" role="alert">
+                                <?php echo htmlspecialchars($erro); ?>
+                            </div>
+                        <?php endif ?>
+
+                        <!-- Botão Fazer Cadastro -->
+                        <button type="submit" id="botao"
+                            class="w-full bg-brand-yellow text-gray-900 font-bold text-lg py-3 rounded-xl hover:bg-[#eacc00] hover:shadow-md transform hover:-translate-y-[1px] transition-all mt-4">
+                            Fazer Cadastro
+                        </button>
+
+                        <!-- Link Login -->
+                        <div class="text-center mt-2">
+                            <p class="text-sm font-medium text-gray-800">
+                                Já tem uma conta?
+                                <a id="cadastro" href="<?= BASE_URL ?>/routes.php?action=loginEmpresa" class="text-brand-link font-bold hover:underline">Faça login</a>
+                            </p>
                         </div>
                     </form>
 
-                    <!-- Exibir mensagem de erro se houver -->
-                    <?php if (isset($erro) && !empty($erro)): ?>
-                        <p class="error-message" style="color: red; margin-top: 15px;"><?php echo htmlspecialchars($erro); ?></p>
-                    <?php endif ?>
-
                 </div>
-            </center>
+            </div>
         </div>
     </div>
 
-    <footer class="footer bg-dark text-white text-center">
-        <div class="container p-3">
-            <p>&copy; 2024 TCC GUIAR. Todos os direitos reservados.</p>
-            <ul class="list-unstyled">
-                <li><a href="#" class="text-white">Política de Privacidade</a></li>
-                <li><a href="#" class="text-white">Termos de Serviço</a></li>
-            </ul>
+    <!-- RODAPÉ -->
+    <footer class="w-full bg-brand-blue px-6 py-4 mt-auto border-t border-white/10 shadow-inner z-50">
+        <div class="w-full flex flex-col md:flex-row items-center justify-between text-[0.85rem] text-white/80">
+            <p class="mb-2 md:mb-0">&copy; <?= date('Y') ?> GUIAR. Todos os direitos reservados.</p>
+            <div class="flex space-x-4 font-medium">
+                <a href="#" class="hover:text-brand-yellow transition-colors">Política de Privacidade</a>
+                <a href="#" class="hover:text-brand-yellow transition-colors">Termos de Serviço</a>
+            </div>
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+    <script>
+        // Toggle do menu mobile
+        const btn = document.getElementById('nav-toggle');
+        const menu = document.getElementById('nav-menu');
+        if (btn && menu) {
+            btn.addEventListener('click', () => {
+                menu.classList.toggle('hidden');
+                menu.classList.toggle('flex');
+            });
+        }
+    </script>
 </body>
 
 </html>
