@@ -142,11 +142,11 @@
       if (count($administradores) > 0) {
         foreach ($administradores as $row) {
           // Caminho da imagem ajustado para a rota correta onde as imagens foram salvas
-          $imagem_path = "<?= BASE_URL ?>/public/uploads/" . htmlspecialchars($nome_empresa) . "/" . htmlspecialchars($row["nome_foto"]);
+          $imagem_path = BASE_URL . "/public/uploads/empresas/" . htmlspecialchars($nome_empresa) . "/" . htmlspecialchars($row["nome_foto"]);
       ?>
           <div class="col-md-4">
             <div class="card">
-              <img src="<?php echo $imagem_path; ?>" class="card-img-top" alt="Foto do Administrador" style="width: 100%; height: 300px; object-fit: cover;">
+              <img src="<?php echo $imagem_path; ?>" class="card-img-top" alt="Foto do Administrador <?php echo htmlspecialchars($row["nome_usuario"]); ?>" style="width: 100%; height: 300px; object-fit: cover;">
               <div class="card-body">
                 <center>
                   <h5 class="card-title"><?php echo htmlspecialchars($row["nome_adm"]); ?></h5>

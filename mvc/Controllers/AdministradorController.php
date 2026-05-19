@@ -1,19 +1,23 @@
 <?php
+
 namespace mvc\Controllers;
 
 use mvc\Models\Administrador;
 use mvc\Models\Empresa;
 
-class AdministradorController {
+class AdministradorController
+{
     private $administradorModel;
     private $empresaModel;
 
-    public function __construct($pdo) {
+    public function __construct($pdo)
+    {
         $this->administradorModel = new Administrador($pdo);
         $this->empresaModel = new Empresa($pdo);
     }
 
-    public function escolher() {
+    public function escolher()
+    {
         if (!isset($_SESSION['company_id'])) {
             header("Location: " . BASE_URL . "/routes.php?action=loginEmpresa");
             exit;
@@ -21,7 +25,7 @@ class AdministradorController {
 
         $company_id = $_SESSION['company_id'];
         $empresa = $this->empresaModel->getById($company_id);
-        
+
         if (!$empresa) {
             header("Location: " . BASE_URL . "/routes.php?action=loginEmpresa");
             exit;
@@ -35,7 +39,8 @@ class AdministradorController {
         require_once __DIR__ . '/../Views/Administrador/escolher.php';
     }
 
-    public function adicionar() {
+    public function adicionar()
+    {
         if (!isset($_SESSION['company_id'])) {
             header("Location: " . BASE_URL . "/routes.php?action=loginEmpresa");
             exit;
@@ -44,7 +49,7 @@ class AdministradorController {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $company_id = $_SESSION['company_id'];
             $empresa = $this->empresaModel->getById($company_id);
-            
+
             if (!$empresa) {
                 header("Location: " . BASE_URL . "/routes.php?action=loginEmpresa");
                 exit;
@@ -54,19 +59,19 @@ class AdministradorController {
             $nome_adm = $_POST['adminNome'] ?? '';
             $nome_usuario = $_POST['adminUsername'] ?? '';
             $senha = $_POST['adminPassword'] ?? '';
-            
+
             // Diretório legado original: 'admin_fotos/' . $nome_empresa . '/'
             // Para manter compatibilidade com a view antiga (até que as views sejam totalmente atualizadas para public/uploads)
-            // vamos usar public/uploads/admins/$nome_empresa/
-            $diretorioDestino = __DIR__ . '/../../public/uploads/admins/' . $nome_empresa . '/';
+            // vamos usar public/uploads/empresas/$nome_empresa/
+            $diretorioDestino = __DIR__ . '/../../public/uploads/empresas/' . $nome_empresa . '/';
 
             // Também vamos manter na pasta antiga por segurança caso algo de fora dependa dela, mas o ideal é concentrar em public.
             // Para refatoração limpa, vamos salvar no diretório raiz do projeto "admin_fotos/..." ou public/uploads
-            // Vamos adotar "public/uploads/admins/..." para centralização.
-            
+            // Vamos adotar "public/uploads/empresas/..." para centralização.
+
             // Replicando o comportamento antigo que salva na raiz do site em admin_fotos/
-            $diretorioDestinoLegado = __DIR__ . '/../../PHP ADM/admin_fotos/' . $nome_empresa . '/';
-            
+            $diretorioDestinoLegado = __DIR__ . '/../../public/uploads/empresas/' . $nome_empresa . '/';
+
             if (!is_dir($diretorioDestinoLegado)) {
                 mkdir($diretorioDestinoLegado, 0777, true);
             }
@@ -76,9 +81,9 @@ class AdministradorController {
                 $fotoNome = basename($_FILES['adminFoto']['name']);
                 $extensaoArquivo = pathinfo($fotoNome, PATHINFO_EXTENSION);
                 $fotoNomeUnico = uniqid() . '.' . $extensaoArquivo;
-                
+
                 $fotoDestino = $diretorioDestinoLegado . $fotoNomeUnico;
-                
+
                 if (!move_uploaded_file($_FILES['adminFoto']['tmp_name'], $fotoDestino)) {
                     $fotoNomeUnico = ''; // Falha ao mover
                 }
@@ -109,7 +114,8 @@ class AdministradorController {
         }
     }
 
-    public function login() {
+    public function login()
+    {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $adminUsername = $_POST['adminUsername'] ?? '';
             $adminPassword = $_POST['adminPassword'] ?? '';
@@ -127,16 +133,18 @@ class AdministradorController {
         }
     }
 
-    public function logout() {
+    public function logout()
+    {
         // Apenas remove a sessão do administrador
         unset($_SESSION['nome_usuario']);
         unset($_SESSION['id_adm']);
-        
+
         header("Location: " . BASE_URL . "/routes.php?action=escolherAdm");
         exit();
     }
 
-    public function dashboard() {
+    public function dashboard()
+    {
         if (!isset($_SESSION['company_id'])) {
             header("Location: " . BASE_URL . "/routes.php?action=loginEmpresa");
             exit;
@@ -148,7 +156,7 @@ class AdministradorController {
         }
 
         $nomeAdmin = $_SESSION['nome_usuario'];
-        
+
         require_once __DIR__ . '/../Views/Administrador/dashboard.php';
     }
 }

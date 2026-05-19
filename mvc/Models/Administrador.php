@@ -65,19 +65,4 @@ class Administrador
             return false;
         }
     }
-
-    public function getById($id)
-    {
-        try {
-            $sql = "SELECT * FROM administrador WHERE id_adm = :id";
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-            $stmt->execute();
-
-            return $stmt->fetch(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            error_log("Erro ao buscar administrador por ID: " . $e->getMessage());
-            return false;
-        }
-    }
 }
