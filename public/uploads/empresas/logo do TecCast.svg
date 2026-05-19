@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   sodipodi:docname="logo do TecCast.svg"
+   inkscape:export-filename="logo do TecCast.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.65134574"
+     inkscape:cx="336.9946"
+     inkscape:cy="557.30771"
+     inkscape:window-width="1366"
+     inkscape:window-height="697"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <inkscape:path-effect
+       effect="envelope"
+       id="path-effect209"
+       is_visible="true"
+       lpeversion="1"
+       yy="true"
+       xx="false"
+       bendpath1="M 66.117925,102.47495 H 131.37397"
+       bendpath2="m 131.37397,102.47495 v 11.11079"
+       bendpath3="M 66.117925,113.58574 H 131.37397"
+       bendpath4="m 66.117925,102.47495 v 11.11079" />
+    <inkscape:path-effect
+       effect="lattice2"
+       gridpoint0="66.117925,102.47495"
+       gridpoint1="131.36953,102.47495"
+       gridpoint2="66.117925,113.58574"
+       gridpoint3="131.36953,113.58574"
+       gridpoint4="82.430826,102.47495"
+       gridpoint5="115.05663,102.47495"
+       gridpoint6="82.430826,113.58574"
+       gridpoint7="115.05663,113.58574"
+       gridpoint8x9="98.743728,102.47495"
+       gridpoint10x11="98.743728,113.58574"
+       gridpoint12="66.117925,105.25265"
+       gridpoint13="131.36953,105.25265"
+       gridpoint14="66.117925,110.80804"
+       gridpoint15="131.36953,110.80804"
+       gridpoint16="82.430826,105.25265"
+       gridpoint17="115.05663,105.25265"
+       gridpoint18="82.430826,110.80804"
+       gridpoint19="115.05663,110.80804"
+       gridpoint20x21="98.743728,105.25265"
+       gridpoint22x23="98.743728,110.80804"
+       gridpoint24x26="66.117925,108.03034"
+       gridpoint25x27="131.36953,108.03034"
+       gridpoint28x30="82.430826,108.03034"
+       gridpoint29x31="115.05663,108.03034"
+       gridpoint32x33x34x35="98.743728,108.03034"
+       id="path-effect207"
+       is_visible="true"
+       lpeversion="1"
+       horizontal_mirror="true"
+       vertical_mirror="true"
+       perimetral="true"
+       live_update="true" />
+  </defs>
+  <g
+     inkscape:label="Camada 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <ellipse
+       style="fill:#ffff00;stroke-width:0.283505"
+       id="path111"
+       cx="110.67155"
+       cy="140.73192"
+       rx="67.840446"
+       ry="66.968216" />
+    <ellipse
+       style="fill:#000000;stroke-width:0.590912"
+       id="path225"
+       cx="110.61306"
+       cy="140.67398"
+       rx="64.304245"
+       ry="62.716488" />
+    <path
+       id="path745"
+       style="fill:#ffff00;stroke-width:0.438105"
+       d="m 74.261009,125.79769 a 39.332331,39.332331 0 0 1 51.286811,-21.53426 39.332331,39.332331 0 0 1 21.53426,51.28684 39.332331,39.332331 0 0 1 -51.286831,21.53425 39.332331,39.332331 0 0 1 -21.53424,-51.28683 z" />
+    <path
+       id="path385"
+       style="fill:#ffff00;stroke-width:0.321635"
+       inkscape:transform-center-x="-15.747738"
+       inkscape:transform-center-y="-23.701839"
+       d="m 98.771176,170.75373 -13.715969,2.75729 -13.715977,2.75732 4.21622,-13.88419 4.216224,-13.88415 9.499753,11.12685 z" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.5778px;font-family:'Agency FB';-inkscape-font-specification:'Agency FB, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;stroke-width:0.264583"
+       id="text473"
+       transform="matrix(1.0844449,0.03153995,-0.02999985,1.0314914,-5.3587352,-11.004995)"><textPath
+         xlink:href="#path745"
+         id="textPath475"><tspan
+           id="tspan471"
+           style="stroke-width:0.264583">comunicatec</tspan></textPath></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.5778px;font-family:'Agency FB';-inkscape-font-specification:'Agency FB, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;stroke-width:0.264583"
+       id="text480"
+       transform="rotate(-177.51247,111.54341,142.10015)"><textPath
+         xlink:href="#path745"
+         id="textPath482"><tspan
+           id="tspan478"
+           style="stroke-width:0.264583">TecCast</tspan></textPath></text>
+  </g>
+</svg>
