@@ -1,0 +1,71 @@
+  @font-face {
+            font-family: 'Brice-Bold';
+            src: url('../fonts/Brice-BoldSemiCondensed.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'BasisGrotesque-Regular';
+            src: url('../fonts/BasisGrotesqueArabicPro-Regular.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'Brice-SemiBoldSemi';
+            src: url('../fonts/Brice-SemiBoldSemiCondensed.ttf') format('truetype');
+        }
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body{
+            background-color: #fefaf1 !important;
+            font-family: 'BasisGrotesque-Regular';
+        }
+
+        .formulario {
+            width: 50%;
+            padding: 7%;
+            margin: 5%;
+        }
+
+        .formulario h2{
+      font-family: 'Brice-SemiBoldSemi';
+    }
+
+    #form {
+      border-top: 3px solid #fc8835 !important;
+      border: 1px black;
+      border-radius: 5px;
+      box-shadow: 1px 1px 10px -5px black !important;
+    }
+
+    #botao {
+      width: 70%;
+      background-color: #fc8835;
+      border: 0px solid;
+      letter-spacing: 1px;
+      transition: 0.5s;
+    }
+
+    #botao:hover {
+      transform: scale(1.05);
+      border-bottom-right-radius: 0px;
+      border-top-left-radius: 0px;
+    }
+
+    #cadastro {
+      color: #ff9a52;
+    }
+
+    .error-message {
+      color: red;
+      font-weight: bold;
+    }
+
+    @media (max-width: 880px) {
+    .formulario {
+      width: 70%;
+    }
+    }

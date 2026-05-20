@@ -324,6 +324,64 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #ff7b00;
         }
+
+        /* Responsividade para Dispositivos Móveis */
+        @media (max-width: 768px) {
+            .sidebar {
+                position: relative !important;
+                height: auto !important;
+                width: 100% !important;
+                flex-direction: row !important;
+                flex-wrap: wrap !important;
+                padding: 10px !important;
+                justify-content: center !important;
+            }
+            .sidebar a {
+                padding: 8px 12px !important;
+                font-size: 14px !important;
+            }
+            .sidebar .spacer {
+                display: none !important;
+            }
+            .logout-btn {
+                position: static !important;
+                display: block !important;
+                margin: 10px auto !important;
+                text-align: center !important;
+                width: fit-content !important;
+            }
+            .main {
+                margin-left: 0 !important;
+                padding: 15px !important;
+                height: auto !important;
+                min-height: 100vh !important;
+            }
+            .page-header {
+                flex-direction: column !important;
+                align-items: center !important;
+                text-align: center !important;
+            }
+            .page-title h1 {
+                font-size: 24px !important;
+            }
+            .tracking-container {
+                flex-direction: column !important;
+                height: auto !important;
+                min-height: 0 !important;
+                gap: 15px !important;
+            }
+            #map {
+                height: 400px !important;
+                width: 100% !important;
+                min-height: 350px !important;
+                flex: none !important;
+            }
+            .tracking-sidebar {
+                width: 100% !important;
+                height: 450px !important;
+                flex: none !important;
+            }
+        }
     </style>
 </head>
 

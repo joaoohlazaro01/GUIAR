@@ -1,0 +1,74 @@
+    @font-face {
+            font-family: 'Brice-Bold';
+            src: url('fonts/Brice-BoldSemiCondensed.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'BasisGrotesque-Regular';
+            src: url('fonts/BasisGrotesqueArabicPro-Regular.ttf') format('truetype');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #fefaf1 !important;
+            font-family: 'BasisGrotesque-Regular';
+        }
+
+        .contact-container {
+            padding: 40px;
+        }
+
+        .contact-form h2 {
+            font-family: 'Brice-Bold';
+            margin-bottom: 20px;
+            font-size: 50px;
+            -webkit-text-stroke-width: 1.5px;
+            -webkit-text-stroke-color: #131646;
+            -webkit-text-fill-color: #ff9a52;
+        }
+
+        .contact-form textarea {
+            resize: none; /* Impede redimensionamento do textarea */
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px; /* Espaçamento entre os ícones */
+            align-items: center; /* Alinha os ícones verticalmente */
+        }
+
+        .social-icons img, .social-icons i {
+            width: 30px; /* Tamanho dos ícones */
+            height: auto; /* Mantém a proporção do ícone */
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+        }
+        
+        .submit-container {
+            display: flex;
+            justify-content: space-between; /* Espaça os elementos dentro do container */
+            align-items: center; /* Alinha verticalmente os itens */
+            margin-top: 20px; /* Margem superior para separar do campo anterior */
+        }
+        
+        #botao {
+            width: 25%;
+            background-color: #fc8835;
+            border: 0px solid;
+            letter-spacing: 1px;
+            transition: 0.5s;
+        }
+
+        #botao:hover {
+            transform: scale(1.05);
+            border-bottom-right-radius: 0px;
+            border-top-left-radius: 0px;
+        }
