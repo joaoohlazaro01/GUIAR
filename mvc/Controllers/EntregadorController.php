@@ -136,7 +136,8 @@ class EntregadorController
             session_start();
         }
 
-        if (isset($_SESSION['entregador_id'])) {
+        if (isset($_SESSION['entregador_id']) && !empty($_SESSION['entregador_id'])) {
+            header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
             header("Location: " . BASE_URL . "/routes.php?action=mapaEntregador");
             exit;
         }
@@ -149,6 +150,8 @@ class EntregadorController
 
             if ($user) {
                 $_SESSION['entregador_id'] = $user['id_entregador'];
+                session_write_close();
+                header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
                 header("Location: " . BASE_URL . "/routes.php?action=mapaEntregador");
                 exit;
             } else {
@@ -157,7 +160,7 @@ class EntregadorController
             }
         }
 
-        require_once __DIR__ . '/../Views/entregador/login.php';
+        require_once __DIR__ . '/../Views/Entregador/login.php';
     }
 
     public function logout()
@@ -165,7 +168,11 @@ class EntregadorController
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
+        $_SESSION['entregador_id'] = null;
         unset($_SESSION['entregador_id']);
+        session_write_close();
+        
+        header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
         header("Location: " . BASE_URL . "/routes.php?action=loginEntregador");
         exit;
     }
