@@ -9,11 +9,15 @@ class AdministradorController
 {
     private $administradorModel;
     private $empresaModel;
+    private $entregadorModel;
+    private $pdo;
 
     public function __construct($pdo)
     {
+        $this->pdo = $pdo;
         $this->administradorModel = new Administrador($pdo);
         $this->empresaModel = new Empresa($pdo);
+        $this->entregadorModel = new \mvc\Models\Entregador($pdo);
     }
 
     public function escolher()
@@ -158,5 +162,56 @@ class AdministradorController
         $nomeAdmin = $_SESSION['nome_usuario'];
 
         require_once __DIR__ . '/../Views/Administrador/dashboard.php';
+    }
+
+    public function mapa()
+    {
+        if (!isset($_SESSION['company_id'])) {
+            header("Location: " . BASE_URL . "/routes.php?action=loginEmpresa");
+            exit;
+        }
+
+        if (!isset($_SESSION['nome_usuario'])) {
+            header("Location: " . BASE_URL . "/routes.php?action=escolherAdm&erro=" . urlencode("Administrador não identificado"));
+            exit;
+        }
+
+        $nomeAdmin = $_SESSION['nome_usuario'];
+
+        require_once __DIR__ . '/../Views/Administrador/mapa.php';
+    }
+
+    public function apiAcompanharEntregadores()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if (!isset($_SESSION['company_id'])) {
+            header('Content-Type: application/json');
+            echo json_encode(['success' => false, 'error' => 'Não autenticado']);
+            exit;
+        }
+
+        $company_id = $_SESSION['company_id'];
+
+        $entregadores = $this->entregadorModel->getAllByEmpresa($company_id);
+        $pedidoModel = new \mvc\Models\Pedido($this->pdo);
+
+        $dados = [];
+        foreach ($entregadores as $e) {
+            $pedidos = $pedidoModel->getAllByEntregador($e['id_entregador']);
+            $dados[] = [
+                'id_entregador' => $e['id_entregador'],
+                'nome_completo' => $e['nome_completo'],
+                'latitude' => $e['latitude'],
+                'longitude' => $e['longitude'],
+                'pedidos' => $pedidos
+            ];
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode($dados);
+        exit;
     }
 }

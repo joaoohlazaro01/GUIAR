@@ -17,7 +17,7 @@ class Entregador
     public function getAllByEmpresa($company_id)
     {
         try {
-            $sql = "SELECT id_entregador, nome_completo, CPF, telefone, email, nome_foto3x4 AS foto_3x4, nome_cnh AS foto_CNH 
+            $sql = "SELECT id_entregador, nome_completo, CPF, telefone, email, nome_foto3x4 AS foto_3x4, nome_cnh AS foto_CNH, latitude, longitude 
                     FROM entregador 
                     WHERE FK_EMPRESA_id_empresa = :company_id";
             $stmt = $this->pdo->prepare($sql);
@@ -103,6 +103,21 @@ class Entregador
             return false;
         } catch (\PDOException $e) {
             error_log("Erro ao realizar login do entregador: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function updateLocation($id, $latitude, $longitude)
+    {
+        try {
+            $sql = "UPDATE entregador SET latitude = :latitude, longitude = :longitude WHERE id_entregador = :id";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':latitude', $latitude);
+            $stmt->bindParam(':longitude', $longitude);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            error_log("Erro ao atualizar localização do entregador: " . $e->getMessage());
             return false;
         }
     }

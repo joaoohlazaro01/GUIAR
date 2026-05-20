@@ -223,7 +223,7 @@
                             <!-- CNPJ -->
                             <div>
                                 <label for="inputCity" class="block text-[0.85rem] font-medium text-gray-700 mb-1 ml-1">CNPJ</label>
-                                <input type="text" id="inputCity" name="cnpj" required pattern="\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}" title="Digite um CNPJ válido" oninput="validateCNPJInput(event)"
+                                <input type="text" id="inputCity" name="cnpj" required minlength="18" maxlength="18" pattern="\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}" title="Digite um CNPJ válido" oninput="validateCNPJInput(event)"
                                     class="w-full px-4 py-2.5 rounded-xl border border-brand-inputborder focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-blue-100 transition-all text-gray-800 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
                             </div>
 

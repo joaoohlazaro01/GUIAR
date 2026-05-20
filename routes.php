@@ -29,6 +29,9 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
 $action = $_GET['action'] ?? 'home';
 
 switch ($action) {
+    case 'index':
+        header("Location: " . BASE_URL . "/index.html");
+        break;
     case 'loginEmpresa':
         $controller = new \mvc\Controllers\EmpresaController($pdo);
         $controller->login();
@@ -73,6 +76,16 @@ switch ($action) {
     case 'dashboardAdm':
         $controller = new \mvc\Controllers\AdministradorController($pdo);
         $controller->dashboard();
+        break;
+
+    case 'mapaAdm':
+        $controller = new \mvc\Controllers\AdministradorController($pdo);
+        $controller->mapa();
+        break;
+
+    case 'apiAcompanharEntregadores':
+        $controller = new \mvc\Controllers\AdministradorController($pdo);
+        $controller->apiAcompanharEntregadores();
         break;
 
     case 'pedidos':

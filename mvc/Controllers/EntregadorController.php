@@ -196,9 +196,19 @@ class EntregadorController
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Apenas retorna success = true por enquanto, pois as colunas de 
-            // latitude e longitude não existem na tabela entregador
-            echo json_encode(['success' => true]);
+            $data = json_decode(file_get_contents("php://input"), true);
+            $latitude = $data['latitude'] ?? null;
+            $longitude = $data['longitude'] ?? null;
+
+            if ($latitude !== null && $longitude !== null) {
+                if ($this->entregadorModel->updateLocation($_SESSION['entregador_id'], $latitude, $longitude)) {
+                    echo json_encode(['success' => true]);
+                } else {
+                    echo json_encode(['success' => false, 'error' => 'Erro ao salvar no banco']);
+                }
+            } else {
+                echo json_encode(['success' => false, 'error' => 'Dados de localização incompletos']);
+            }
             exit;
         }
     }

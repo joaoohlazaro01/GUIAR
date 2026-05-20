@@ -16,6 +16,7 @@
         <a href="<?= BASE_URL ?>/routes.php?action=pedidos">Pedidos</a>
         <a href="<?= BASE_URL ?>/routes.php?action=entregadores">Entregadores</a>
         <a href="<?= BASE_URL ?>/routes.php?action=pedidosEntregues">Pedidos Entregues</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=mapaAdm">Acompanhar Rotas</a>
         <div class="spacer"></div>
         <a href="<?= BASE_URL ?>/routes.php?action=perfilAdm">Meu perfil</a>
     </div>
