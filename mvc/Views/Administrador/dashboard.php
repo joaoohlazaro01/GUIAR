@@ -22,7 +22,7 @@
     </div>
 
     <!-- Botão de logout (do Administrador) -->
-    <a href="<?= BASE_URL ?>/routes.php?action=sair" class="logout-btn">Logout</a>
+    <a href="<?= BASE_URL ?>/routes.php?action=logoutAdm" class="logout-btn">Logout</a>
 
     <div class="main">
         <h1>Olá, <spam><?php echo htmlspecialchars($nomeAdmin) . "!"; ?></spam></h1>

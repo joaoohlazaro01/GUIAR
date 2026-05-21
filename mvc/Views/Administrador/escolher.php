@@ -127,7 +127,7 @@
 
 <body>
   <!-- Botão de logout (da Empresa) -->
-  <a href="<?= BASE_URL ?>/routes.php?action=loginEmpresa" class="logout-btn" onclick="return confirm('Deseja sair da conta da empresa?');">Voltar ao Login (Sair)</a>
+  <a href="<?= BASE_URL ?>/routes.php?action=logoutEmpresa" class="logout-btn" onclick="return confirm('Deseja sair da conta da empresa?');">Voltar ao Login (Sair)</a>
 
   <div class="container">
     <h1>Administradores da Empresa: <spam><?php echo htmlspecialchars($nome_empresa); ?></spam>

@@ -1,5 +1,9 @@
 <?php
 session_start();
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
 
 spl_autoload_register(function ($class_name) {
     $prefix = 'mvc\\';
@@ -37,6 +41,11 @@ switch ($action) {
         $controller->login();
         break;
 
+    case 'logoutEmpresa':
+        $controller = new \mvc\Controllers\EmpresaController($pdo);
+        $controller->logout();
+        break;
+
     case 'cadastroEmpresa':
         $controller = new \mvc\Controllers\EmpresaController($pdo);
         $controller->cadastro();
@@ -68,6 +77,7 @@ switch ($action) {
         $controller->login();
         break;
 
+    case 'sair':
     case 'logoutAdm':
         $controller = new \mvc\Controllers\AdministradorController($pdo);
         $controller->logout();

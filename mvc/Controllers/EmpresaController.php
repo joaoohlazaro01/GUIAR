@@ -297,4 +297,28 @@ class EmpresaController
             require_once __DIR__ . '/../Views/Empresa/verificarCodigo.php';
         }
     }
+
+    public function logout()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        // Limpa todas as variáveis da sessão
+        $_SESSION = [];
+
+        // Exclui o cookie de sessão do navegador
+        if (ini_get("session.use_cookies")) {
+            $params = session_get_cookie_params();
+            setcookie(session_name(), '', time() - 42000,
+                $params["path"], $params["domain"],
+                $params["secure"], $params["httponly"]
+            );
+        }
+
+        // Destrói a sessão no servidor
+        session_destroy();
+
+        header("Location: " . BASE_URL . "/routes.php?action=loginEmpresa");
+        exit();
+    }
 }
