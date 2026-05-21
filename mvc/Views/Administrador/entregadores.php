@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard dos Motoboys</title>
-    <link rel="stylesheet" href="<?= BASE_URL ?>/CSSadm/entregadores.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/style/entregadores.css">
     <link rel="shortcut icon" type="image/png" href="<?= BASE_URL ?>/src/G.png">
     <style>
         @font-face {

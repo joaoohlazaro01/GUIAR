@@ -6,11 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciamento de Pedidos</title>
     <!-- Considerando que este arquivo está rodando a partir do routes.php, a base é definida pela constante BASE_URL -->
-    <link rel="stylesheet" href="<?= BASE_URL ?>/CSSadm/pedidos.css"> 
-    <link
-    rel="Shortcut Icon" 
-    type="image/png"
-    href="<?= BASE_URL ?>/img/G.png">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/style/pedidos.css">
+    <link rel="shortcut icon" type="image/png" href="<?= BASE_URL ?>/img/G.png">
     <style>
         @font-face {
             font-family: 'Brice-Bold';
@@ -27,16 +24,17 @@
             src: url('<?= BASE_URL ?>/fonts/Brice-SemiBoldSemiCondensed.ttf');
         }
 
-        *{
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body{
+        body {
             background-color: #fefaf1 !important;
             font-family: 'BasisGrotesque-Regular';
         }
+
         /* cards */
         .card {
             position: relative;
@@ -146,8 +144,8 @@
             display: none;
         }
 
-         /* Estilo para posicionar o botão no canto superior direito */
-         .logout-btn {
+        /* Estilo para posicionar o botão no canto superior direito */
+        .logout-btn {
             position: absolute;
             top: 20px;
             right: 20px;
@@ -162,17 +160,17 @@
 
         .logout-btn:hover {
             background-color: #ff7b00;
-      transform: scale(1.05);
-      border-bottom-right-radius: 0px;
-      border-top-left-radius: 0px;
+            transform: scale(1.05);
+            border-bottom-right-radius: 0px;
+            border-top-left-radius: 0px;
         }
     </style>
 </head>
 
 <body>
 
-    
-<div class="sidebar">
+
+    <div class="sidebar">
         <a href="<?= BASE_URL ?>/routes.php?action=dashboardAdm">Início</a>
         <a href="<?= BASE_URL ?>/routes.php?action=pedidos">Pedidos</a>
         <a href="<?= BASE_URL ?>/routes.php?action=entregadores">Entregadores</a>
@@ -182,8 +180,8 @@
         <a href="<?= BASE_URL ?>/routes.php?action=perfilAdm">Meu perfil</a>
     </div>
 
-      <!-- Botão de logout -->
-      <a href="<?= BASE_URL ?>/routes.php?action=logoutAdm" class="logout-btn">Logout</a>
+    <!-- Botão de logout -->
+    <a href="<?= BASE_URL ?>/routes.php?action=logoutAdm" class="logout-btn">Logout</a>
 
     <div class="main">
         <form id="sendOrdersForm" method="POST" action="<?= BASE_URL ?>/routes.php?action=enviarPedidos">
@@ -242,8 +240,8 @@
                     <input type="number" id="preco" name="preco" step="0.01" required>
                 </div>
                 <div class="form-group">
-               <label for="cep">CEP:</label>
-               <input type="text" id="cep" name="cep" maxlength="9" placeholder="00000-000" required>
+                    <label for="cep">CEP:</label>
+                    <input type="text" id="cep" name="cep" maxlength="9" placeholder="00000-000" required>
                 </div>
                 <div class="form-group">
                     <label for="endereco">Endereço:</label>
@@ -254,7 +252,7 @@
                     <input type="text" id="bairro" name="bairro" required>
                 </div>
                 <input type="hidden" id="cidade" name="cidade">
-               <input type="hidden" id="estado" name="estado">
+                <input type="hidden" id="estado" name="estado">
 
                 <div class="form-group">
                     <label for="descricao">Descrição:</label>
@@ -289,7 +287,7 @@
                         echo "<p>Nenhum entregador encontrado</p>";
                     }
                     ?>
-                    </div>
+                </div>
 
                 <input type="hidden" id="selected_pedido_ids" name="pedido_ids">
                 <button type="submit">Enviar Pedidos</button>
@@ -297,51 +295,51 @@
         </div>
     </div>
 
-  <!-- Modal de Edição de Pedido -->
-<div id="editOrderModal" class="modal">
-    <div class="modal-content">
-        <span class="close" id="closeEditOrderModal">&times;</span>
-        <h2>Editar Pedido</h2>
-        <form id="editOrderForm" method="POST" action="<?= BASE_URL ?>/routes.php?action=editarPedido">
-            <input type="hidden" id="edit_id_pedido" name="id_pedido">
-            <div class="form-group">
-                <label for="edit_nome_cliente">Nome do Cliente:</label>
-                <input type="text" id="edit_nome_cliente" name="nome_cliente" required>
-            </div>
-            <div class="form-group">
-                <label for="edit_preco">Preço:</label>
-                <input type="number" id="edit_preco" name="preco" step="0.01" required>
-            </div>
-            <div class="form-group">
-    <label for="edit_cep">CEP:</label>
-    <input type="text" id="edit_cep" name="cep" maxlength="9" placeholder="00000-000">
-</div>
-            <div class="form-group">
-                <label for="edit_endereco">Endereço:</label>
-                <input type="text" id="edit_endereco" name="endereco" required>
-            </div>
-            <div class="form-group">
-                <label for="edit_bairro">Bairro:</label>
-                <input type="text" id="edit_bairro" name="bairro" required>
-            </div>
-            <input type="hidden" id="edit_cidade" name="cidade">
-            <input type="hidden" id="edit_estado" name="estado">
+    <!-- Modal de Edição de Pedido -->
+    <div id="editOrderModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeEditOrderModal">&times;</span>
+            <h2>Editar Pedido</h2>
+            <form id="editOrderForm" method="POST" action="<?= BASE_URL ?>/routes.php?action=editarPedido">
+                <input type="hidden" id="edit_id_pedido" name="id_pedido">
+                <div class="form-group">
+                    <label for="edit_nome_cliente">Nome do Cliente:</label>
+                    <input type="text" id="edit_nome_cliente" name="nome_cliente" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit_preco">Preço:</label>
+                    <input type="number" id="edit_preco" name="preco" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit_cep">CEP:</label>
+                    <input type="text" id="edit_cep" name="cep" maxlength="9" placeholder="00000-000">
+                </div>
+                <div class="form-group">
+                    <label for="edit_endereco">Endereço:</label>
+                    <input type="text" id="edit_endereco" name="endereco" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit_bairro">Bairro:</label>
+                    <input type="text" id="edit_bairro" name="bairro" required>
+                </div>
+                <input type="hidden" id="edit_cidade" name="cidade">
+                <input type="hidden" id="edit_estado" name="estado">
 
-            <div class="form-group">
-                <label for="edit_descricao">Descrição:</label>
-                <textarea id="edit_descricao" name="descricao" required></textarea>
-            </div>
-            <input type="hidden" id="edit_latitude" name="latitude">
-            <input type="hidden" id="edit_longitude" name="longitude">
+                <div class="form-group">
+                    <label for="edit_descricao">Descrição:</label>
+                    <textarea id="edit_descricao" name="descricao" required></textarea>
+                </div>
+                <input type="hidden" id="edit_latitude" name="latitude">
+                <input type="hidden" id="edit_longitude" name="longitude">
 
-            <div class="form-group">
-            <button type="button" onclick="geocodeAddressEdit()">Salvar Alterações</button>
-            </div>
-        </form>
+                <div class="form-group">
+                    <button type="button" onclick="geocodeAddressEdit()">Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-   
+
     <!-- Modal de Exclusão -->
     <div id="deleteOrderModal" class="modal">
         <div class="modal-content">
@@ -357,23 +355,23 @@
             </form>
         </div>
     </div>
-</div>  
+    </div>
 
-    
 
-<script>
-// Função para abrir o modal de novo pedido
-document.getElementById('openNewOrderModal').addEventListener('click', function() {
-    document.getElementById('newOrderModal').style.display = 'block';
-});
 
-// Função para fechar o modal de novo pedido
-document.getElementById('closeNewOrderModal').addEventListener('click', function() {
-    document.getElementById('newOrderModal').style.display = 'none';
-});
+    <script>
+        // Função para abrir o modal de novo pedido
+        document.getElementById('openNewOrderModal').addEventListener('click', function() {
+            document.getElementById('newOrderModal').style.display = 'block';
+        });
 
-// Função para abrir o modal de envio de pedidos
-document.getElementById('openSendOrdersModal').addEventListener('click', function() {
+        // Função para fechar o modal de novo pedido
+        document.getElementById('closeNewOrderModal').addEventListener('click', function() {
+            document.getElementById('newOrderModal').style.display = 'none';
+        });
+
+        // Função para abrir o modal de envio de pedidos
+        document.getElementById('openSendOrdersModal').addEventListener('click', function() {
             var selectedOrders = document.querySelectorAll('input[name="pedido_ids[]"]:checked');
             if (selectedOrders.length === 0) {
                 alert('Selecione pelo menos um pedido.');
@@ -388,164 +386,163 @@ document.getElementById('openSendOrdersModal').addEventListener('click', functio
             // Exibe o modal
             document.getElementById('sendOrdersModal').style.display = 'block';
         });
-// Função para fechar o modal de envio de pedidos
-document.getElementById('closeSendOrdersModal').addEventListener('click', function() {
-    document.getElementById('sendOrdersModal').style.display = 'none';
-});
+        // Função para fechar o modal de envio de pedidos
+        document.getElementById('closeSendOrdersModal').addEventListener('click', function() {
+            document.getElementById('sendOrdersModal').style.display = 'none';
+        });
 
-// Função para abrir o modal de edição e preencher os campos com os dados atuais
-document.querySelectorAll('.btn-edit').forEach(button => {
-    button.addEventListener('click', function() {
-        const pedidoId = this.getAttribute('data-id');
-        const card = this.closest('.card');
+        // Função para abrir o modal de edição e preencher os campos com os dados atuais
+        document.querySelectorAll('.btn-edit').forEach(button => {
+            button.addEventListener('click', function() {
+                const pedidoId = this.getAttribute('data-id');
+                const card = this.closest('.card');
 
-        const nomeCliente = card.querySelector('h3').innerText;
-        const preco = card.querySelector('p:nth-of-type(1)').innerText.replace('Preço: R$', '').trim();
-        const endereco = card.querySelector('p:nth-of-type(2)').innerText.replace('Endereço:', '').trim();
-        const bairro = card.querySelector('p:nth-of-type(3)').innerText.replace('Bairro:', '').trim();
-        const descricao = card.querySelector('p:nth-of-type(4)').innerText.replace('Descrição:', '').trim();
+                const nomeCliente = card.querySelector('h3').innerText;
+                const preco = card.querySelector('p:nth-of-type(1)').innerText.replace('Preço: R$', '').trim();
+                const endereco = card.querySelector('p:nth-of-type(2)').innerText.replace('Endereço:', '').trim();
+                const bairro = card.querySelector('p:nth-of-type(3)').innerText.replace('Bairro:', '').trim();
+                const descricao = card.querySelector('p:nth-of-type(4)').innerText.replace('Descrição:', '').trim();
 
-        document.getElementById('edit_id_pedido').value = pedidoId;
-        document.getElementById('edit_nome_cliente').value = nomeCliente;
-        document.getElementById('edit_preco').value = preco;
-        document.getElementById('edit_endereco').value = endereco;
-        document.getElementById('edit_bairro').value = bairro;
-        document.getElementById('edit_descricao').value = descricao;
+                document.getElementById('edit_id_pedido').value = pedidoId;
+                document.getElementById('edit_nome_cliente').value = nomeCliente;
+                document.getElementById('edit_preco').value = preco;
+                document.getElementById('edit_endereco').value = endereco;
+                document.getElementById('edit_bairro').value = bairro;
+                document.getElementById('edit_descricao').value = descricao;
 
-        document.getElementById('editOrderModal').style.display = 'block';
-    });
-});
+                document.getElementById('editOrderModal').style.display = 'block';
+            });
+        });
 
 
-// Função para fechar o modal de edição
-document.getElementById('closeEditOrderModal').addEventListener('click', function() {
-    document.getElementById('editOrderModal').style.display = 'none';
-});
+        // Função para fechar o modal de edição
+        document.getElementById('closeEditOrderModal').addEventListener('click', function() {
+            document.getElementById('editOrderModal').style.display = 'none';
+        });
 
-// Função para abrir o modal de exclusão
-document.querySelectorAll('.btn-delete').forEach(button => {
-    button.addEventListener('click', function() {
-        const pedidoId = this.getAttribute('data-id');
-        document.getElementById('delete_id_pedido').value = pedidoId;
-        document.getElementById('deleteOrderModal').style.display = 'block';
-    });
-});
+        // Função para abrir o modal de exclusão
+        document.querySelectorAll('.btn-delete').forEach(button => {
+            button.addEventListener('click', function() {
+                const pedidoId = this.getAttribute('data-id');
+                document.getElementById('delete_id_pedido').value = pedidoId;
+                document.getElementById('deleteOrderModal').style.display = 'block';
+            });
+        });
 
-// Função para fechar o modal de exclusão
-document.getElementById('closeDeleteOrderModal').addEventListener('click', function() {
-    document.getElementById('deleteOrderModal').style.display = 'none';
-});
+        // Função para fechar o modal de exclusão
+        document.getElementById('closeDeleteOrderModal').addEventListener('click', function() {
+            document.getElementById('deleteOrderModal').style.display = 'none';
+        });
 
-// Função para cancelar a exclusão
-document.getElementById('cancelDelete').addEventListener('click', function() {
-    document.getElementById('deleteOrderModal').style.display = 'none';
-});
+        // Função para cancelar a exclusão
+        document.getElementById('cancelDelete').addEventListener('click', function() {
+            document.getElementById('deleteOrderModal').style.display = 'none';
+        });
 
-// =============================
-// BUSCA CEP (ViaCEP)
-// =============================
-function buscarCEP(cepInputId, enderecoId, bairroId, cidadeId, estadoId) {
+        // =============================
+        // BUSCA CEP (ViaCEP)
+        // =============================
+        function buscarCEP(cepInputId, enderecoId, bairroId, cidadeId, estadoId) {
 
-    const input = document.getElementById(cepInputId);
-    if (!input) return;
+            const input = document.getElementById(cepInputId);
+            if (!input) return;
 
-    input.addEventListener("blur", function () {
+            input.addEventListener("blur", function() {
 
-        let cep = this.value.replace(/\D/g, '');
+                let cep = this.value.replace(/\D/g, '');
 
-        if (cep.length !== 8) {
-            alert("CEP inválido!");
-            return;
-        }
-
-        fetch(`https://viacep.com.br/ws/${cep}/json/`)
-            .then(response => response.json())
-            .then(data => {
-
-                if (data.erro) {
-                    alert("CEP não encontrado!");
+                if (cep.length !== 8) {
+                    alert("CEP inválido!");
                     return;
                 }
 
-                document.getElementById(enderecoId).value = data.logradouro;
-                document.getElementById(bairroId).value = data.bairro;
-                document.getElementById(cidadeId).value = data.localidade;
-                document.getElementById(estadoId).value = data.uf;
+                fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                    .then(response => response.json())
+                    .then(data => {
 
-            })
-            .catch(error => {
-                console.error("Erro ao buscar CEP:", error);
+                        if (data.erro) {
+                            alert("CEP não encontrado!");
+                            return;
+                        }
+
+                        document.getElementById(enderecoId).value = data.logradouro;
+                        document.getElementById(bairroId).value = data.bairro;
+                        document.getElementById(cidadeId).value = data.localidade;
+                        document.getElementById(estadoId).value = data.uf;
+
+                    })
+                    .catch(error => {
+                        console.error("Erro ao buscar CEP:", error);
+                    });
             });
-    });
-}
+        }
 
-// Aplicar nos dois modais
-buscarCEP("cep", "endereco", "bairro", "cidade", "estado");
-buscarCEP("edit_cep", "edit_endereco", "edit_bairro", "edit_cidade", "edit_estado");
-
-
-// =============================
-// GEOCODIFICAÇÃO PRECISA
-// =============================
-
-function geocodeAddress() {
-
-    var endereco = document.getElementById('endereco').value;
-    var bairro = document.getElementById('bairro').value;
-    var cidade = document.getElementById('cidade').value;
-    var estado = document.getElementById('estado').value;
-
-    var address = `${endereco}, ${bairro}, ${cidade}, ${estado}, Brasil`;
-
-    var url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address)}&format=json&addressdetails=1&limit=1`;
-
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            if (data.length > 0) {
-
-                document.getElementById('latitude').value = data[0].lat;
-                document.getElementById('longitude').value = data[0].lon;
-
-                document.getElementById('newOrderForm').submit();
-
-            } else {
-                alert('Endereço não encontrado com precisão.');
-            }
-        })
-        .catch(error => console.error(error));
-}
+        // Aplicar nos dois modais
+        buscarCEP("cep", "endereco", "bairro", "cidade", "estado");
+        buscarCEP("edit_cep", "edit_endereco", "edit_bairro", "edit_cidade", "edit_estado");
 
 
-function geocodeAddressEdit() {
+        // =============================
+        // GEOCODIFICAÇÃO PRECISA
+        // =============================
 
-    var endereco = document.getElementById('edit_endereco').value;
-    var bairro = document.getElementById('edit_bairro').value;
-    var cidade = document.getElementById('edit_cidade').value;
-    var estado = document.getElementById('edit_estado').value;
+        function geocodeAddress() {
 
-    var address = `${endereco}, ${bairro}, ${cidade}, ${estado}, Brasil`;
+            var endereco = document.getElementById('endereco').value;
+            var bairro = document.getElementById('bairro').value;
+            var cidade = document.getElementById('cidade').value;
+            var estado = document.getElementById('estado').value;
 
-    var url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address)}&format=json&addressdetails=1&limit=1`;
+            var address = `${endereco}, ${bairro}, ${cidade}, ${estado}, Brasil`;
 
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            if (data.length > 0) {
+            var url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address)}&format=json&addressdetails=1&limit=1`;
 
-                document.getElementById('edit_latitude').value = data[0].lat;
-                document.getElementById('edit_longitude').value = data[0].lon;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
 
-                document.getElementById('editOrderForm').submit();
+                        document.getElementById('latitude').value = data[0].lat;
+                        document.getElementById('longitude').value = data[0].lon;
 
-            } else {
-                alert('Endereço não encontrado com precisão.');
-            }
-        })
-        .catch(error => console.error(error));
-}
+                        document.getElementById('newOrderForm').submit();
 
-</script>
+                    } else {
+                        alert('Endereço não encontrado com precisão.');
+                    }
+                })
+                .catch(error => console.error(error));
+        }
+
+
+        function geocodeAddressEdit() {
+
+            var endereco = document.getElementById('edit_endereco').value;
+            var bairro = document.getElementById('edit_bairro').value;
+            var cidade = document.getElementById('edit_cidade').value;
+            var estado = document.getElementById('edit_estado').value;
+
+            var address = `${endereco}, ${bairro}, ${cidade}, ${estado}, Brasil`;
+
+            var url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address)}&format=json&addressdetails=1&limit=1`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+
+                        document.getElementById('edit_latitude').value = data[0].lat;
+                        document.getElementById('edit_longitude').value = data[0].lon;
+
+                        document.getElementById('editOrderForm').submit();
+
+                    } else {
+                        alert('Endereço não encontrado com precisão.');
+                    }
+                })
+                .catch(error => console.error(error));
+        }
+    </script>
 </body>
 
 </html>
