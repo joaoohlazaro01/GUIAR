@@ -5,98 +5,126 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contato | GUIAR</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="style/contato.css">
-    <link rel="Shortcut Icon" type="image/png" href="img/G.png">
-    <link rel="stylesheet" href="CssnavbarRodape.css">
 
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="Shortcut Icon" type="image/png" href="img/G.png">
 </head>
 
-<body>
-    <!--CABEÇALHO-->
-    <nav class="navbar navbar-expand-lg custom-navbar" id="gblur">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="index.html"><img style="height: 90px;" src="img/Guiar.png" alt="LOGO"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="routes.php?action=loginEmpresa">Empresa</a></li>
-                    <li class="nav-item"><a class="nav-link" href="routes.php?action=loginEntregador">Entregador</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="contato.php">Contato</a></li>
-                </ul>
+<body class="bg-[#F5F5F5] overflow-x-hidden text-gray-900 flex flex-col min-h-screen">
+
+    <!-- CABEÇALHO -->
+    <header class="bg-white shadow-md py-0 px-8 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <!-- LOGO -->
+            <div class="flex items-center -my-6">
+                <a href="index.html">
+                    <img src="img/LogoGuiar.png" alt="Logo GUIAR" class="w-52 h-auto object-contain">
+                </a>
+            </div>
+
+            <!-- MENU -->
+            <nav class="hidden md:flex items-center gap-12 font-semibold text-xl">
+                <a href="index.html" class="text-[#1B138F] hover:text-[#FFD400] transition duration-300">Home</a>
+                <a href="mvc/Views/Empresa/login.php" class="text-[#1B138F] hover:text-[#FFD400] transition duration-300">Empresa</a>
+                <a href="mvc/Views/Entregador/login.php" class="text-[#1B138F] hover:text-[#FFD400] transition duration-300">Entregador</a>
+                <a href="contato.php" class="text-[#FFD400] transition duration-300">Contato</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL (FLEX GROW PARA EMPURRAR FOOTER) -->
+    <main class="flex-grow py-12 px-8 flex items-center">
+        <div class="max-w-7xl mx-auto w-full">
+            <!-- Container com Imagem de Fundo -->
+            <div class="relative rounded-[40px] overflow-hidden h-[700px] shadow-2xl bg-cover bg-center bg-no-repeat"
+                style="background-image: url('img/contatosR.png');">
+
+                <!-- Gradiente Escuro (Overlay) - Direcionado para a direita onde ficará o form -->
+                <div class="absolute inset-0 bg-gradient-to-l from-[#1B138F]/95 via-[#1B138F]/70 to-transparent"></div>
+
+                <!-- Card de Formulário com Efeito Glassmorphism -->
+                <div class="absolute bottom-10 right-10 left-10 md:top-16 md:bottom-16 md:right-16 md:left-auto md:w-[500px] z-10 flex flex-col justify-center">
+
+                    <div class="backdrop-blur-md bg-white/10 border border-white/20 p-10 rounded-3xl shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] h-full overflow-y-auto custom-scrollbar">
+
+                        <h2 class="text-4xl font-black text-[#FFD400] mb-8 drop-shadow-md text-center">
+                            FALE CONOSCO
+                        </h2>
+
+                        <!-- FORM -->
+                        <form action="contato.php" method="POST" class="space-y-5">
+
+                            <div>
+                                <input type="text" name="name" placeholder="Seu Nome:" required
+                                    class="w-full bg-white/70 backdrop-blur-sm border border-white/40 text-gray-900 placeholder-gray-700 rounded-xl px-6 py-4 outline-none focus:ring-2 focus:ring-[#FFD400] transition">
+                            </div>
+
+                            <div>
+                                <input type="email" name="email" placeholder="E-mail:" required
+                                    class="w-full bg-white/70 backdrop-blur-sm border border-white/40 text-gray-900 placeholder-gray-700 rounded-xl px-6 py-4 outline-none focus:ring-2 focus:ring-[#FFD400] transition">
+                            </div>
+
+                            <div>
+                                <textarea rows="4" name="message" placeholder="Sua Mensagem..." required
+                                    class="w-full bg-white/70 backdrop-blur-sm border border-white/40 text-gray-900 placeholder-gray-700 rounded-xl px-6 py-4 outline-none resize-none focus:ring-2 focus:ring-[#FFD400] transition"></textarea>
+                            </div>
+
+                            <!-- BOTÃO -->
+                            <button type="submit"
+                                class="w-full bg-[#FFD400] text-[#1B138F] py-4 rounded-xl font-black text-lg hover:scale-[1.03] hover:shadow-xl transition">
+                                ENVIAR MENSAGEM
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
             </div>
         </div>
-    </nav>
+    </main>
 
-    <!-- FORMS PARA ENVIAR CONTATO -->
-    <div class="contact-container container">
-        <div class="row align-items-center">
-            <!-- Formulário de Contato -->
-            <div class="col-md-6 contact-form">
-                <h2>Entre em Contato</h2>
-                <form action="contato.php" method="POST">
+    <!-- FOOTER -->
+    <footer class="bg-[#1B138F] text-white py-10 px-8 overflow-hidden mt-auto">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-10 items-start">
+                <!-- LOGO -->
+                <div>
+                    <img src="img/Glogo.png" alt="Logo GUIAR" class="w-20 h-auto object-contain mb-4">
+                </div>
 
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Nome</label>
-                        <input type="text" class="form-control" id="name" name="name" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="message" class="form-label">Mensagem</label>
-                        <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
-                    </div>
+                <!-- LINKS -->
+                <div class="border-l border-white/20 pl-8">
+                    <ul class="space-y-3">
+                        <li><a href="index.html" class="hover:text-[#FFD400] transition">Home</a></li>
+                        <li><a href="routes.php?action=loginEmpresa" class="hover:text-[#FFD400] transition">Empresa</a></li>
+                        <li><a href="routes.php?action=loginEntregador" class="hover:text-[#FFD400] transition">Entregador</a></li>
+                        <li><a href="contato.php" class="hover:text-[#FFD400] transition">Contato</a></li>
+                    </ul>
+                </div>
 
-                    <!-- Container para o botão e ícones -->
-                    <div class='submit-container'>
-                        <!-- Ícones de Redes Sociais -->
-                        <div class='social-icons'>
-                            <a href="https://web.whatsapp.com"><i class='fa fa-whatsapp' style="font-size:30px;color:#000"></i></a>
-                            <a href="https://www.instagram.com/guiartcc?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="><i class='fa fa-instagram' style="font-size:30px;color:#000"></i></a>
-                            <a href="https://www.facebook.com/?locale=pt_BR"><i class='fa fa-facebook' style="font-size:30px;color:#000"></i></a>
-                        </div>
 
-                        <!-- Botão de Enviar -->
-                        <button type='submit' id='botao' class='btn btn-primary'>Enviar</button>
-                    </div>
+                <!-- CONTATO -->
+                <div class="border-l border-white/20 pl-8">
+                    <h3 class="font-bold text-xl mb-4">Ligue para nós</h3>
+                    <p>+55 11 99999-9999</p>
+                </div>
 
-                </form>
+                <!-- EMAIL -->
+                <div class="border-l border-white/20 pl-8">
+                    <h3 class="font-bold text-xl mb-4">Envie-nos um e-mail</h3>
+                    <p>contato@guiar.com</p>
+                </div>
             </div>
-
-            <!-- Imagem ao lado do formulário -->
-            <div class='col-md-6'>
-                <img src="img/Questions-bro.png" alt="" style='max-width: 100%; height: auto;'>
-            </div>
-        </div>
-    </div>
-
-    <!-- RODAPÉ -->
-    <footer class='footer text-center'>
-        <div class='container p-3'>
-            <p>&copy; 2024 GUIAR. Todos os direitos reservados.</p>
-            <ul class='list-unstyled'>
-                <li><a href='#' class='text-black'>Política de Privacidade</a></li>
-                <li><a href='#' class='text-black'>Termos de Serviço</a></li>
-            </ul>
         </div>
     </footer>
-
-    <!-- Scripts do Bootstrap -->
-    <script src='https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js'></script>
 
 </body>
 
 </html>
-
 <?php
 session_start();
 require 'config.php';

@@ -42,53 +42,18 @@ class EmpresaController
         require_once __DIR__ . '/../Views/Empresa/login.php';
     }
 
-    public function cadastro()
+    public function termosUso()
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $nome_empresa = $_POST['nome_empresa'] ?? '';
-            $cnpj = $_POST['cnpj'] ?? '';
-            $nome_usuario = $_POST['nome_usuario'] ?? '';
-            $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-            $senha = $_POST['senha'] ?? '';
+        require_once __DIR__ . '/../Views/Empresa/TermosUso.php';
+    }
 
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $erro = "E-mail inválido!";
-                require_once __DIR__ . '/../Views/Empresa/cadastro.php';
-                return;
-            }
-
-            if ($this->empresaModel->emailExists($email)) {
-                $erro = "Este e-mail já está em uso!";
-                require_once __DIR__ . '/../Views/Empresa/cadastro.php';
-                return;
-            }
-
-            // Lógica para o upload da imagem
-            $diretorio = __DIR__ . '/../../public/uploads/empresas/';
-
-            // Verifica se o diretório existe, se não existir, tenta criar
-            if (!is_dir($diretorio)) {
-                mkdir($diretorio, 0777, true);
-            }
-
-            $nome_imagem = '';
-            // Lógica para verificar e mover a imagem
-            if (isset($_FILES['foto_logo']) && $_FILES['foto_logo']['error'] == 0) {
-                $nome_imagem = basename($_FILES['foto_logo']['name']);
-                $caminho_imagem = $diretorio . $nome_imagem;
-                move_uploaded_file($_FILES['foto_logo']['tmp_name'], $caminho_imagem);
-            }
+    public function confirmarTermos()
+    {
+        if (isset($_SESSION['aceite_termos_pendente']) && $_SESSION['aceite_termos_pendente'] === true) {
+            $email = $_SESSION['email'] ?? '';
 
             // Gerar código de verificação (4 números)
             $codigo_verificacao = rand(1000, 9999);
-
-            // Iniciar sessão para salvar temporariamente os dados do cadastro
-            $_SESSION['nome_empresa'] = $nome_empresa;
-            $_SESSION['cnpj'] = $cnpj;
-            $_SESSION['nome_usuario'] = $nome_usuario;
-            $_SESSION['email'] = $email;
-            $_SESSION['senha'] = $senha;
-            $_SESSION['nome_imagem'] = $nome_imagem;
             $_SESSION['codigo_verificacao'] = $codigo_verificacao;
 
             // Enviar o código de verificação via email
@@ -131,15 +96,80 @@ class EmpresaController
                 // Enviar email
                 $mail->send();
 
+                unset($_SESSION['aceite_termos_pendente']);
+
                 // Redirecionar para a página de verificação
                 header('Location: ' . BASE_URL . '/routes.php?action=verificarCodigo');
                 exit();
             } catch (Exception $e) {
                 // Ao invés de um simples echo, envia como erro para a página de cadastro
                 $erro = "Erro ao enviar email: {$mail->ErrorInfo}";
+                session_unset();
                 header("Location: " . BASE_URL . "/routes.php?action=cadastroEmpresa&erro=" . urlencode($erro));
                 exit();
             }
+        } else {
+            header("Location: " . BASE_URL . "/index.html");
+            exit();
+        }
+    }
+
+    public function recusarTermos()
+    {
+        session_unset();
+        header("Location: " . BASE_URL . "/routes.php?action=cadastroEmpresa");
+        exit();
+    }
+
+    public function cadastro()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $nome_empresa = $_POST['nome_empresa'] ?? '';
+            $cnpj = $_POST['cnpj'] ?? '';
+            $nome_usuario = $_POST['nome_usuario'] ?? '';
+            $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+            $senha = $_POST['senha'] ?? '';
+
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $erro = "E-mail inválido!";
+                require_once __DIR__ . '/../Views/Empresa/cadastro.php';
+                return;
+            }
+
+            if ($this->empresaModel->emailExists($email)) {
+                $erro = "Este e-mail já está em uso!";
+                require_once __DIR__ . '/../Views/Empresa/cadastro.php';
+                return;
+            }
+
+            // Lógica para o upload da imagem
+            $diretorio = __DIR__ . '/../../public/uploads/empresas/';
+
+            // Verifica se o diretório existe, se não existir, tenta criar
+            if (!is_dir($diretorio)) {
+                mkdir($diretorio, 0777, true);
+            }
+
+            $nome_imagem = '';
+            // Lógica para verificar e mover a imagem
+            if (isset($_FILES['foto_logo']) && $_FILES['foto_logo']['error'] == 0) {
+                $nome_imagem = basename($_FILES['foto_logo']['name']);
+                $caminho_imagem = $diretorio . $nome_imagem;
+                move_uploaded_file($_FILES['foto_logo']['tmp_name'], $caminho_imagem);
+            }
+
+            // Iniciar sessão para salvar temporariamente os dados do cadastro
+            $_SESSION['nome_empresa'] = $nome_empresa;
+            $_SESSION['cnpj'] = $cnpj;
+            $_SESSION['nome_usuario'] = $nome_usuario;
+            $_SESSION['email'] = $email;
+            $_SESSION['senha'] = $senha;
+            $_SESSION['nome_imagem'] = $nome_imagem;
+            $_SESSION['aceite_termos_pendente'] = true;
+
+            // Redirecionar para a página de Termos de Uso
+            header('Location: ' . BASE_URL . '/routes.php?action=termosUso');
+            exit();
         }
         // Se for GET, renderiza a View
         $erro = $_GET['erro'] ?? null;

@@ -1,188 +1,380 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Inicial | Guiar</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link rel="Shortcut Icon" type="image/png" href="img/G.png">
-    <link rel="stylesheet" href="style/index.css">
-    <link rel="stylesheet" href="CssnavbarRodape.css">
-    <script src="slider.js"></script> <!-- Link para o seu arquivo JS -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>GUIAR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<body>
-    <!--CABEÇALHO-->
-    <nav class="navbar navbar-expand-lg custom-navbar" id="gblur">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="index.html"><img style="height: 90px;" src="img/Guiar.png"
-                    alt="LOGO"></img></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" id="ativado" href="index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="routes.php?action=loginEmpresa">Empresa</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="routes.php?action=loginEntregador">Entregador</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contato.php">Contato</a>
-                    </li>
-                </ul>
+<body class="bg-[#F5F5F5] overflow-x-hidden text-gray-900">
+    <header class="bg-white shadow-md py-0 px-8 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+
+            <!-- LOGO -->
+            <div class="flex items-center -my-6">
+                <img src="img/LogoGuiar.png" alt="Logo GUIAR" class="w-52 h-auto object-contain">
+            </div>
+            <!-- MENU -->
+            <nav class="hidden md:flex items-center gap-12 font-semibold text-xl">
+
+                <a href="index.html" class="text-[#1B138F] hover:text-[#FFD400] transition duration-300">
+                    Home
+                </a>
+                <a href="routes.php?action=loginEmpresa"
+                    class="text-[#1B138F] hover:text-[#FFD400] transition duration-300">
+                    Empresa
+                </a>
+                <a href="routes.php?action=loginEntregador"
+                    class="text-[#1B138F] hover:text-[#FFD400] transition duration-300">
+                    Entregador
+                </a>
+                <a href="contato.php" class="text-[#1B138F] hover:text-[#FFD400] transition duration-300">
+                    Contato
+                </a>
+
+            </nav>
+
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="relative bg-[#1B138F] overflow-hidden py-24">
+
+        <!-- DECORAÇÃO -->
+        <div class="absolute -left-40 -top-40 w-[500px] h-[500px] rounded-full bg-[#2414B8] opacity-70"></div>
+        <div class="absolute right-0 bottom-0 w-[300px] h-[300px] rounded-full bg-[#2414B8] opacity-50"></div>
+        <div class="max-w-7xl mx-auto px-8 relative z-10">
+
+            <div class="grid md:grid-cols-2 items-center gap-16">
+
+                <!-- IMAGEM -->
+                <div class="flex justify-center">
+                    <div class="relative">
+                        <div class="absolute -inset-4 rounded-full border-2 border-yellow-400"></div>
+                        <div
+                            class="w-[360px] h-[360px] rounded-full overflow-hidden border-[18px] border-[#2F1BFF] shadow-2xl bg-white flex items-center justify-center">
+                            <img src="img/Inicio.png" alt="Equipe" class="w-full h-full object-cover scale-[1.15]">
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TEXTO -->
+                <div class="text-white">
+                    <h2 class="text-5xl md:text-6xl font-black leading-tight mb-6"
+                        style="font-family: 'Inter', sans-serif;">
+
+                        Bem-vindo(a) ao
+                        <span class="text-[#FFD400] block">
+                            GUIAR!
+                        </span>
+
+                    </h2>
+
+                    <p class="text-xl text-white/80 leading-relaxed mb-10 max-w-lg">
+                        Aprimore sua experiência conosco.
+                        Desbloqueie possibilidades, alcance a excelência.
+                    </p>
+
+                    <button onclick="window.location.href='contato.php'"
+                        class="bg-[#FFD400] text-[#1B138F] px-20 py-4 rounded-full text-lg font-black hover:scale-105 transition shadow-xl">
+
+                        CONTATO →
+
+                    </button>
+                </div>
             </div>
         </div>
-    </nav>
+    </section>
 
-    <!--LANDING-->
-    <div class="landing">
-        <div class="container-fluid">
-            <div class="row align-items-center">
-                <div class="col-md-6 text-center">
-                    <div id="landing-texto">
-                        <h2>Bem-vindo ao GUIAR!</h2>
-                        <br>
-                        <p>O GUIAR é um sistema inteligente que cria as rotas mais eficazes para seus entregadores,
-                            considerando
-                            múltiplos pontos de entrega e priorizando a otimização do tempo e do percurso. Nossa
-                            plataforma foi
-                            projetada para ajudar empresas de entrega a atribuir pedidos de forma eficiente aos
-                            motoboys,
-                            garantindo que cada entrega seja realizada da melhor maneira possível.
-                            </br>
-                            </br>
-                            GUIAR é um Trabalho de Conclusão de Curso da Etec Euro Albino de Souza, desenvolvido por
-                            alunos de
-                            3°Ano do ensino médio integrado com o curso Técnico em Desenvolvimento de Sistemas de 2024.
+    <!-- SERVIÇOS -->
+    <section class="py-24 px-8 bg-[#F5F5F5]">
+
+        <div class="max-w-7xl mx-auto">
+
+            <h2 class="text-center text-6xl font-black text-[#1B138F] mb-6" style="font-family: 'Inter', sans-serif;">
+
+                Nossos serviços
+
+            </h2>
+
+            <p class="text-center text-gray-500 max-w-3xl mx-auto leading-relaxed mb-20">
+                O GUIAR cria rotas inteligentes que ajuda na melhor alocação para seus entregadores,
+                considerando múltiplos pontos de entrega e priorizando a otimização do tempo e do percurso.
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-10">
+
+                <!-- ESQUERDA -->
+                <div class="space-y-8">
+
+                    <!-- CARD -->
+                    <div class="bg-[#2414B8] text-white rounded-2xl shadow-xl p-8 flex items-center gap-5">
+
+                        <div class="w-20 h-20 rounded-xl bg-white flex items-center justify-center text-3xl">
+                            <img class="w-16 h-16" src="img/localizacao.png" alt="">
+                        </div>
+
+                        <div>
+
+                            <h3 class="text-2xl font-bold">
+                                Roteamento Inteligente
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                    <!-- CARD -->
+                    <div class="bg-white rounded-2xl shadow-lg p-8 flex items-center gap-5">
+
+                        <div class="w-20 h-20 rounded-xl bg-orange-100 flex items-center justify-center text-3xl">
+                            <img class="w-16 h-16" src="img/TempoReal.png" alt="">
+                        </div>
+
+                        <div>
+
+                            <h3 class="text-2xl font-bold text-gray-800">
+                                Atualização em Tempo Real
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                    <!-- CARD -->
+                    <div class="bg-white rounded-2xl shadow-lg p-8 flex items-center gap-5">
+
+                        <div class="w-20 h-20 rounded-xl bg-orange-100 flex items-center justify-center text-3xl">
+                            <img class="w-16 h-16" src="img/InterfaceUsuario.png" alt="">
+                        </div>
+
+                        <div>
+
+                            <h3 class="text-2xl font-bold text-gray-800">
+                                Interface Intuitiva
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- DIREITA -->
+                <div
+                    class="bg-white rounded-[30px] shadow-2xl border-l-[8px] border-[#FFD400] p-10 py-16 space-y-10 h-full flex flex-col justify-center">
+
+                    <div class="flex gap-5">
+
+                        <div class="text-4xl text-[#FFD400]">
+                            ✔
+                        </div>
+
+                        <p class="text-gray-700 text-lg leading-relaxed">
+
+                            Calcula a rota mais curta e eficiente entre vários pontos de entrega,
+                            economizando tempo e combustível.
+
                         </p>
-                        <br>
+
                     </div>
+
+                    <div class="flex gap-5">
+
+                        <div class="text-4xl text-[#FFD400]">
+                            ✔
+                        </div>
+
+                        <p class="text-gray-700 text-lg leading-relaxed">
+
+                            Monitora e atualiza a localização das entregas constantemente,
+                            ajustando as rotas conforme necessário.
+
+                        </p>
+
+                    </div>
+
+                    <div class="flex gap-5">
+
+                        <div class="text-4xl text-[#FFD400]">
+                            ✔
+                        </div>
+
+                        <p class="text-gray-700 text-lg leading-relaxed">
+
+                            Oferece uma interface fácil de usar para que as empresas possam atribuir pedidos
+                            e monitorar o progresso com facilidade.
+
+                        </p>
+
+                    </div>
+
                 </div>
-                <div class="col-md-5 text-center">
-                    <img src="img/img-index1.png" alt="Motoboy">
-                </div>
+
             </div>
         </div>
-    </div>
+    </section>
 
-    <!--PRINCIPAIS RECURSOS-->
-    <div class="container my-1">
-        <div class="row text-center">
-            <div class="col-12 mb-4">
-                <h2 class="titulo">Principais Recursos</h2>
-            </div>
-        </div>
-    </div>
-    <div class="card-container container-fluid py-6">
-        <div class="container">
-            <!-- Use d-flex para alinhar os cards em linha -->
-            <div class="d-flex justify-content-center flex-wrap g-4">
-                <!-- Card 1 -->
-                <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
-                    <div class="card-body">
-                        <h5 class="card-title">Roteamento Inteligente</h5>
-                        <p class="card-text">Calcula a rota mais curta e eficiente entre vários pontos de entrega,
-                            economizando tempo e combustível.</p>
-                    </div>
-                </div>
-                <!-- Card 2 -->
-                <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
-                    <div class="card-body">
-                        <h5 class="card-title">Atualização em Tempo Real</h5>
-                        <p class="card-text">Monitora e atualiza a localização dos entregadores constantemente,
-                            ajustando as rotas conforme necessário.</p>
-                    </div>
-                </div>
-                <!-- Card 3 -->
-                <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
-                    <div class="card-body">
-                        <h5 class="card-title">Interface Intuitiva</h5>
-                        <p class="card-text">Oferece uma interface fácil de usar para que as empresas possam atribuir
-                            pedidos e monitorar o progresso com facilidade.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- SOBRE -->
+    <section class="py-24 px-8">
 
+        <div class="max-w-7xl mx-auto">
 
-    <!--SLIDER PATROCÍNIOS-->
-    <div class="container-fluid">
-        <div class="row align-items-center">
-            <div class="col-md-12 text-center">
-                <h2 class="titulo">Patrocinadores</h2>
-                <div class="container-slider">
-                    <div class="logos">
-                        <ul>
-                            <li>
-                                <img src="img/rsat.jpg" alt="logo RSAT">
-                            </li>
-                            <li>
-                                <img src="img/abecedarium.jpg" alt="logo Abecedarium">
-                            </li>
-                            <li>
-                                <img src="img/centercopias.png" alt="logo Center Cópias">
-                            </li>
-                            <li>
-                                <img src="img/mazoti.jpg" alt="logo Mazoti Motors">
-                            </li>
-                            <li>
-                                <img src="img/villapastel.png" alt="logo Villa Pastel">
-                            </li>
-                            <li>
-                                <img src="img/sylvamo.png" alt="logo Sylvamo">
-                            </li>
-                            <li>
-                                <img src="img/chamex.jfif" alt="logo Chamex">
-                            </li>
-                            <li>
-                                <img src="img/rsat.jpg" alt="logo RSAT">
-                            </li>
-                            <li>
-                                <img src="img/abecedarium.jpg" alt="logo Abecedarium">
-                            </li>
-                            <li>
-                                <img src="img/centercopias.png" alt="logo Center Cópias">
-                            </li>
-                            <li>
-                                <img src="img/mazoti.jpg" alt="logo Mazoti Motors">
-                            </li>
-                            <li>
-                                <img src="img/villapastel.png" alt="logo Villa Pastel">
-                            </li>
-                            <li>
-                                <img src="img/sylvamo.png" alt="logo Sylvamo">
-                            </li>
-                            <li>
-                                <img src="img/chamex.jfif" alt="logo Chamex">
-                            </li>
-                        </ul>
+            <div class="relative bg-[#1B138F] rounded-[40px] overflow-hidden p-16">
+
+                <!-- DECORAÇÃO -->
+                <div class="absolute -bottom-24 -left-24 w-[250px] h-[250px] bg-orange-500 rounded-full opacity-80">
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-16 items-center relative z-10">
+
+                    <!-- TEXTO -->
+                    <div class="text-white">
+
+                        <h2 class="text-5xl font-black text-[#FFD400] mb-8" style="font-family: 'Inter', sans-serif;">
+                            SOBRE NÓS
+                        </h2>
+
+                        <p class="text-2xl leading-relaxed text-white/90">
+
+                            O GUIAR é um sistema inteligente que cria as rotas mais eficazes para seus entregadores,
+                            considerando múltiplos pontos de entrega e priorizando a otimização do tempo e do percurso.
+
+                            Nossa plataforma foi projetada para ajudar empresas de entrega a atribuir pedidos de forma
+                            eficiente aos motoboys, garantindo que cada entrega seja realizada da melhor maneira
+                            possível.
+
+                        </p>
+
+                    </div>
+
+                    <!-- IMAGEM -->
+                    <div class="flex justify-center">
+
+                        <div class="relative">
+
+                            <div class="absolute -inset-5 rounded-full border-2 border-yellow-400"></div>
+
+                            <div
+                                class="w-[390px] h-[390px] rounded-full overflow-hidden border-[18px] border-[#2F1BFF] bg-white flex items-center justify-center">
+                                <img src="img/Entrega.png" alt="Equipe" class="w-full h-full object-cover scale-[1.15]">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!--RODAPÉ-->
-    <footer class="footer text-center">
-        <div class="container p-3">
-            <p>&copy; 2024 GUIAR. Todos os direitos reservados.</p>
-            <ul class="list-unstyled">
-                <li><a href="#" class="text-black">Política de Privacidade</a></li>
-                <li><a href="#" class="text-black">Termos de Serviço</a></li>
-            </ul>
+    <!-- Contate-nos -->
+    <section class="py-24 px-8 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <!-- Container com Imagem de Fundo -->
+            <div class="relative rounded-[40px] overflow-hidden h-[600px] shadow-2xl bg-cover bg-center bg-no-repeat"
+                style="background-image: url('img/contatosR.png');">
+
+                <!-- Gradiente Escuro (Overlay) - Direcionado para a direita onde ficará o card -->
+                <div class="absolute inset-0 bg-gradient-to-l from-[#1B138F]/95 via-[#1B138F]/70 to-transparent"></div>
+
+                <!-- Card com Efeito Glassmorphism -->
+                <div
+                    class="absolute bottom-10 right-10 left-10 md:top-16 md:bottom-16 md:right-16 md:left-auto md:w-[500px] z-10 flex flex-col justify-center">
+
+                    <div class="bg-white p-10 rounded-3xl shadow-2xl h-full flex flex-col justify-center text-center">
+
+                        <h2 class="text-4xl font-awesome text-[#1B138F] mb-6 drop-shadow-sm">
+                            Tecnologia que move sua jornada
+
+                        </h2>
+
+                        <p class="text-gray-700 text-xl leading-relaxed mb-8">
+                            O Guiar nasceu para transformar a forma como pessoas e processos se conectam. Com uma
+                            experiência simples, moderna e inteligente, nossa plataforma oferece mais controle,
+                            agilidade e eficiência para o seu dia a dia. Menos complicação, mais movimento.
+
+                        </p>
+
+                        <!-- BOTÃO PARA A PÁGINA DE CONTATO -->
+                        <a href="contato.php"
+                            class="inline-block bg-[#FFD400] text-[#1B138F] py-4 px-8 rounded-xl font-black text-lg hover:scale-[1.03] hover:shadow-xl transition">
+                            MENSAGEM VIA SITE
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#1B138F] text-white py-10 px-8 overflow-hidden">
+
+        <div class="max-w-7xl mx-auto">
+
+            <div class="grid md:grid-cols-4 gap-10 items-start">
+
+                <!-- LOGO -->
+                <div>
+
+                    <img src="img/Glogo.png" alt="Logo GUIAR" class="w-20 h-auto object-contain mb-4">
+
+                </div>
+
+                <!-- LINKS -->
+                <div class="border-l border-white/20 pl-8">
+
+                    <ul class="space-y-3">
+
+                        <li><a href="index.html" class="hover:text-[#FFD400] transition">Home</a></li>
+                        <li><a href="routes.php?action=loginEmpresa" class="hover:text-[#FFD400] transition">Empresa</a>
+                        </li>
+                        <li><a href="routes.php?action=loginEntregador"
+                                class="hover:text-[#FFD400] transition">Entregador</a></li>
+                        <li><a href="contato.php" class="hover:text-[#FFD400] transition">Contato</a></li>
+
+                    </ul>
+
+                </div>
+
+                <!-- CONTATO -->
+                <div class="border-l border-white/20 pl-8">
+
+                    <h3 class="font-bold text-xl mb-4">
+                        Ligue para nós
+                    </h3>
+
+                    <p>
+                        +55 11 99999-9999
+                    </p>
+
+                </div>
+
+                <!-- EMAIL -->
+                <div class="border-l border-white/20 pl-8">
+
+                    <h3 class="font-bold text-xl mb-4">
+                        Envie-nos um e-mail
+                    </h3>
+
+                    <p>
+                        contato@guiar.com
+                    </p>
+
+                </div>
+
+            </div>
+
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

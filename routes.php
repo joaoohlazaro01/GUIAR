@@ -38,6 +38,18 @@ switch ($action) {
         $controller = new \mvc\Controllers\EmpresaController($pdo);
         $controller->cadastro();
         break;
+    case 'termosUso':
+        $controller = new \mvc\Controllers\EmpresaController($pdo);
+        $controller->termosUso();
+        break;
+    case 'confirmarTermos':
+        $controller = new \mvc\Controllers\EmpresaController($pdo);
+        $controller->confirmarTermos();
+        break;
+    case 'recusarTermos':
+        $controller = new \mvc\Controllers\EmpresaController($pdo);
+        $controller->recusarTermos();
+        break;
     case 'esqueceuSenha':
         $controller = new \mvc\Controllers\EmpresaController($pdo);
         $controller->esqueceuSenha();

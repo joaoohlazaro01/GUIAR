@@ -4,103 +4,265 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>Login Entregador | Guiar</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <link href="<?= BASE_URL ?>/style/CssnavbarRodape.css" rel="stylesheet" />
-  <link href="<?= BASE_URL ?>/style/loginEntregador.css" rel="stylesheet" />
-  <link
-    rel="Shortcut Icon"
-    type="image/png"
-    href="<?= BASE_URL ?>/img/G.png">
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="Shortcut Icon" type="image/png" href="<?= BASE_URL ?>/img/G.png">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              blue: '#001b69',
+              yellow: '#ffd400',
+              inputborder: '#c3d2e6',
+              link: '#00288a'
+            }
+          },
+          animation: {
+            'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+            'float': 'float 6s ease-in-out infinite',
+          },
+          keyframes: {
+            fadeInUp: {
+              '0%': { opacity: '0', transform: 'translateY(30px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-15px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #FFF1E5;
+    }
+  </style>
 
 </head>
 
-<body>
-  <nav class="navbar navbar-expand-lg custom-navbar" id="gblur">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="<?= BASE_URL ?>/index.html"><img style="height: 90px;" src="<?= BASE_URL ?>/img/Guiar.png" alt="LOGO"></img></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+<body class="bg-[#FFF1E5] overflow-x-hidden text-gray-900 flex flex-col min-h-screen">
+
+  <!-- HEADER -->
+  <header class="bg-[#F37B1D] shadow-md py-0 px-8 sticky top-0 z-50">
+
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+
+      <!-- LOGO -->
+      <div class="flex items-center -my-6">
+        <a href="<?= BASE_URL ?>/index.html">
+          <img src="<?= BASE_URL ?>/img/LogoGuiar.png" alt="LOGO" class="w-52 h-auto object-contain brightness-0 invert">
+        </a>
+      </div>
+
+      <!-- MENU DESKTOP -->
+      <nav class="hidden md:flex items-center gap-12 font-semibold text-xl">
+        <a href="<?= BASE_URL ?>/index.html" class="text-white/90 hover:text-[#FFD400] transition duration-300">Home</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=loginEmpresa" class="text-white/90 hover:text-[#FFD400] transition duration-300">Empresa</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=loginEntregador" class="text-[#FFD400] font-bold underline decoration-2 underline-offset-4 transition duration-300">Entregador</a>
+        <a href="<?= BASE_URL ?>/contato.php" class="text-white/90 hover:text-[#FFD400] transition duration-300">Contato</a>
+      </nav>
+
+      <!-- BOTÃO MOBILE -->
+      <button id="nav-toggle" class="md:hidden p-2 text-white focus:outline-none hover:bg-white/10 rounded-lg transition-colors" type="button">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="<?= BASE_URL ?>/index.html">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="<?= BASE_URL ?>/routes.php?action=loginEmpresa">Empresa</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="ativado" href="<?= BASE_URL ?>/routes.php?action=loginEntregador">Entregador</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="<?= BASE_URL ?>/contato.php">Contato</a>
-          </li>
-        </ul>
+    </div>
+
+    <!-- MENU MOBILE -->
+    <div id="nav-menu" class="hidden w-full md:hidden pb-4">
+      <div class="flex flex-col gap-4 text-lg font-semibold mt-4">
+        <a href="<?= BASE_URL ?>/index.html" class="text-white/90">Home</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=loginEmpresa" class="text-white/90">Empresa</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=loginEntregador" class="text-[#FFD400] font-bold">Entregador</a>
+        <a href="<?= BASE_URL ?>/contato.php" class="text-white/90">Contato</a>
       </div>
     </div>
-  </nav>
 
-  <div class="container-fluid">
-    <div class="row align-items-center">
-      <center>
-        <div class="formulario" id="form">
-          <h2>Login | Entregadores</h2>
-          <hr color="black" size="2px">
-          <br>
+  </header>
 
-          <!-- Exibir mensagem de erro se houver -->
-          <?php if (isset($_GET['erro'])): ?>
-            <p class="error-message" style="color: red;"><?php echo htmlspecialchars($_GET['erro']); ?></p>
-          <?php endif ?>
+  <!-- MAIN -->
+  <main class="flex-grow flex items-center justify-center px-6 py-16">
 
-          <form method="post" action="<?= BASE_URL ?>/routes.php?action=loginEntregador">
-            <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label">Email</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" required>
-            </div>
-            <div class="mb-3">
-              <label for="exampleInputPassword1" class="form-label">Senha</label>
-              <input type="password" class="form-control" id="exampleInputPassword1" name="senha" required>
-            </div>
-            <br>
-            <input type="submit" name="entrar" class="btn btn-primary" id="botao" value="Entrar">
-          </form>
+    <!-- CARD -->
+    <div class="flex flex-col md:flex-row w-full max-w-4xl my-10 bg-white rounded-[40px] shadow-[0_20px_50px_rgba(0,0,0,0.10)] overflow-hidden min-h-[450px]">
+
+      <!-- LADO ESQUERDO -->
+      <div class="md:w-[45%] bg-[#F37B1D] p-10 flex flex-col justify-center relative overflow-hidden text-white">
+
+        <!-- IMAGEM FUNDO -->
+        <div
+          class="absolute inset-0 bg-no-repeat bg-contain bg-bottom brightness-0 invert opacity-30"
+          style="background-image: url('<?= BASE_URL ?>/img/CabecalhoSem.png');">
         </div>
-      </center>
-    </div>
-  </div>
 
-  <footer class="footer bg-dark text-white text-center">
-    <div class="container p-3">
-      <p>&copy; 2024 GUIAR. Todos os direitos reservados.</p>
-      <ul class="list-unstyled">
-        <li><a href="#" class="text-white">Política de Privacidade</a></li>
-        <li><a href="#" class="text-white">Termos de Serviço</a></li>
-      </ul>
+        <div class="relative z-10 flex flex-col h-full">
+
+          <!-- LOGO -->
+          <div class="mb-8">
+            <img
+              src="<?= BASE_URL ?>/img/LogoGuiar.png"
+              alt="Logo GUIAR"
+              class="w-32 brightness-0 invert">
+          </div>
+
+          <!-- TEXTO -->
+          <h2
+            class="text-3xl font-black leading-tight drop-shadow-sm mb-4"
+            style="font-family: 'Inter', sans-serif;">
+
+            Entre e deixe o Guiar<br>
+            te mostrar a direção.
+
+          </h2>
+
+          <div class="w-16 h-[3px] bg-[#FFD400] mt-2 mb-8"></div>
+
+          <div class="mt-auto">
+            <i class="fa fa-truck text-4xl text-[#FFD400]"></i>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- LADO DIREITO -->
+      <div class="md:w-[55%] p-8 md:p-12 flex flex-col justify-center bg-white relative">
+
+        <!-- TÍTULO -->
+        <div class="flex items-center gap-4 mb-8">
+
+          <div class="w-14 h-14 rounded-full bg-[#FFF8D6] flex items-center justify-center flex-shrink-0">
+
+            <i class="fa fa-truck text-2xl text-[#F37B1D]"></i>
+
+          </div>
+
+          <h2 class="text-2xl font-black text-gray-900">
+
+            Login |
+            <span class="text-[#F37B1D]">Entregadores</span>
+
+          </h2>
+
+        </div>
+
+        <!-- ERRO ORIGINAL -->
+        <?php if (isset($_GET['erro'])): ?>
+
+          <div
+            class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-xl mb-6 font-semibold"
+            role="alert">
+
+            <span><?php echo htmlspecialchars($_GET['erro']); ?></span>
+
+          </div>
+
+        <?php endif ?>
+
+        <!-- FORM ORIGINAL -->
+        <form
+          method="post"
+          action="<?= BASE_URL ?>/routes.php?action=loginEntregador"
+          class="space-y-6">
+
+          <!-- EMAIL -->
+          <div>
+
+            <label
+              for="exampleInputEmail1"
+              class="block text-sm font-semibold text-gray-600 mb-2">
+
+              Email
+
+            </label>
+
+            <input
+              type="email"
+              class="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-[#F37B1D] transition font-medium"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              name="email"
+              required>
+
+          </div>
+
+          <!-- SENHA -->
+          <div>
+
+            <label
+              for="exampleInputPassword1"
+              class="block text-sm font-semibold text-gray-600 mb-2">
+
+              Senha
+
+            </label>
+
+            <input
+              type="password"
+              class="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-[#F37B1D] transition font-medium"
+              id="exampleInputPassword1"
+              name="senha"
+              required>
+
+          </div>
+
+          <!-- BOTÃO -->
+          <div class="pt-6">
+
+            <input
+              type="submit"
+              name="entrar"
+              class="w-full bg-[#FFB800] text-gray-900 py-4 rounded-2xl font-black text-xl hover:bg-[#F5B000] hover:scale-[1.02] hover:shadow-lg transition cursor-pointer"
+              id="botao"
+              value="Entrar">
+
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- RODAPÉ -->
+  <footer class="w-full bg-[#F37B1D] px-6 py-4 mt-auto border-t border-white/20 shadow-inner z-50">
+    <div class="w-full flex flex-col md:flex-row items-center justify-between text-[0.85rem] text-white/90">
+      <p class="mb-2 md:mb-0">&copy; <?= date('Y') ?> GUIAR. Todos os direitos reservados.</p>
+      <div class="flex space-x-4 font-medium">
+        <a href="#" class="hover:text-[#FFD400] transition-colors">Política de Privacidade</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=termosUso" class="hover:text-[#FFD400] transition-colors">Termos de Serviço</a>
+      </div>
     </div>
   </footer>
 
   <script>
-    // Função para remover o parâmetro 'erro' da URL após carregar a página
-    window.onload = function() {
-      const url = new URL(window.location);
-
-      // Verifica se o parâmetro 'erro' está presenteeeee
-      if (url.searchParams.has('erro')) {
-        // Remove o parâmetro 'erro'
-        url.searchParams.delete('erro');
-
-        // Atualiza a URL sem recarregar a página
-        window.history.replaceState({}, document.title, url);
-      }
-    };
+    // Toggle do menu mobile
+    const btn = document.getElementById('nav-toggle');
+    const menu = document.getElementById('nav-menu');
+    if (btn && menu) {
+      btn.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
+        menu.classList.toggle('flex');
+      });
+    }
   </script>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 
 </html>
