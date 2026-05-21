@@ -26,6 +26,30 @@
                             inputborder: '#c3d2e6',
                             link: '#00288a'
                         }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(30px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            },
+                        },
+                        float: {
+                            '0%, 100%': {
+                                transform: 'translateY(0)'
+                            },
+                            '50%': {
+                                transform: 'translateY(-15px)'
+                            },
+                        }
                     }
                 }
             }
@@ -62,12 +86,12 @@
     <div class="flex-grow flex items-center justify-center p-4 sm:p-8">
 
         <!-- Card Principal com Bordas Arredondadas -->
-        <div class="bg-white rounded-[2rem] shadow-2xl flex flex-col md:flex-row w-full max-w-[950px] min-h-[580px] overflow-hidden">
+        <div class="bg-white rounded-[2rem] shadow-2xl flex flex-col md:flex-row w-full max-w-[950px] min-h-[580px] overflow-hidden opacity-0 animate-fade-in-up">
 
             <!-- Painel Esquerdo (Azul) -->
             <div class="bg-brand-blue w-full md:w-[45%] p-10 flex flex-col relative overflow-hidden">
                 <!-- Imagem do Mapa de Fundo -->
-                <img src="<?= BASE_URL ?>/img/mapapng.png" alt="Mapa Background" class="absolute inset-0 w-[150%] h-[150%] max-w-none -left-[20%] -top-[10%] object-contain opacity-30 pointer-events-none z-0 mix-blend-overlay">
+                <img src="<?= BASE_URL ?>/img/mapapng.png" alt="Mapa Background" class="absolute inset-0 w-[150%] h-[150%] max-w-none -left-[20%] -top-[10%] object-contain opacity-30 pointer-events-none z-0 mix-blend-overlay animate-float">
 
                 <div class="absolute top-[75%] left-[25%] transform -translate-x-1/2 -translate-y-1/2 z-0 opacity-80 pointer-events-none">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-[4.5rem] w-[4.5rem] text-brand-yellow drop-shadow-md" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">

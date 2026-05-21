@@ -76,7 +76,7 @@
   <!-- NAVBAR -->
   <nav class="w-full bg-brand-blue px-6 py-3 flex flex-wrap items-center justify-between shadow-md z-50">
     <a href="<?= BASE_URL ?>/index.html">
-      <img class="h-[90px] object-contain" src="<?= BASE_URL ?>/img/LogoBranca.png" alt="LOGO" onerror="this.outerHTML='<span class=\'text-white text-2xl font-extrabold\'>GUIAR</span>'">
+      <img class="h-[90px] object-contain" src="<?= BASE_URL ?>/img/logobranca.png" alt="LOGO" onerror="this.outerHTML='<span class=\'text-white text-2xl font-extrabold\'>GUIAR</span>'">
     </a>
     <button id="nav-toggle" class="md:hidden p-2 text-white focus:outline-none hover:bg-white/10 rounded-lg transition-colors">
       <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -85,8 +85,8 @@
     </button>
     <div id="nav-menu" class="hidden w-full md:flex md:w-auto md:space-x-8 mt-4 md:mt-0 flex-col md:flex-row items-center">
       <a href="<?= BASE_URL ?>/index.html" class="block py-2 text-[1.1rem] font-medium text-white/90 hover:text-brand-yellow transition-colors">Home</a>
-      <a href="<?= BASE_URL ?>/routes.php?action=loginEntregador" class="block py-2 text-[1.1rem] font-medium text-white/90 hover:text-brand-yellow transition-colors">Entregador</a>
       <a href="<?= BASE_URL ?>/routes.php?action=loginEmpresa" class="block py-2 text-[1.1rem] font-semibold text-brand-yellow transition-colors underline decoration-2 underline-offset-4">Empresa</a>
+      <a href="<?= BASE_URL ?>/routes.php?action=loginEntregador" class="block py-2 text-[1.1rem] font-medium text-white/90 hover:text-brand-yellow transition-colors">Entregador</a>
       <a href="<?= BASE_URL ?>/contato.php" class="block py-2 text-[1.1rem] font-medium text-white/90 hover:text-brand-yellow transition-colors">Contato</a>
     </div>
   </nav>
@@ -204,7 +204,7 @@
       <p class="mb-2 md:mb-0">&copy; <?= date('Y') ?> GUIAR. Todos os direitos reservados.</p>
       <div class="flex space-x-4 font-medium">
         <a href="#" class="hover:text-brand-yellow transition-colors">Política de Privacidade</a>
-        <a href="#" class="hover:text-brand-yellow transition-colors">Termos de Serviço</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=termosUso" class="hover:text-brand-yellow transition-colors">Termos de Serviço</a>
       </div>
     </div>
   </footer>

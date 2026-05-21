@@ -242,6 +242,13 @@
                             </div>
                         <?php endif ?>
 
+                        <!-- Informativo de Termos de Uso -->
+                        <div class="bg-blue-50/50 border border-brand-inputborder/40 p-4 rounded-xl text-center mt-2">
+                            <p class="text-xs text-gray-600 leading-normal">
+                                Ao clicar em <strong>Fazer Cadastro</strong>, você concorda com nossos <a href="<?= BASE_URL ?>/routes.php?action=termosUso" target="_blank" class="text-brand-link font-bold hover:underline">Termos de Uso e Política de Privacidade</a> e será direcionado para confirmá-los.
+                            </p>
+                        </div>
+
                         <!-- Botão Fazer Cadastro -->
                         <button type="submit" id="botao"
                             class="w-full bg-brand-yellow text-gray-900 font-bold text-lg py-3 rounded-xl hover:bg-[#eacc00] hover:shadow-md transform hover:-translate-y-[1px] transition-all mt-4">
@@ -268,10 +275,12 @@
             <p class="mb-2 md:mb-0">&copy; <?= date('Y') ?> GUIAR. Todos os direitos reservados.</p>
             <div class="flex space-x-4 font-medium">
                 <a href="#" class="hover:text-brand-yellow transition-colors">Política de Privacidade</a>
-                <a href="#" class="hover:text-brand-yellow transition-colors">Termos de Serviço</a>
+                <a href="<?= BASE_URL ?>/routes.php?action=termosUso" class="hover:text-brand-yellow transition-colors">Termos de Serviço</a>
             </div>
         </div>
     </footer>
+
+
 
     <script>
         // Toggle do menu mobile

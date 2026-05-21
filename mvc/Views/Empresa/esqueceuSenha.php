@@ -183,7 +183,7 @@
             <p class="mb-2 md:mb-0">&copy; <?= date('Y') ?> GUIAR. Todos os direitos reservados.</p>
             <div class="flex space-x-4 font-medium">
                 <a href="#" class="hover:text-brand-yellow transition-colors">Política de Privacidade</a>
-                <a href="#" class="hover:text-brand-yellow transition-colors">Termos de Serviço</a>
+                <a href="<?= BASE_URL ?>/routes.php?action=termosUso" class="hover:text-brand-yellow transition-colors">Termos de Serviço</a>
             </div>
         </div>
     </footer>
