@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Script de Simulação de Movimentação do Entregador
  * 
@@ -6,7 +7,7 @@
  * de um entregador em direção aos seus pontos de entrega ativos no banco de dados.
  * Ele atualiza as coordenadas de latitude e longitude a cada 2 segundos.
  * 
- * Uso: php scratch/simulate_movement.php [ID_ENTREGADOR]
+ * Uso: php scratch/simulate_movement.php [id_entregador]
  */
 
 require_once __DIR__ . '/../config.php';
@@ -50,7 +51,7 @@ try {
     if (empty($pedidos)) {
         echo "Aviso: NENHUM pedido ativo encontrado para este entregador.\n";
         echo "Simulando uma rota de teste padrão circular por Mogi Guaçu...\n";
-        
+
         // Rota fictícia
         $destinos = [
             ['lat' => -22.35275, 'lng' => -46.94562, 'desc' => 'Ponto Fictício A'],
@@ -71,7 +72,8 @@ try {
     }
 
     // Função de interpolação linear
-    function gerarTrecho($startLat, $startLng, $endLat, $endLng, $passos = 10) {
+    function gerarTrecho($startLat, $startLng, $endLat, $endLng, $passos = 10)
+    {
         $pontos = [];
         for ($i = 1; $i <= $passos; $i++) {
             $t = $i / $passos;
@@ -89,14 +91,14 @@ try {
     while (true) {
         foreach ($destinos as $index => $destino) {
             echo "\n🏍️ Indo em direção a: {$destino['desc']} ({$destino['lat']}, {$destino['lng']})\n";
-            
+
             // Gera 15 pontos intermediários para a animação ficar suave
             $rota = gerarTrecho($currentLat, $currentLng, $destino['lat'], $destino['lng'], 15);
 
             foreach ($rota as $passo => $ponto) {
                 // Atualiza no banco
                 $entregadorModel->updateLocation($id_entregador, $ponto['lat'], $ponto['lng']);
-                
+
                 // Printa progresso
                 $percent = round((($passo + 1) / count($rota)) * 100);
                 $barra = str_repeat("█", ($passo + 1)) . str_repeat("░", count($rota) - ($passo + 1));
@@ -115,7 +117,6 @@ try {
 
         echo "\n🔄 Rota concluída! Reiniciando a partir da posição atual para manter o loop...\n";
     }
-
 } catch (Exception $e) {
     echo "\nErro na execução: " . $e->getMessage() . "\n";
 }
