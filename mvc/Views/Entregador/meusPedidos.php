@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,12 +8,13 @@
     <link rel="Shortcut Icon" type="image/png" href="<?= BASE_URL ?>/img/G.png">
     <link rel="stylesheet" href="<?= BASE_URL ?>/style/indexEntregador.css" />
 </head>
+
 <body>
     <div class="sidebar">
         <div class="spacer"></div>
         <a href="<?= BASE_URL ?>/routes.php?action=mapaEntregador">Abrir Mapa</a>
         <a href="#">Meu Perfil</a>
-        <a href="<?= BASE_URL ?>/ENTREGADOR/loginEntregador.php">Sair</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=logoutEntregador">Sair</a>
     </div>
 
     <div class="main">
@@ -50,27 +52,27 @@
         document.querySelectorAll('.btn-delivered').forEach(button => {
             button.addEventListener('click', function() {
                 const pedidoId = this.getAttribute('data-id');
-                
+
                 fetch('<?= BASE_URL ?>/routes.php?action=concluirEntrega', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: 'id_pedido=' + encodeURIComponent(pedidoId)
-                })
-                .then(response => response.text())
-                .then(result => {
-                    if (result.trim() === 'success') {
-                        alert('Pedido marcado como entregue!');
-                        location.reload(); // Atualiza a página para refletir as mudanças
-                    } else {
-                        alert('Erro ao marcar pedido como entregue.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Erro:', error);
-                    alert('Erro na requisição.');
-                });
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: 'id_pedido=' + encodeURIComponent(pedidoId)
+                    })
+                    .then(response => response.text())
+                    .then(result => {
+                        if (result.trim() === 'success') {
+                            alert('Pedido marcado como entregue!');
+                            location.reload(); // Atualiza a página para refletir as mudanças
+                        } else {
+                            alert('Erro ao marcar pedido como entregue.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro:', error);
+                        alert('Erro na requisição.');
+                    });
             });
         });
 
@@ -80,4 +82,5 @@
         });
     </script>
 </body>
+
 </html>

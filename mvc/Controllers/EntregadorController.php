@@ -136,7 +136,8 @@ class EntregadorController
             session_start();
         }
 
-        if (isset($_SESSION['entregador_id'])) {
+        if (isset($_SESSION['entregador_id']) && !empty($_SESSION['entregador_id'])) {
+            header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
             header("Location: " . BASE_URL . "/routes.php?action=mapaEntregador");
             exit;
         }
@@ -149,6 +150,8 @@ class EntregadorController
 
             if ($user) {
                 $_SESSION['entregador_id'] = $user['id_entregador'];
+                session_write_close();
+                header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
                 header("Location: " . BASE_URL . "/routes.php?action=mapaEntregador");
                 exit;
             } else {
@@ -157,7 +160,7 @@ class EntregadorController
             }
         }
 
-        require_once __DIR__ . '/../Views/entregador/login.php';
+        require_once __DIR__ . '/../Views/Entregador/login.php';
     }
 
     public function logout()
@@ -165,7 +168,21 @@ class EntregadorController
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
-        unset($_SESSION['entregador_id']);
+        // Limpa todas as variáveis da sessão
+        $_SESSION = [];
+
+        // Exclui o cookie de sessão do navegador
+        if (ini_get("session.use_cookies")) {
+            $params = session_get_cookie_params();
+            setcookie(session_name(), '', time() - 42000,
+                $params["path"], $params["domain"],
+                $params["secure"], $params["httponly"]
+            );
+        }
+
+        // Destrói a sessão no servidor
+        session_destroy();
+        
         header("Location: " . BASE_URL . "/routes.php?action=loginEntregador");
         exit;
     }
@@ -181,7 +198,7 @@ class EntregadorController
             exit;
         }
 
-        require_once __DIR__ . '/../Views/entregador/mapa.php';
+        require_once __DIR__ . '/../Views/Entregador/mapa.php';
     }
 
     public function atualizarLocalizacao()
@@ -196,9 +213,19 @@ class EntregadorController
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Apenas retorna success = true por enquanto, pois as colunas de 
-            // latitude e longitude não existem na tabela entregador
-            echo json_encode(['success' => true]);
+            $data = json_decode(file_get_contents("php://input"), true);
+            $latitude = $data['latitude'] ?? null;
+            $longitude = $data['longitude'] ?? null;
+
+            if ($latitude !== null && $longitude !== null) {
+                if ($this->entregadorModel->updateLocation($_SESSION['entregador_id'], $latitude, $longitude)) {
+                    echo json_encode(['success' => true]);
+                } else {
+                    echo json_encode(['success' => false, 'error' => 'Erro ao salvar no banco']);
+                }
+            } else {
+                echo json_encode(['success' => false, 'error' => 'Dados de localização incompletos']);
+            }
             exit;
         }
     }

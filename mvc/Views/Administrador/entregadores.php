@@ -122,6 +122,7 @@
         <a href="<?= BASE_URL ?>/routes.php?action=pedidos">Pedidos</a>
         <a href="<?= BASE_URL ?>/routes.php?action=entregadores">Entregadores</a>
         <a href="<?= BASE_URL ?>/routes.php?action=pedidosEntregues">Pedidos Entregues</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=mapaAdm">Acompanhar Rotas</a>
         <div class="spacer"></div>
         <a href="<?= BASE_URL ?>/routes.php?action=perfilAdm">Meu perfil</a>
     </div>
@@ -165,11 +166,11 @@
                     </div>
                     <div class="form-group">
                         <label for="cpf">Digite o CPF:</label>
-                        <input type="text" id="cpf" name="cpf" required>
+                        <input type="text" id="cpf" name="cpf" required minlength="14" maxlength="14" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" title="Digite um CPF válido no formato 000.000.000-00" oninput="this.value = formatCPF(this.value)">
                     </div>
                     <div class="form-group">
                         <label for="telefone">Telefone:</label>
-                        <input type="text" id="telefone" name="telefone" required>
+                        <input type="text" id="telefone" name="telefone" required minlength="14" maxlength="15" pattern="\(\d{2}\)\s\d{4,5}-\d{4}" title="Digite um telefone válido no formato (00) 00000-0000 ou (00) 0000-0000" oninput="this.value = formatPhone(this.value)">
                     </div>
                     <div class="form-group">
                         <label for="foto_3x4">Foto 3x4:</label>
@@ -211,11 +212,11 @@
                 </div>
                 <div class="form-group">
                     <label for="edit_CPF">CPF:</label>
-                    <input type="text" id="edit_CPF" name="CPF" required>
+                    <input type="text" id="edit_CPF" name="CPF" required minlength="14" maxlength="14" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" title="Digite um CPF válido no formato 000.000.000-00" oninput="this.value = formatCPF(this.value)">
                 </div>
                 <div class="form-group">
                     <label for="edit_telefone">Telefone:</label>
-                    <input type="text" id="edit_telefone" name="telefone" required>
+                    <input type="text" id="edit_telefone" name="telefone" required minlength="14" maxlength="15" pattern="\(\d{2}\)\s\d{4,5}-\d{4}" title="Digite um telefone válido no formato (00) 00000-0000 ou (00) 0000-0000" oninput="this.value = formatPhone(this.value)">
                 </div>
                 <div class="form-group">
                     <label for="edit_email">Email:</label>
@@ -246,6 +247,21 @@
     </div>
 
     <script>
+        function formatCPF(cpf) {
+            cpf = cpf.replace(/\D/g, "");
+            cpf = cpf.replace(/^(\d{3})(\d)/, "$1.$2");
+            cpf = cpf.replace(/^(\d{3})\.(\d{3})(\d)/, "$1.$2.$3");
+            cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+            return cpf;
+        }
+
+        function formatPhone(phone) {
+            phone = phone.replace(/\D/g, "");
+            phone = phone.replace(/^(\d{2})(\d)/g, "($1) $2");
+            phone = phone.replace(/(\d)(\d{4})$/, "$1-$2");
+            return phone;
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             var editModal = document.getElementById('editModal');
             var deleteModal = document.getElementById('deleteModal');
@@ -281,8 +297,8 @@
 
                     document.getElementById('edit_id').value = id;
                     document.getElementById('edit_nome_completo').value = nome;
-                    document.getElementById('edit_CPF').value = cpf;
-                    document.getElementById('edit_telefone').value = telefone;
+                    document.getElementById('edit_CPF').value = formatCPF(cpf);
+                    document.getElementById('edit_telefone').value = formatPhone(telefone);
                     document.getElementById('edit_email').value = email;
 
                     editModal.style.display = 'block';

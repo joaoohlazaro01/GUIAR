@@ -127,7 +127,7 @@
 
 <body>
   <!-- Botão de logout (da Empresa) -->
-  <a href="<?= BASE_URL ?>/routes.php?action=loginEmpresa" class="logout-btn" onclick="return confirm('Deseja sair da conta da empresa?');">Voltar ao Login (Sair)</a>
+  <a href="<?= BASE_URL ?>/routes.php?action=logoutEmpresa" class="logout-btn" onclick="return confirm('Deseja sair da conta da empresa?');">Voltar ao Login (Sair)</a>
 
   <div class="container">
     <h1>Administradores da Empresa: <spam><?php echo htmlspecialchars($nome_empresa); ?></spam>
@@ -142,11 +142,11 @@
       if (count($administradores) > 0) {
         foreach ($administradores as $row) {
           // Caminho da imagem ajustado para a rota correta onde as imagens foram salvas
-          $imagem_path = "<?= BASE_URL ?>/public/uploads/" . htmlspecialchars($nome_empresa) . "/" . htmlspecialchars($row["nome_foto"]);
+          $imagem_path = BASE_URL . "/public/uploads/empresas/" . htmlspecialchars($nome_empresa) . "/" . htmlspecialchars($row["nome_foto"]);
       ?>
           <div class="col-md-4">
             <div class="card">
-              <img src="<?php echo $imagem_path; ?>" class="card-img-top" alt="Foto do Administrador" style="width: 100%; height: 300px; object-fit: cover;">
+              <img src="<?php echo $imagem_path; ?>" class="card-img-top" alt="Foto do Administrador <?php echo htmlspecialchars($row["nome_usuario"]); ?>" style="width: 100%; height: 300px; object-fit: cover;">
               <div class="card-body">
                 <center>
                   <h5 class="card-title"><?php echo htmlspecialchars($row["nome_adm"]); ?></h5>

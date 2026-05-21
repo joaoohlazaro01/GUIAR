@@ -16,12 +16,13 @@
         <a href="<?= BASE_URL ?>/routes.php?action=pedidos">Pedidos</a>
         <a href="<?= BASE_URL ?>/routes.php?action=entregadores">Entregadores</a>
         <a href="<?= BASE_URL ?>/routes.php?action=pedidosEntregues">Pedidos Entregues</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=mapaAdm">Acompanhar Rotas</a>
         <div class="spacer"></div>
         <a href="<?= BASE_URL ?>/routes.php?action=perfilAdm">Meu perfil</a>
     </div>
 
     <!-- Botão de logout (do Administrador) -->
-    <a href="<?= BASE_URL ?>/routes.php?action=sair" class="logout-btn">Logout</a>
+    <a href="<?= BASE_URL ?>/routes.php?action=logoutAdm" class="logout-btn">Logout</a>
 
     <div class="main">
         <h1>Olá, <spam><?php echo htmlspecialchars($nomeAdmin) . "!"; ?></spam></h1>

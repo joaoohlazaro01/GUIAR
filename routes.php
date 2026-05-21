@@ -1,5 +1,9 @@
 <?php
 session_start();
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
 
 spl_autoload_register(function ($class_name) {
     $prefix = 'mvc\\';
@@ -29,9 +33,17 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
 $action = $_GET['action'] ?? 'home';
 
 switch ($action) {
+    case 'index':
+        header("Location: " . BASE_URL . "/index.html");
+        break;
     case 'loginEmpresa':
         $controller = new \mvc\Controllers\EmpresaController($pdo);
         $controller->login();
+        break;
+
+    case 'logoutEmpresa':
+        $controller = new \mvc\Controllers\EmpresaController($pdo);
+        $controller->logout();
         break;
 
     case 'cadastroEmpresa':
@@ -77,6 +89,7 @@ switch ($action) {
         $controller->login();
         break;
 
+    case 'sair':
     case 'logoutAdm':
         $controller = new \mvc\Controllers\AdministradorController($pdo);
         $controller->logout();
@@ -85,6 +98,16 @@ switch ($action) {
     case 'dashboardAdm':
         $controller = new \mvc\Controllers\AdministradorController($pdo);
         $controller->dashboard();
+        break;
+
+    case 'mapaAdm':
+        $controller = new \mvc\Controllers\AdministradorController($pdo);
+        $controller->mapa();
+        break;
+
+    case 'apiAcompanharEntregadores':
+        $controller = new \mvc\Controllers\AdministradorController($pdo);
+        $controller->apiAcompanharEntregadores();
         break;
 
     case 'pedidos':
