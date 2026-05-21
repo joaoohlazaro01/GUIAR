@@ -65,4 +65,47 @@ class Administrador
             return false;
         }
     }
+
+    public function getById($id)
+    {
+        try {
+            $sql = "SELECT * FROM administrador WHERE id_adm = :id";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Erro ao buscar administrador: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function update($id, $data)
+    {
+        try {
+            if (!empty($data['nome_foto'])) {
+                $sql = "UPDATE administrador 
+                        SET nome_adm = :nome_adm, nome_usuario = :nome_usuario, senha = :senha, nome_foto = :foto 
+                        WHERE id_adm = :id";
+            } else {
+                $sql = "UPDATE administrador 
+                        SET nome_adm = :nome_adm, nome_usuario = :nome_usuario, senha = :senha 
+                        WHERE id_adm = :id";
+            }
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':nome_adm', $data['nome_adm'], PDO::PARAM_STR);
+            $stmt->bindParam(':nome_usuario', $data['nome_usuario'], PDO::PARAM_STR);
+            $stmt->bindParam(':senha', $data['senha'], PDO::PARAM_STR);
+            if (!empty($data['nome_foto'])) {
+                $stmt->bindParam(':foto', $data['nome_foto'], PDO::PARAM_STR);
+            }
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            error_log("Erro ao atualizar administrador: " . $e->getMessage());
+            return false;
+        }
+    }
 }
+

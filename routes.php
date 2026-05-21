@@ -100,6 +100,17 @@ switch ($action) {
         $controller->dashboard();
         break;
 
+    case 'perfilAdm':
+        $controller = new \mvc\Controllers\AdministradorController($pdo);
+        $controller->perfil();
+        break;
+
+    case 'editarPerfilAdm':
+        $controller = new \mvc\Controllers\AdministradorController($pdo);
+        $controller->editarPerfil();
+        break;
+
+
     case 'mapaAdm':
         $controller = new \mvc\Controllers\AdministradorController($pdo);
         $controller->mapa();
@@ -190,6 +201,17 @@ switch ($action) {
         $controller = new \mvc\Controllers\EntregadorController($pdo);
         $controller->mapa();
         break;
+
+    case 'perfilEntregador':
+        $controller = new \mvc\Controllers\EntregadorController($pdo);
+        $controller->perfil();
+        break;
+
+    case 'editarPerfilEntregador':
+        $controller = new \mvc\Controllers\EntregadorController($pdo);
+        $controller->editarPerfil();
+        break;
+
 
     case 'apiLocalizacaoEntregador':
         $controller = new \mvc\Controllers\EntregadorController($pdo);

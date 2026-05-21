@@ -121,4 +121,64 @@ class Entregador
             return false;
         }
     }
+
+    public function getById($id)
+    {
+        try {
+            $sql = "SELECT id_entregador, nome_completo, CPF, telefone, email, nome_foto3x4 AS foto_3x4, nome_cnh AS foto_CNH, nome_usuario, senha, FK_EMPRESA_id_empresa 
+                    FROM entregador 
+                    WHERE id_entregador = :id";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Erro ao buscar entregador por ID: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function updateProfile($id, $data)
+    {
+        try {
+            $sql = "UPDATE entregador 
+                    SET nome_completo = :nome_completo, 
+                        CPF = :cpf, 
+                        telefone = :telefone, 
+                        email = :email, 
+                        nome_usuario = :nome_usuario, 
+                        senha = :senha";
+            
+            if (!empty($data['foto_3x4'])) {
+                $sql .= ", nome_foto3x4 = :foto_3x4";
+            }
+            if (!empty($data['foto_CNH'])) {
+                $sql .= ", nome_cnh = :foto_cnh";
+            }
+            
+            $sql .= " WHERE id_entregador = :id";
+
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':nome_completo', $data['nome_completo']);
+            $stmt->bindParam(':cpf', $data['cpf']);
+            $stmt->bindParam(':telefone', $data['telefone']);
+            $stmt->bindParam(':email', $data['email']);
+            $stmt->bindParam(':nome_usuario', $data['nome_usuario']);
+            $stmt->bindParam(':senha', $data['senha']);
+            
+            if (!empty($data['foto_3x4'])) {
+                $stmt->bindParam(':foto_3x4', $data['foto_3x4']);
+            }
+            if (!empty($data['foto_CNH'])) {
+                $stmt->bindParam(':foto_cnh', $data['foto_CNH']);
+            }
+            
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            error_log("Erro ao atualizar perfil do entregador: " . $e->getMessage());
+            return false;
+        }
+    }
 }
+

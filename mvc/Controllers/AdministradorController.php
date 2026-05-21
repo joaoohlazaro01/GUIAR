@@ -228,4 +228,102 @@ class AdministradorController
         echo json_encode($dados);
         exit;
     }
+
+    public function perfil()
+    {
+        if (!isset($_SESSION['company_id'])) {
+            header("Location: " . BASE_URL . "/routes.php?action=loginEmpresa");
+            exit;
+        }
+
+        if (!isset($_SESSION['nome_usuario']) || !isset($_SESSION['id_adm'])) {
+            header("Location: " . BASE_URL . "/routes.php?action=escolherAdm&erro=" . urlencode("Administrador não identificado"));
+            exit;
+        }
+
+        $company_id = $_SESSION['company_id'];
+        $empresa = $this->empresaModel->getById($company_id);
+        if (!$empresa) {
+            header("Location: " . BASE_URL . "/routes.php?action=loginEmpresa");
+            exit;
+        }
+
+        $nome_empresa = $empresa['nome_empresa'];
+        $admin = $this->administradorModel->getById($_SESSION['id_adm']);
+
+        if (!$admin) {
+            header("Location: " . BASE_URL . "/routes.php?action=escolherAdm&erro=" . urlencode("Administrador não encontrado"));
+            exit;
+        }
+
+        $erro = $_GET['erro'] ?? null;
+        $sucesso = $_GET['sucesso'] ?? null;
+
+        require_once __DIR__ . '/../Views/Administrador/meuPerfil.php';
+    }
+
+    public function editarPerfil()
+    {
+        if (!isset($_SESSION['company_id']) || !isset($_SESSION['id_adm'])) {
+            header("Location: " . BASE_URL . "/routes.php?action=loginEmpresa");
+            exit;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $company_id = $_SESSION['company_id'];
+            $empresa = $this->empresaModel->getById($company_id);
+
+            if (!$empresa) {
+                header("Location: " . BASE_URL . "/routes.php?action=loginEmpresa");
+                exit;
+            }
+
+            $nome_empresa = $empresa['nome_empresa'];
+            $id_adm = $_SESSION['id_adm'];
+
+            // Fetch current admin to preserve existing photo or password if not changed
+            $currentAdmin = $this->administradorModel->getById($id_adm);
+
+            $nome_adm = $_POST['nome_adm'] ?? '';
+            $nome_usuario = $_POST['nome_usuario'] ?? '';
+            $senha = $_POST['senha'] ?? '';
+            if (empty($senha)) {
+                $senha = $currentAdmin['senha'];
+            }
+
+            $diretorioDestino = __DIR__ . '/../../public/uploads/empresas/' . $nome_empresa . '/';
+            if (!is_dir($diretorioDestino)) {
+                mkdir($diretorioDestino, 0777, true);
+            }
+
+            $fotoNomeUnico = '';
+            if (isset($_FILES['adminFoto']) && $_FILES['adminFoto']['error'] == 0) {
+                $fotoNome = basename($_FILES['adminFoto']['name']);
+                $extensaoArquivo = pathinfo($fotoNome, PATHINFO_EXTENSION);
+                $fotoNomeUnico = uniqid() . '.' . $extensaoArquivo;
+                $fotoDestino = $diretorioDestino . $fotoNomeUnico;
+
+                if (!move_uploaded_file($_FILES['adminFoto']['tmp_name'], $fotoDestino)) {
+                    $fotoNomeUnico = ''; // Upload failure
+                }
+            }
+
+            $data = [
+                'nome_adm' => $nome_adm,
+                'nome_usuario' => $nome_usuario,
+                'senha' => $senha,
+                'nome_foto' => $fotoNomeUnico ?: $currentAdmin['nome_foto']
+            ];
+
+            if ($this->administradorModel->update($id_adm, $data)) {
+                // Update session username since it might have changed
+                $_SESSION['nome_usuario'] = $nome_usuario;
+                header("Location: " . BASE_URL . "/routes.php?action=perfilAdm&sucesso=" . urlencode("Perfil atualizado com sucesso!"));
+            } else {
+                header("Location: " . BASE_URL . "/routes.php?action=perfilAdm&erro=" . urlencode("Erro ao atualizar o perfil."));
+            }
+            exit();
+        }
+    }
 }
+

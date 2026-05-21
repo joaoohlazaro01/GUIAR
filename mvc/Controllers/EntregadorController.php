@@ -229,4 +229,90 @@ class EntregadorController
             exit;
         }
     }
+
+    public function perfil()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if (!isset($_SESSION['entregador_id'])) {
+            header("Location: " . BASE_URL . "/routes.php?action=loginEntregador");
+            exit;
+        }
+
+        $entregador = $this->entregadorModel->getById($_SESSION['entregador_id']);
+        if (!$entregador) {
+            header("Location: " . BASE_URL . "/routes.php?action=loginEntregador");
+            exit;
+        }
+
+        $erro = $_GET['erro'] ?? null;
+        $sucesso = $_GET['sucesso'] ?? null;
+
+        require_once __DIR__ . '/../Views/Entregador/meuPerfil.php';
+    }
+
+    public function editarPerfil()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if (!isset($_SESSION['entregador_id'])) {
+            header("Location: " . BASE_URL . "/routes.php?action=loginEntregador");
+            exit;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $_SESSION['entregador_id'];
+            $current = $this->entregadorModel->getById($id);
+
+            $diretorio_3x4 = __DIR__ . '/../../public/uploads/entregadores/fotos/';
+            $diretorio_CNH = __DIR__ . '/../../public/uploads/entregadores/CNH/';
+
+            if (!is_dir($diretorio_3x4)) {
+                mkdir($diretorio_3x4, 0777, true);
+            }
+            if (!is_dir($diretorio_CNH)) {
+                mkdir($diretorio_CNH, 0777, true);
+            }
+
+            $foto_3x4_nome = $current['foto_3x4'] ?? '';
+            if (isset($_FILES['foto_3x4']) && $_FILES['foto_3x4']['error'] === 0) {
+                $foto_3x4_nome = uniqid() . '_' . basename($_FILES['foto_3x4']['name']);
+                move_uploaded_file($_FILES['foto_3x4']['tmp_name'], $diretorio_3x4 . $foto_3x4_nome);
+            }
+
+            $foto_CNH_nome = $current['foto_CNH'] ?? '';
+            if (isset($_FILES['foto_CNH']) && $_FILES['foto_CNH']['error'] === 0) {
+                $foto_CNH_nome = uniqid() . '_' . basename($_FILES['foto_CNH']['name']);
+                move_uploaded_file($_FILES['foto_CNH']['tmp_name'], $diretorio_CNH . $foto_CNH_nome);
+            }
+
+            $senha = $_POST['senha'] ?? '';
+            if (empty($senha)) {
+                $senha = $current['senha'];
+            }
+
+            $data = [
+                'nome_completo' => $_POST['nome_completo'] ?? '',
+                'cpf' => $_POST['cpf'] ?? '',
+                'telefone' => $_POST['telefone'] ?? '',
+                'email' => $_POST['email'] ?? '',
+                'nome_usuario' => $_POST['nome_usuario'] ?? '',
+                'senha' => $senha,
+                'foto_3x4' => $foto_3x4_nome,
+                'foto_CNH' => $foto_CNH_nome
+            ];
+
+            if ($this->entregadorModel->updateProfile($id, $data)) {
+                header("Location: " . BASE_URL . "/routes.php?action=perfilEntregador&sucesso=" . urlencode("Perfil atualizado com sucesso!"));
+            } else {
+                header("Location: " . BASE_URL . "/routes.php?action=perfilEntregador&erro=" . urlencode("Erro ao atualizar perfil."));
+            }
+            exit;
+        }
+    }
 }
+

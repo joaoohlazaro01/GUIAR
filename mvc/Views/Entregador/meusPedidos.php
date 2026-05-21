@@ -13,7 +13,7 @@
     <div class="sidebar">
         <div class="spacer"></div>
         <a href="<?= BASE_URL ?>/routes.php?action=mapaEntregador">Abrir Mapa</a>
-        <a href="#">Meu Perfil</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=perfilEntregador">Meu Perfil</a>
         <a href="<?= BASE_URL ?>/routes.php?action=logoutEntregador">Sair</a>
     </div>
 
