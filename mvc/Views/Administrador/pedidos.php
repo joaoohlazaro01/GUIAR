@@ -241,7 +241,7 @@
                 </div>
                 <div class="form-group">
                     <label for="cep">CEP:</label>
-                    <input type="text" id="cep" name="cep" maxlength="9" placeholder="00000-000" required>
+                    <input type="text" id="cep" name="cep" maxlength="9" minlength="9" placeholder="00000-000" pattern="\d{5}-\d{3}" required>
                 </div>
                 <div class="form-group">
                     <label for="endereco">Endereço:</label>
@@ -312,7 +312,7 @@
                 </div>
                 <div class="form-group">
                     <label for="edit_cep">CEP:</label>
-                    <input type="text" id="edit_cep" name="cep" maxlength="9" placeholder="00000-000">
+                    <input type="text" id="edit_cep" name="cep" maxlength="9" minlength="9" placeholder="00000-000" pattern="\d{5}-\d{3}" required>
                 </div>
                 <div class="form-group">
                     <label for="edit_endereco">Endereço:</label>
@@ -438,6 +438,23 @@
         document.getElementById('cancelDelete').addEventListener('click', function() {
             document.getElementById('deleteOrderModal').style.display = 'none';
         });
+
+        // =============================
+        // MÁSCARA CEP
+        // =============================
+        function aplicarMascaraCEP(id) {
+            const input = document.getElementById(id);
+            if (!input) return;
+            input.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 5) {
+                    value = value.replace(/^(\d{5})(\d)/, '$1-$2');
+                }
+                e.target.value = value;
+            });
+        }
+        aplicarMascaraCEP("cep");
+        aplicarMascaraCEP("edit_cep");
 
         // =============================
         // BUSCA CEP (ViaCEP)
