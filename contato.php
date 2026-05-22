@@ -27,8 +27,8 @@
             <!-- MENU -->
             <nav class="hidden md:flex items-center gap-12 font-semibold text-xl">
                 <a href="index.html" class="text-[#1B138F] hover:text-[#FFD400] transition duration-300">Home</a>
-                <a href="mvc/Views/Empresa/login.php" class="text-[#1B138F] hover:text-[#FFD400] transition duration-300">Empresa</a>
-                <a href="mvc/Views/Entregador/login.php" class="text-[#1B138F] hover:text-[#FFD400] transition duration-300">Entregador</a>
+                <a href="routes.php?action=loginEmpresa" class="text-[#1B138F] hover:text-[#FFD400] transition duration-300">Empresa</a>
+                <a href="routes.php?action=loginEntregador" class="text-[#1B138F] hover:text-[#FFD400] transition duration-300">Entregador</a>
                 <a href="contato.php" class="text-[#FFD400] transition duration-300">Contato</a>
             </nav>
         </div>
