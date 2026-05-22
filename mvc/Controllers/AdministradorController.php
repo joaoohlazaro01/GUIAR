@@ -148,9 +148,14 @@ class AdministradorController
         // Exclui o cookie de sessão do navegador
         if (ini_get("session.use_cookies")) {
             $params = session_get_cookie_params();
-            setcookie(session_name(), '', time() - 42000,
-                $params["path"], $params["domain"],
-                $params["secure"], $params["httponly"]
+            setcookie(
+                session_name(),
+                '',
+                time() - 42000,
+                $params["path"],
+                $params["domain"],
+                $params["secure"],
+                $params["httponly"]
             );
         }
 
@@ -173,7 +178,25 @@ class AdministradorController
             exit;
         }
 
-        $nomeAdmin = $_SESSION['nome_usuario'];
+        $nomeAdmin  = $_SESSION['nome_usuario'];
+        $company_id = $_SESSION['company_id'];
+
+        // Modelos
+        $pedidoModel = new \mvc\Models\Pedido($this->pdo);
+
+        // Estatísticas (total, entregues, em andamento, pendentes)
+        $stats              = $pedidoModel->getDashboardStats($company_id);
+        $totalPedidos       = (int)($stats['total']        ?? 0);
+        $pedidosEntregues   = (int)($stats['entregues']    ?? 0);
+        $pedidosEmAndamento = (int)($stats['em_andamento'] ?? 0);
+        $pedidosPendentes   = (int)($stats['pendentes']    ?? 0);
+
+        // Pedidos recentes (últimos 8)
+        $pedidosRecentes = $pedidoModel->getRecent($company_id, 8);
+
+        // Entregadores com contagem de entregas (top 5)
+        $entregadoresComContagem = $this->entregadorModel->getAllByEmpresaComContagem($company_id, 5);
+        $totalEntregadores       = count($this->entregadorModel->getAllByEmpresa($company_id));
 
         require_once __DIR__ . '/../Views/Administrador/dashboard.php';
     }
@@ -326,4 +349,3 @@ class AdministradorController
         }
     }
 }
-

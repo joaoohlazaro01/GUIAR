@@ -173,4 +173,52 @@ class Pedido
             return false;
         }
     }
+
+    /**
+     * Retorna contagens agrupadas por status para o dashboard.
+     */
+    public function getDashboardStats($company_id)
+    {
+        try {
+            $sql = "SELECT
+                        COUNT(*) AS total,
+                        SUM(CASE WHEN status = 'entregue'   THEN 1 ELSE 0 END) AS entregues,
+                        SUM(CASE WHEN status = 'A caminho'  THEN 1 ELSE 0 END) AS em_andamento,
+                        SUM(CASE WHEN status = 'Pendente'   THEN 1 ELSE 0 END) AS pendentes
+                    FROM pedido
+                    WHERE id_empresa = :company_id";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':company_id', $company_id, PDO::PARAM_INT);
+            $stmt->execute();
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $row ?: ['total' => 0, 'entregues' => 0, 'em_andamento' => 0, 'pendentes' => 0];
+        } catch (PDOException $e) {
+            error_log("Erro ao buscar stats do dashboard: " . $e->getMessage());
+            return ['total' => 0, 'entregues' => 0, 'em_andamento' => 0, 'pendentes' => 0];
+        }
+    }
+
+    /**
+     * Retorna os pedidos mais recentes com o nome do entregador associado.
+     */
+    public function getRecent($company_id, $limit = 8)
+    {
+        try {
+            $sql = "SELECT p.id_pedido, p.nome_cliente, p.endereco, p.bairro, p.status,
+                           e.nome_completo AS nome_entregador
+                    FROM pedido p
+                    LEFT JOIN entregador e ON p.id_entregador = e.id_entregador
+                    WHERE p.id_empresa = :company_id
+                    ORDER BY p.id_pedido DESC
+                    LIMIT :lim";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':company_id', $company_id, PDO::PARAM_INT);
+            $stmt->bindParam(':lim', $limit, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Erro ao buscar pedidos recentes: " . $e->getMessage());
+            return [];
+        }
+    }
 }

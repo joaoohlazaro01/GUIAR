@@ -148,14 +148,14 @@ class Entregador
                         email = :email, 
                         nome_usuario = :nome_usuario, 
                         senha = :senha";
-            
+
             if (!empty($data['foto_3x4'])) {
                 $sql .= ", nome_foto3x4 = :foto_3x4";
             }
             if (!empty($data['foto_CNH'])) {
                 $sql .= ", nome_cnh = :foto_cnh";
             }
-            
+
             $sql .= " WHERE id_entregador = :id";
 
             $stmt = $this->pdo->prepare($sql);
@@ -165,14 +165,14 @@ class Entregador
             $stmt->bindParam(':email', $data['email']);
             $stmt->bindParam(':nome_usuario', $data['nome_usuario']);
             $stmt->bindParam(':senha', $data['senha']);
-            
+
             if (!empty($data['foto_3x4'])) {
                 $stmt->bindParam(':foto_3x4', $data['foto_3x4']);
             }
             if (!empty($data['foto_CNH'])) {
                 $stmt->bindParam(':foto_cnh', $data['foto_CNH']);
             }
-            
+
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             return $stmt->execute();
         } catch (PDOException $e) {
@@ -180,5 +180,34 @@ class Entregador
             return false;
         }
     }
-}
 
+    /**
+     * Retorna entregadores da empresa com a contagem de pedidos entregues,
+     * ordenados pelo maior volume. Usado no dashboard.
+     */
+    public function getAllByEmpresaComContagem($company_id, $limit = 5)
+    {
+        try {
+            $sql = "SELECT e.id_entregador,
+                           e.nome_completo,
+                           e.nome_foto3x4 AS foto_3x4,
+                           COUNT(p.id_pedido) AS total_entregas
+                    FROM entregador e
+                    LEFT JOIN pedido p
+                           ON p.id_entregador = e.id_entregador
+                           AND p.status = 'entregue'
+                    WHERE e.FK_EMPRESA_id_empresa = :company_id
+                    GROUP BY e.id_entregador
+                    ORDER BY total_entregas DESC
+                    LIMIT :lim";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':company_id', $company_id, PDO::PARAM_INT);
+            $stmt->bindParam(':lim', $limit, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Erro ao buscar entregadores com contagem: " . $e->getMessage());
+            return [];
+        }
+    }
+}
