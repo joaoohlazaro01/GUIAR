@@ -73,23 +73,45 @@
 
 <body class="min-h-screen flex flex-col font-sans">
 
-  <!-- NAVBAR -->
-  <nav class="w-full bg-brand-blue px-6 py-3 flex flex-wrap items-center justify-between shadow-md z-50">
-    <a href="<?= BASE_URL ?>/index.html">
-      <img class="h-[90px] object-contain" src="<?= BASE_URL ?>/img/logobranca.png" alt="LOGO" onerror="this.outerHTML='<span class=\'text-white text-2xl font-extrabold\'>GUIAR</span>'">
-    </a>
-    <button id="nav-toggle" class="md:hidden p-2 text-white focus:outline-none hover:bg-white/10 rounded-lg transition-colors">
-      <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-      </svg>
-    </button>
-    <div id="nav-menu" class="hidden w-full md:flex md:w-auto md:space-x-8 mt-4 md:mt-0 flex-col md:flex-row items-center">
-      <a href="<?= BASE_URL ?>/index.html" class="block py-2 text-[1.1rem] font-medium text-white/90 hover:text-brand-yellow transition-colors">Home</a>
-      <a href="<?= BASE_URL ?>/routes.php?action=loginEmpresa" class="block py-2 text-[1.1rem] font-semibold text-brand-yellow transition-colors underline decoration-2 underline-offset-4">Empresa</a>
-      <a href="<?= BASE_URL ?>/routes.php?action=loginEntregador" class="block py-2 text-[1.1rem] font-medium text-white/90 hover:text-brand-yellow transition-colors">Entregador</a>
-      <a href="<?= BASE_URL ?>/contato.php" class="block py-2 text-[1.1rem] font-medium text-white/90 hover:text-brand-yellow transition-colors">Contato</a>
+  <!-- HEADER -->
+  <header class="bg-brand-blue shadow-md py-0 px-8 sticky top-0 z-50">
+
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+
+      <!-- LOGO -->
+      <div class="flex items-center -my-6">
+        <a href="<?= BASE_URL ?>/index.html">
+          <img src="<?= BASE_URL ?>/img/logobranca.png" alt="LOGO" class="w-52 h-auto object-contain brightness-0 invert">
+        </a>
+      </div>
+
+      <!-- MENU DESKTOP -->
+      <nav class="hidden md:flex items-center gap-12 font-semibold text-xl">
+        <a href="<?= BASE_URL ?>/index.html" class="text-white/90 hover:text-brand-yellow transition duration-300">Home</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=loginEmpresa" class="text-brand-yellow font-bold underline decoration-2 underline-offset-4 transition duration-300">Empresa</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=loginEntregador" class="text-white/90 hover:text-brand-yellow transition duration-300">Entregador</a>
+        <a href="<?= BASE_URL ?>/contato.php" class="text-white/90 hover:text-brand-yellow transition duration-300">Contato</a>
+      </nav>
+
+      <!-- BOTÃO MOBILE -->
+      <button id="nav-toggle" class="md:hidden p-2 text-white focus:outline-none hover:bg-white/10 rounded-lg transition-colors" type="button">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
     </div>
-  </nav>
+
+    <!-- MENU MOBILE -->
+    <div id="nav-menu" class="hidden w-full md:hidden pb-4">
+      <div class="flex flex-col gap-4 text-lg font-semibold mt-4">
+        <a href="<?= BASE_URL ?>/index.html" class="text-white/90">Home</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=loginEmpresa" class="text-brand-yellow font-bold">Empresa</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=loginEntregador" class="text-white/90">Entregador</a>
+        <a href="<?= BASE_URL ?>/contato.php" class="text-white/90">Contato</a>
+      </div>
+    </div>
+
+  </header>
 
   <!-- Container centralizador do formulário -->
   <div class="flex-grow flex items-center justify-center p-4 sm:p-8">
@@ -116,7 +138,7 @@
           <!-- Logo GUIAR -->
           <div class="-mt-4">
             <!-- Usando logo original transformado para branco, se não existir exibe texto padrão -->
-            <img src="<?= BASE_URL ?>/img/LogoBranca.png" alt="GUIAR" class="h-[6.5rem] sm:h-[8rem] w-auto object-contain"
+            <img src="<?= BASE_URL ?>/img/logobranca.png" alt="GUIAR" class="h-[6.5rem] sm:h-[8rem] w-auto object-contain"
               onerror="this.outerHTML='<span class=\'text-white text-[2.5rem] font-extrabold tracking-widest\'>GUIAR</span>'">
           </div>
 
