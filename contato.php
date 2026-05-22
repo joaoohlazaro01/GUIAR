@@ -126,8 +126,7 @@
 
 </html>
 <?php
-session_start();
-require 'config.php';
+require_once __DIR__ . '/config.php';
 
 // ===== SALVAR DADOS =====
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
