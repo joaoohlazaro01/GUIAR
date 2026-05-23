@@ -8,7 +8,7 @@
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="Shortcut Icon" type="image/png" href="<?= BASE_URL ?>/img/logo_branca.png" class="w-6 h-6">
+    <link rel="Shortcut Icon" type="image/png" href="img/logoIcon.png" class=" w-50 h-60 object-contain">
 
   <script>
     tailwind.config = {
@@ -85,7 +85,7 @@
       <!-- LOGO -->
       <div class="flex items-center -my-6">
         <a href="<?= BASE_URL ?>/index.html">
-          <img src="<?= BASE_URL ?>/img/logobranca.png" alt="LOGO" class="w-52 h-auto object-contain brightness-0 invert">
+          <img src="<?= BASE_URL ?>/img/LogoGuiar.png" alt="LOGO" class="w-52 h-auto object-contain brightness-0 invert">
         </a>
       </div>
 
@@ -126,7 +126,8 @@
       <!-- Painel Esquerdo (Azul) -->
       <div class="bg-brand-blue w-full md:w-[45%] p-10 flex flex-col relative overflow-hidden">
         <!-- Imagem do Mapa de Fundo -->
-        <img src="<?= BASE_URL ?>/img/mapapng.png" alt="Mapa Background" class="absolute inset-0 w-[150%] h-[150%] max-w-none -left-[20%] -top-[10%] object-contain opacity-30 pointer-events-none z-0 mix-blend-overlay animate-float">
+       <img src="<?= BASE_URL ?>/img/Mapa.png" alt="Mapa Background" class="absolute inset-0 w-[150%] h-[150%] max-w-none -left-[20%] -top-[10%] object-contain opacity-40 pointer-events-none z-0 mix-blend-overlay animate-float">
+
 
         <div class="absolute top-[75%] left-[25%] transform -translate-x-1/2 -translate-y-1/2 z-0 opacity-80 pointer-events-none">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-[4.5rem] w-[4.5rem] text-brand-yellow drop-shadow-md" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
@@ -138,9 +139,8 @@
         <!-- Conteúdo da Lateral Esquerda -->
         <div class="relative z-10 flex flex-col h-full">
           <!-- Logo GUIAR -->
-          <div class="-mt-4">
-            <img src="<?= BASE_URL ?>/img/LogoBranca.png" alt="GUIAR" class="h-[6.5rem] sm:h-[8rem] w-auto object-contain"
-              onerror="this.outerHTML='<span class=\'text-white text-[2.5rem] font-extrabold tracking-widest\'>GUIAR</span>'">
+          <div class="mb-8">
+            <img src="<?= BASE_URL ?>/img/LogoGuiar.png" alt="Logo GUIAR" class="w-32 brightness-0 invert">
           </div>
 
           <!-- Slogan e Linha Amarela -->
