@@ -6,12 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro | Empresa</title>
 
-    <link rel="Shortcut Icon" type="image/png" href="<?= BASE_URL ?>/img/logo_branca.png">
+   
+    
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
+  <link rel="Shortcut Icon" type="image/png" href="<?= BASE_URL ?>/img/logoIcon.png" class=" w-50 h-60 object-contain">
     <script>
         tailwind.config = {
             theme: {
@@ -115,38 +116,61 @@
 
 <body class="min-h-screen flex flex-col font-sans">
 
-    <!-- NAVBAR -->
-    <nav class="w-full bg-brand-blue px-6 py-3 flex flex-wrap items-center justify-between shadow-md z-50">
-        <a href="<?= BASE_URL ?>/index.html">
-            <img class="h-[90px] object-contain" src="<?= BASE_URL ?>/img/LogoBranca.png" alt="LOGO" onerror="this.outerHTML='<span class=\'text-white text-2xl font-extrabold\'>GUIAR</span>'">
-        </a>
-        <button id="nav-toggle" class="md:hidden p-2 text-white focus:outline-none hover:bg-white/10 rounded-lg transition-colors">
-            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-        </button>
-        <div id="nav-menu" class="hidden w-full md:flex md:w-auto md:space-x-8 mt-4 md:mt-0 flex-col md:flex-row items-center">
-            <a href="<?= BASE_URL ?>/index.html" class="block py-2 text-[1.1rem] font-medium text-white/90 hover:text-brand-yellow transition-colors">Home</a>
-            <a href="<?= BASE_URL ?>/routes.php?action=loginEntregador" class="block py-2 text-[1.1rem] font-medium text-white/90 hover:text-brand-yellow transition-colors">Entregador</a>
-            <a href="<?= BASE_URL ?>/routes.php?action=loginEmpresa" class="block py-2 text-[1.1rem] font-semibold text-brand-yellow transition-colors underline decoration-2 underline-offset-4">Empresa</a>
-            <a href="<?= BASE_URL ?>/contato.php" class="block py-2 text-[1.1rem] font-medium text-white/90 hover:text-brand-yellow transition-colors">Contato</a>
+    <!-- HEADER -->
+    <header class="bg-brand-blue shadow-md py-0 px-8 sticky top-0 z-50">
+
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+
+            <!-- LOGO -->
+            <div class="flex items-center -my-6">
+                <a href="<?= BASE_URL ?>/index.html">
+                    <img src="<?= BASE_URL ?>/img/LogoGuiar.png" alt="LOGO" class="w-52 h-auto object-contain brightness-0 invert">
+                </a>
+            </div>
+
+            <!-- MENU DESKTOP -->
+            <nav class="hidden md:flex items-center gap-12 font-semibold text-xl">
+                <a href="<?= BASE_URL ?>/index.html" class="text-white/90 hover:text-brand-yellow transition duration-300">Home</a>
+                <a href="<?= BASE_URL ?>/routes.php?action=loginEmpresa" class="text-brand-yellow font-bold underline decoration-2 underline-offset-4 transition duration-300">Empresa</a>
+                <a href="<?= BASE_URL ?>/routes.php?action=loginEntregador" class="text-white/90 hover:text-brand-yellow transition duration-300">Entregador</a>
+                <a href="<?= BASE_URL ?>/contato.php" class="text-white/90 hover:text-brand-yellow transition duration-300">Contato</a>
+            </nav>
+
+            <!-- BOTÃO MOBILE -->
+            <button id="nav-toggle" class="md:hidden p-2 text-white focus:outline-none hover:bg-white/10 rounded-lg transition-colors" type="button">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
         </div>
-    </nav>
+
+        <!-- MENU MOBILE -->
+        <div id="nav-menu" class="hidden w-full md:hidden pb-4">
+            <div class="flex flex-col gap-4 text-lg font-semibold mt-4">
+                <a href="<?= BASE_URL ?>/index.html" class="text-white/90">Home</a>
+                <a href="<?= BASE_URL ?>/routes.php?action=loginEmpresa" class="text-brand-yellow font-bold">Empresa</a>
+                <a href="<?= BASE_URL ?>/routes.php?action=loginEntregador" class="text-white/90">Entregador</a>
+                <a href="<?= BASE_URL ?>/contato.php" class="text-white/90">Contato</a>
+            </div>
+        </div>
+
+    </header>
 
     <!-- Container centralizador do formulário -->
     <div class="flex-grow flex items-center justify-center p-4 sm:p-8">
 
         <!-- Card Principal com Bordas Arredondadas -->
-        <div class="bg-white rounded-[2rem] shadow-2xl flex flex-col md:flex-row w-full max-w-[1050px] min-h-[580px] overflow-hidden opacity-0 animate-fade-in-up">
+        <div class="bg-white rounded-[2rem] shadow-2xl flex flex-col md:flex-row w-full max-w-[1080px] min-h-[260px] overflow-hidden opacity-0 animate-fade-in-up">
 
             <!-- Painel Esquerdo (Azul) -->
             <div class="bg-brand-blue w-full md:w-[40%] p-10 flex flex-col relative overflow-hidden">
                 <!-- Imagem do Mapa de Fundo -->
-                <img src="<?= BASE_URL ?>/img/mapapng.png" alt="Mapa Background" class="absolute inset-0 w-[150%] h-[150%] max-w-none -left-[20%] -top-[10%] object-contain opacity-30 pointer-events-none z-0 mix-blend-overlay animate-float">
+                  <img src="<?= BASE_URL ?>/img/Mapa.png" alt="Mapa Background" class="absolute inset-0 w-[150%] h-[150%] max-w-none -left-[20%] -top-[10%] object-contain opacity-40 pointer-events-none z-0 mix-blend-overlay animate-float">
 
 
 
-                <div class="absolute top-[75%] left-[25%] transform -translate-x-1/2 -translate-y-1/2 z-0 opacity-80 pointer-events-none">
+
+                <div class="hidden md:block absolute top-[75%] left-[25%] transform -translate-x-1/2 -translate-y-1/2 z-0 opacity-80 pointer-events-none">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-[4.5rem] w-[4.5rem] text-brand-yellow drop-shadow-md" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
@@ -156,10 +180,12 @@
                 <!-- Conteúdo da Lateral Esquerda -->
                 <div class="relative z-10 flex flex-col h-full">
                     <!-- Logo GUIAR -->
-                    <div class="-mt-4">
-                        <img src="<?= BASE_URL ?>/img/LogoBranca.png" alt="GUIAR" class="h-[6.5rem] sm:h-[8rem] w-auto object-contain"
-                            onerror="this.outerHTML='<span class=\'text-white text-[2.5rem] font-extrabold tracking-widest\'>GUIAR</span>'">
-                    </div>
+            <div class="mb-8">
+            <img
+              src="<?= BASE_URL ?>/img/LogoGuiar.png"
+              alt="Logo GUIAR"
+              class="w-32 brightness-0 invert">
+          </div>
 
                     <!-- Slogan e Linha Amarela -->
                     <div class="my-auto">
@@ -172,36 +198,36 @@
             </div>
 
             <!-- Painel Direito (Formulário Cadastro) -->
-            <div class="w-full md:w-[60%] bg-white p-6 sm:p-10 flex flex-col justify-center items-center relative">
+            <div class="w-full md:w-[60%] bg-white p-5 sm:p-8 flex flex-col justify-center items-center relative">
 
-                <div class="w-full max-w-[450px]">
+                <div class="w-full max-w-[520px]">
 
                     <!-- Cabeçalho: Ícone e Título -->
                     <div class="flex items-center justify-center gap-3 mb-8">
-                        <div class="w-[4rem] h-[4rem] rounded-full bg-[#d6e0f5] flex items-center justify-center text-brand-blue shrink-0">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <div class="w-[4.5rem] h-[4.5rem] rounded-full bg-[#d6e0f5] flex items-center justify-center text-brand-blue shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                             </svg>
                         </div>
-                        <h2 class="text-[1.6rem] font-bold text-gray-900 tracking-tight leading-none pt-2">Cadastro <span class="text-brand-blue font-semibold">| Empresa</span></h2>
+                        <h2 class="text-[1.8rem] font-bold text-gray-900 tracking-tight leading-none pt-2">Cadastro <span class="text-brand-blue font-semibold">| Empresa</span></h2>
                     </div>
 
                     <!-- Formulário -->
-                    <form class="flex flex-col gap-4" action="<?= BASE_URL ?>/routes.php?action=cadastroEmpresa" method="POST" id="cadaForm" enctype="multipart/form-data">
+                    <form class="flex flex-col gap-3" action="<?= BASE_URL ?>/routes.php?action=cadastroEmpresa" method="POST" id="cadaForm" enctype="multipart/form-data">
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <!-- Email -->
                             <div>
                                 <label for="email" class="block text-[0.85rem] font-medium text-gray-700 mb-1 ml-1">Email</label>
                                 <input type="email" id="email" name="email" required
-                                    class="w-full px-4 py-2.5 rounded-xl border border-brand-inputborder focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-blue-100 transition-all text-gray-800 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
+                                    class="w-full px-4 py-3 rounded-xl border border-brand-inputborder focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-blue-100 transition-all text-gray-800 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
                             </div>
 
                             <!-- Senha -->
                             <div>
                                 <label for="inputPassword4" class="block text-[0.85rem] font-medium text-gray-700 mb-1 ml-1">Senha</label>
                                 <input type="password" id="inputPassword4" name="senha" required
-                                    class="w-full px-4 py-2.5 rounded-xl border border-brand-inputborder focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-blue-100 transition-all text-gray-800 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
+                                    class="w-full px-4 py-3 rounded-xl border border-brand-inputborder focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-blue-100 transition-all text-gray-800 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
                             </div>
                         </div>
 
@@ -209,14 +235,14 @@
                         <div>
                             <label for="inputAddress" class="block text-[0.85rem] font-medium text-gray-700 mb-1 ml-1">Nome da Empresa</label>
                             <input type="text" id="inputAddress" name="nome_empresa" required
-                                class="w-full px-4 py-2.5 rounded-xl border border-brand-inputborder focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-blue-100 transition-all text-gray-800 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
+                                class="w-full px-4 py-3 rounded-xl border border-brand-inputborder focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-blue-100 transition-all text-gray-800 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
                         </div>
 
                         <!-- Nome de Usuario -->
                         <div>
                             <label for="inputAddress2" class="block text-[0.85rem] font-medium text-gray-700 mb-1 ml-1">Nome de Usuário</label>
                             <input type="text" id="inputAddress2" name="nome_usuario"
-                                class="w-full px-4 py-2.5 rounded-xl border border-brand-inputborder focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-blue-100 transition-all text-gray-800 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
+                                class="w-full px-4 py-3 rounded-xl border border-brand-inputborder focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-blue-100 transition-all text-gray-800 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -224,7 +250,7 @@
                             <div>
                                 <label for="inputCity" class="block text-[0.85rem] font-medium text-gray-700 mb-1 ml-1">CNPJ</label>
                                 <input type="text" id="inputCity" name="cnpj" required minlength="18" maxlength="18" pattern="\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}" title="Digite um CNPJ válido" oninput="validateCNPJInput(event)"
-                                    class="w-full px-4 py-2.5 rounded-xl border border-brand-inputborder focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-blue-100 transition-all text-gray-800 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
+                                    class="w-full px-4 py-3 rounded-xl border border-brand-inputborder focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-blue-100 transition-all text-gray-800 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
                             </div>
 
                             <!-- Imagem da Empresa -->
