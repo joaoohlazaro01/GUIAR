@@ -9,7 +9,8 @@
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="Shortcut Icon" type="image/png" href="<?= BASE_URL ?>/img/G.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="Shortcut Icon" type="image/png" href="<?= BASE_URL ?>/img/Glogo.png">
 
   <script>
     tailwind.config = {
@@ -32,12 +33,22 @@
           },
           keyframes: {
             fadeInUp: {
-              '0%': { opacity: '0', transform: 'translateY(30px)' },
-              '100%': { opacity: '1', transform: 'translateY(0)' },
+              '0%': {
+                opacity: '0',
+                transform: 'translateY(30px)'
+              },
+              '100%': {
+                opacity: '1',
+                transform: 'translateY(0)'
+              },
             },
             float: {
-              '0%, 100%': { transform: 'translateY(0)' },
-              '50%': { transform: 'translateY(-15px)' },
+              '0%, 100%': {
+                transform: 'translateY(0)'
+              },
+              '50%': {
+                transform: 'translateY(-15px)'
+              },
             }
           }
         }
@@ -148,7 +159,6 @@
           <div class="w-14 h-14 rounded-full bg-[#FFF8D6] flex items-center justify-center flex-shrink-0">
 
             <i class="fa fa-truck text-2xl text-[#F37B1D]"></i>
-
           </div>
 
           <h2 class="text-2xl font-black text-gray-900">

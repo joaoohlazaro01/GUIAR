@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | GUIAR</title>
-    <link rel="Shortcut Icon" type="image/png" href="<?= BASE_URL ?>/img/G.png">
+    <link rel="Shortcut Icon" type="image/png" href="img/Glogo.png">
 
     <!-- Google Fonts: Inter para interface moderna e limpa -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -24,38 +24,59 @@
             src: url('<?= BASE_URL ?>/fonts/BasisGrotesqueArabicPro-Regular.ttf') format('truetype');
         }
 
-        @font-face {
-            font-family: 'Brice-SemiBoldSemi';
-            src: url('<?= BASE_URL ?>/fonts/Brice-SemiBoldSemiCondensed.ttf');
-        }
-
         body {
             font-family: 'Inter', 'BasisGrotesque-Regular', sans-serif;
             background-color: #F8FAFC;
         }
 
-        /* Scrollbar estilizada */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
+        /* --- CORREÇÕES DE ESTILO SEM REMOVER ELEMENTOS --- */
+
+        /* Ajuste para evitar que a sidebar empurre o conteúdo no mobile */
+        @media (max-width: 1024px) {
+            body {
+                flex-direction: column;
+                /* Em vez de linha, coloca um abaixo do outro */
+            }
+
+            #sidebar {
+                position: fixed;
+                left: -100%;
+                top: 0;
+                bottom: 0;
+                z-index: 50;
+                width: 280px;
+                margin: 0 !important;
+                height: 100vh;
+                border-radius: 0 !important;
+            }
+
+            #sidebar.mobile-open {
+                left: 0;
+            }
+
+            /* Garante que o conteúdo ocupe a tela toda */
+            #mainContent {
+                width: 100% !important;
+                margin-left: 0 !important;
+            }
         }
 
-        ::-webkit-scrollbar-track {
-            background: #F1F5F9;
+        /* Transição suave para fechar/abrir */
+        #sidebar {
+            transition: all 0.3s ease-in-out;
         }
 
-        ::-webkit-scrollbar-thumb {
-            background: #CBD5E1;
-            border-radius: 99px;
+        .sidebar-closed {
+            width: 0 !important;
+            opacity: 0;
+            overflow: hidden;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
         }
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94A3B8;
-        }
-
-        /* Animações e transições */
+        /* Efeitos visuais mantidos */
         .menu-item {
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.25s ease;
         }
 
         .menu-item:hover {
@@ -69,121 +90,171 @@
             color: #FFD400 !important;
         }
 
-        .hover-card {
-            transition: all 0.3s ease;
-        }
-
         .hover-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Impede que a tabela quebre o layout no celular */
+        .table-container {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Estilo para esconder e mostrar no mobile */
+        @media (max-width: 1024px) {
+            #sidebar {
+                position: fixed !important;
+                left: -100% !important;
+                /* Começa totalmente escondida */
+                top: 0;
+                bottom: 0;
+                margin: 0 !important;
+                height: 100vh !important;
+                border-radius: 0 !important;
+                z-index: 9999;
+                /* Garante que fique em cima de tudo */
+                transition: left 0.3s ease-in-out;
+            }
+
+            /* Essa é a classe que o JavaScript vai ativar */
+            #sidebar.mobile-open {
+                left: 0 !important;
+            }
+        }
+
+        /* Estilo para recolher no Desktop (Opcional) */
+        .sidebar-closed {
+            width: 0 !important;
+            opacity: 0;
+            pointer-events: none;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
         }
     </style>
 </head>
 
 <body class="min-h-screen flex bg-[#F8FAFC] text-[#0F172A] overflow-x-hidden">
 
-    <aside class="w-72 bg-[#0B0D2F] flex flex-col justify-between flex-shrink-0 min-h-screen text-white sticky top-0 z-40 hidden lg:flex shadow-2xl">
+    <aside id="sidebar"
+        class="w-72 bg-[#0B0D2F] flex flex-col fixed top-4 left-4 text-white sticky top-0 z-40 shadow-2xl transition-all rounded-[24px] overflow-hidden h-[92vh]">
 
-        <div>
-            <div class="p-8">
+
+        <div class="flex flex-col h-full">
+            <div class="p-8 mb-4">
                 <img src="img/logobrancaR.png" alt="Logo GUIAR" class="w-32 h-auto object-contain">
             </div>
 
-            <nav class="px-4 space-y-1.5">
-                <a href="<?= BASE_URL ?>/routes.php?action=dashboardAdm" class="menu-item active-menu flex items-center gap-3.5 px-5 py-3.5 rounded-xl font-semibold text-sm text-[#FFD400] bg-white/5">
+            <nav class="px-4 space-y-2 flex-grow">
+                <a href="<?= BASE_URL ?>/routes.php?action=dashboardAdm"
+                    class="menu-item flex items-center gap-3.5 px-5 py-3 rounded-xl font-bold text-sm bg-[#FFD400] text-[#0B0D2F] shadow-lg shadow-yellow-500/10 transition-all">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                     </svg>
                     Início
                 </a>
 
-                <a href="<?= BASE_URL ?>/routes.php?action=pedidos" class="menu-item flex items-center gap-3.5 px-5 py-3.5 rounded-xl font-semibold text-sm text-slate-300 hover:text-white hover:bg-white/5 transition-all">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <a href="<?= BASE_URL ?>/routes.php?action=pedidos"
+                    class="menu-item flex items-center gap-3.5 px-5 py-3 rounded-xl font-semibold text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                     </svg>
                     Pedidos
                 </a>
 
-                <a href="<?= BASE_URL ?>/routes.php?action=entregadores" class="menu-item flex items-center gap-3.5 px-5 py-3.5 rounded-xl font-semibold text-sm text-slate-300 hover:text-white hover:bg-white/5 transition-all">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <a href="<?= BASE_URL ?>/routes.php?action=entregadores"
+                    class="menu-item flex items-center gap-3.5 px-5 py-3 rounded-xl font-semibold text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-4-4h-1M9 20H4v-2a4 4 0 014-4h1m4-4a4 4 0 100-8 4 4 0 000 8zm6 4a2 2 0 100-4 2 2 0 000 4zM3 20v-2a2 2 0 012-2h1" />
                     </svg>
                     Entregadores
                 </a>
 
-                <a href="<?= BASE_URL ?>/routes.php?action=pedidosEntregues" class="menu-item flex items-center gap-3.5 px-5 py-3.5 rounded-xl font-semibold text-sm text-slate-300 hover:text-white hover:bg-white/5 transition-all">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <a href="<?= BASE_URL ?>/routes.php?action=pedidosEntregues"
+                    class="menu-item flex items-center gap-3.5 px-5 py-3 rounded-xl font-semibold text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
                     </svg>
                     Pedidos Entregues
                 </a>
 
-                <a href="<?= BASE_URL ?>/routes.php?action=mapaAdm" class="menu-item flex items-center gap-3.5 px-5 py-3.5 rounded-xl font-semibold text-sm text-slate-300 hover:text-white hover:bg-white/5 transition-all">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <a href="<?= BASE_URL ?>/routes.php?action=mapaAdm"
+                    class="menu-item flex items-center gap-3.5 px-5 py-3 rounded-xl font-semibold text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
                     </svg>
                     Acompanhar Rotas
                 </a>
 
-                <a href="<?= BASE_URL ?>/routes.php?action=perfilAdm" class="menu-item flex items-center gap-3.5 px-5 py-3.5 rounded-xl font-semibold text-sm text-slate-300 hover:text-white hover:bg-white/5 transition-all">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <a href="<?= BASE_URL ?>/routes.php?action=perfilAdm"
+                    class="menu-item flex items-center gap-3.5 px-5 py-3 rounded-xl font-semibold text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
                     Meu Perfil
                 </a>
             </nav>
-        </div>
 
-        <div class="p-6">
-        </div>
-
-
-        <!-- Upgrade PRO e Perfil do Rodapé -->
-        <div class="px-4 pb-8 space-y-6">
-
-
-
-            <!-- Informações do Administrador Logado -->
-            <div class="flex items-center gap-3.5 pt-4 border-t border-white/10 px-2">
-                <div class="w-10 h-10 rounded-full bg-[#FFD400] text-[#0B0D2F] font-extrabold text-sm flex items-center justify-center shadow">
-                    <?= strtoupper(substr($nomeAdmin, 0, 2)) ?>
+            <div class="p-4 mt-auto">
+                <div class="flex items-center gap-3.5 p-3 rounded-2xl bg-white/5 border border-white/5">
+                    <div class="w-10 h-10 rounded-full bg-[#FFD400] text-[#0B0D2F] font-black text-sm flex items-center justify-center shadow-lg">
+                        <?= strtoupper(substr($nomeAdmin, 0, 2)) ?>
+                    </div>
+                    <div class="flex-grow min-w-0">
+                        <p class="font-bold text-xs text-white truncate"><?= htmlspecialchars($nomeAdmin) ?></p>
+                        <p class="text-[10px] text-slate-500 font-bold tracking-wider uppercase">Admin</p>
+                    </div>
+                    <a href="<?= BASE_URL ?>/routes.php?action=logoutAdm" class="text-slate-500 hover:text-rose-500 transition-colors p-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
+                    </a>
                 </div>
-                <div class="flex-grow min-w-0">
-                    <p class="font-bold text-sm truncate"><?= htmlspecialchars($nomeAdmin) ?></p>
-                    <p class="text-[10px] text-slate-400 font-semibold tracking-wider uppercase mt-0.5">Administrador</p>
-                </div>
-                <a href="<?= BASE_URL ?>/routes.php?action=logoutAdm" class="text-slate-400 hover:text-red-400 transition">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                    </svg>
-                </a>
             </div>
-
         </div>
     </aside>
 
+
     <!-- ================= CONTEÚDO PRINCIPAL (DASHBOARD) ================= -->
-    <div class="flex-1 min-w-0 flex flex-col min-h-screen">
+    <div id="mainContent" class="flex-1 flex flex-col min-h-screen w-full transition-all duration-300">
 
         <!-- HEADER DA PÁGINA (Com campo de busca, sino e logout) -->
         <header class="bg-white border-b border-[#E2E8F0] px-8 py-5 flex items-center justify-between sticky top-0 z-30 shadow-sm gap-4">
 
-            <!-- Título de Boas-Vindas -->
-            <div class="min-w-0">
-                <h1 class="text-2xl font-extrabold text-slate-900 flex items-center gap-2">
-                    Olá, <span class="text-[#1B138F]"><?= htmlspecialchars($nomeAdmin) ?>!</span> 👋
-                </h1>
-                <p class="text-xs text-slate-500 font-medium mt-0.5">Aqui está o status das suas entregas hoje.</p>
+            <div class="flex items-center gap-4 min-w-0">
+                <button id="toggleSidebar" class="p-2 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+
+                <div class="min-w-0">
+                    <h1 class="text-2xl font-extrabold text-slate-900 flex items-center gap-2">
+                        Olá, <span class="text-[#1B138F]"><?= htmlspecialchars($nomeAdmin) ?>!</span>
+                    </h1>
+                    <p class="text-xs text-slate-500 font-medium mt-0.5">Aqui está o status das suas entregas hoje.</p>
+                </div>
             </div>
 
-            <!-- Barra de Ferramentas -->
-            <div class="flex items-center gap-4 flex-shrink-0">
-
-                <!-- Campo de busca rápido -->
+            <div class="flex items-center gap-4 flex-shrink-0 ml-auto">
                 <div class="hidden md:flex items-center gap-2.5 border border-slate-200 bg-[#F8FAFC] rounded-2xl px-4 py-2 w-72 focus-within:border-indigo-500 focus-within:bg-white focus-within:ring-2 focus-within:ring-indigo-500/10 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <input type="text" id="campoBuscaPedidos" placeholder="Buscar pedidos, clientes..." class="bg-transparent border-none outline-none text-xs text-slate-700 placeholder-slate-400 w-full">
+                </div>
+
+                <a href="<?= BASE_URL ?>/routes.php?action=logoutAdm"
+                    class="bg-[#FC8835] hover:bg-[#E27627] text-white font-bold
+   text-[10px] sm:text-xs
+   px-3 sm:px-5
+   py-2 sm:py-2.5
+   rounded-xl sm:rounded-2xl
+   flex items-center gap-1 sm:gap-2
+   transition shadow-md hover:scale-[1.02]">
 
                     <svg xmlns="http://www.w3.org/2000/svg"
-                        class="w-4 h-4 text-slate-400"
+                        class="w-3.5 h-3.5 sm:w-4 sm:h-4"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor">
@@ -191,24 +262,9 @@
                         <path stroke-linecap="round"
                             stroke-linejoin="round"
                             stroke-width="2"
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-
+                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                     </svg>
 
-                    <input
-                        type="text"
-                        id="campoBuscaPedidos"
-                        placeholder="Buscar pedidos, clientes..."
-                        class="bg-transparent border-none outline-none text-xs text-slate-700 placeholder-slate-400 w-full">
-                </div>
-
-
-
-                <!-- Botão Logout Laranja -->
-                <a href="<?= BASE_URL ?>/routes.php?action=logoutAdm" class="bg-[#FC8835] hover:bg-[#E27627] text-white font-bold text-xs px-5 py-2.5 rounded-2xl flex items-center gap-2 transition shadow-md hover:scale-[1.02]">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                    </svg>
                     Logout
                 </a>
 
@@ -283,100 +339,271 @@
             <!-- ================= SEÇÃO CENTRAL: PEDIDOS RECENTES & GRÁFICOS ================= -->
             <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
 
-                <!-- TABELA DE PEDIDOS RECENTES (Colunas 1 e 2) -->
-                <div class="xl:col-span-2 bg-white rounded-3xl border border-slate-100 shadow-sm p-6 space-y-6">
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                        <h3 class="text-lg font-extrabold text-slate-900">Pedidos Recentes</h3>
+                <!-- ================= PEDIDOS RECENTES ================= -->
+                <div class="xl:col-span-2 w-full bg-white rounded-3xl border border-slate-100 shadow-sm p-6 space-y-6 overflow-hidden">
 
-                        <div class="flex items-center gap-3">
-                            <!-- Filtro rápido de pedido -->
-                            <div class="flex items-center gap-2 border border-slate-200 rounded-xl px-3 py-1.5 bg-[#F8FAFC]">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    <!-- TOPO -->
+                    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+
+                        <h3 class="text-lg font-extrabold text-slate-900">
+                            Pedidos Recentes
+                        </h3>
+
+                        <div class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
+
+                            <!-- BUSCA -->
+                            <div class="flex items-center gap-2 border border-slate-200 rounded-xl px-3 py-2 bg-[#F8FAFC] w-full sm:w-[320px]">
+
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="w-4 h-4 text-slate-400"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor">
+
+                                    <path stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+
                                 </svg>
+
                                 <input
                                     type="text"
                                     id="campoBusca"
                                     placeholder="Buscar pedidos, clientes..."
-                                    class="bg-transparent border-none outline-none text-xs text-slate-700 placeholder-slate-400 w-full">
+                                    class="bg-transparent border-none outline-none text-sm text-slate-700 placeholder-slate-400 w-full">
+
                             </div>
 
-                            <!-- Botão Filtrar -->
-                            <button class="flex items-center gap-1.5 border border-slate-200 text-slate-600 px-4 py-1.5 rounded-xl text-xs font-semibold hover:bg-slate-50 transition">
-                                Filtrar
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </button>
+                            <!-- FILTRO -->
+                            <select
+                                id="filtroStatus"
+                                class="border border-slate-200 bg-white text-slate-700 text-sm font-semibold rounded-xl px-4 py-2 outline-none focus:ring-2 focus:ring-indigo-500">
+
+                                <option value="todos">Todos</option>
+                                <option value="pendente">Pendentes</option>
+                                <option value="a caminho">A caminho</option>
+                                <option value="entregue">Entregues</option>
+
+                            </select>
+
                         </div>
+
                     </div>
 
-                    <!-- Tabela Responsiva de Pedidos -->
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left text-xs text-slate-600 font-medium">
+                    <!-- TABELA -->
+                    <div class="w-full overflow-x-auto">
+
+                        <table class="w-full min-w-full text-left">
+
                             <thead>
-                                <tr class="text-slate-400 font-bold border-b border-slate-100 uppercase tracking-wider pb-3">
-                                    <th class="py-3">Pedido</th>
-                                    <th class="py-3">Cliente</th>
-                                    <th class="py-3">Endereço</th>
-                                    <th class="py-3">Entregador</th>
-                                    <th class="py-3">Status</th>
-                                    <th class="py-3">Tempo</th>
-                                    <th class="py-3 text-center">Ação</th>
+
+                                <tr class="border-b border-slate-100 text-slate-400 uppercase text-xs tracking-wider">
+
+                                    <th class="py-4 px-2">Pedido</th>
+                                    <th class="py-4 px-2">Cliente</th>
+                                    <th class="py-4 px-2 min-w-[260px]">Endereço</th>
+                                    <th class="py-4 px-2 min-w-[220px]">Entregador</th>
+                                    <th class="py-4 px-2">Status</th>
+                                    <th class="py-4 px-4 whitespace-nowrap">Valor</th>
+                                    <th class="py-4 px-2 text-center">Ação</th>
+
                                 </tr>
+
                             </thead>
-                            <tbody id="tabelaPedidos" class="divide-y divide-slate-50">
+
+                            <tbody id="tabelaPedidos" class="divide-y divide-slate-100">
 
                                 <?php if (empty($pedidosRecentes)): ?>
+
                                     <tr>
-                                        <td colspan="7" class="py-10 text-center text-slate-400 text-xs font-semibold">Nenhum pedido encontrado.</td>
+
+                                        <td colspan="7" class="py-12 text-center text-slate-400 font-semibold">
+
+                                            Nenhum pedido encontrado.
+
+                                        </td>
+
                                     </tr>
+
                                 <?php else: ?>
+
                                     <?php foreach ($pedidosRecentes as $p):
-                                        $status     = htmlspecialchars($p['status']);
-                                        $entregador = $p['nome_entregador'] ? htmlspecialchars($p['nome_entregador']) : '—';
-                                        // Badge de status
-                                        if (strtolower($status) === 'entregue') {
-                                            $badge = '<span class="bg-amber-100 text-amber-700 font-bold px-2.5 py-0.5 rounded-lg text-[10px]">Entregue</span>';
-                                        } elseif (strtolower($status) === 'a caminho') {
-                                            $badge = '<span class="bg-blue-100 text-blue-700 font-bold px-2.5 py-0.5 rounded-lg text-[10px]">A caminho</span>';
+
+                                        $status = strtolower(trim($p['status']));
+
+                                        $entregador = $p['nome_entregador']
+                                            ? htmlspecialchars($p['nome_entregador'])
+                                            : 'Não atribuído';
+
+                                        // BADGES
+                                        if ($status === 'entregue') {
+
+                                            $badge = '
+                            <span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-xl text-[11px] font-bold">
+                                Entregue
+                            </span>';
+                                        } elseif ($status === 'a caminho') {
+
+                                            $badge = '
+                            <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-xl text-[11px] font-bold">
+                                A caminho
+                            </span>';
                                         } else {
-                                            $badge = '<span class="bg-slate-100 text-slate-600 font-bold px-2.5 py-0.5 rounded-lg text-[10px]">' . $status . '</span>';
+
+                                            $badge = '
+                            <span class="bg-amber-100 text-amber-700 px-3 py-1 rounded-xl text-[11px] font-bold">
+                                Pendente
+                            </span>';
                                         }
+
                                     ?>
-                                        <tr class="hover:bg-slate-50/50 transition">
-                                            <td class="py-3.5 font-bold text-indigo-600">#<?= $p['id_pedido'] ?></td>
-                                            <td class="py-3.5 text-slate-900 font-semibold"><?= htmlspecialchars($p['nome_cliente']) ?></td>
-                                            <td class="py-3.5 text-slate-500 max-w-[150px] truncate"><?= htmlspecialchars($p['endereco']) ?></td>
-                                            <td class="py-3.5">
+
+                                        <tr
+                                            class="hover:bg-slate-50 transition pedido-linha"
+                                            data-status="<?= $status ?>">
+
+                                            <!-- ID -->
+                                            <td class="py-4 px-2 font-bold text-indigo-600 whitespace-nowrap">
+
+                                                #<?= $p['id_pedido'] ?>
+
+                                            </td>
+
+                                            <!-- CLIENTE -->
+                                            <td class="py-4 px-2 font-semibold text-slate-800 whitespace-nowrap">
+
+                                                <?= htmlspecialchars($p['nome_cliente']) ?>
+
+                                            </td>
+
+                                            <!-- ENDEREÇO -->
+                                            <td class="py-4 px-2 text-slate-500">
+
+                                                <?= htmlspecialchars($p['endereco']) ?>
+
+                                            </td>
+
+                                            <!-- ENTREGADOR -->
+                                            <td class="py-4 px-2">
+
                                                 <?php if ($p['nome_entregador']): ?>
-                                                    <div class="flex items-center gap-2">
-                                                        <div class="w-6 h-6 rounded-full bg-slate-200 flex-shrink-0 overflow-hidden border border-white">
-                                                            <img src="https://ui-avatars.com/api/?name=<?= urlencode($entregador) ?>&background=EEF2FF&color=4F46E5&bold=true&size=64" class="w-full h-full object-cover">
+
+                                                    <div class="flex items-center gap-3">
+
+                                                        <div class="w-8 h-8 rounded-full overflow-hidden bg-indigo-100 flex items-center justify-center text-indigo-700 text-xs font-bold">
+
+                                                            <?= strtoupper(substr($entregador, 0, 2)) ?>
+
                                                         </div>
-                                                        <span class="text-xs font-medium text-slate-700"><?= $entregador ?></span>
+
+                                                        <span class="font-medium text-slate-700">
+
+                                                            <?= $entregador ?>
+
+                                                        </span>
+
                                                     </div>
+
                                                 <?php else: ?>
-                                                    <span class="text-slate-400 text-xs">Não atribuído</span>
+
+                                                    <span class="text-slate-400">
+
+                                                        Não atribuído
+
+                                                    </span>
+
                                                 <?php endif; ?>
+
                                             </td>
-                                            <td class="py-3.5"><?= $badge ?></td>
-                                            <td class="py-3.5 text-slate-400 font-semibold text-xs">—</td>
-                                            <td class="py-3.5 text-center">
-                                                <button class="text-slate-400 hover:text-slate-600 transition p-1">•••</button>
+
+                                            <!-- STATUS -->
+                                            <td class="py-4 px-2">
+
+                                                <?= $badge ?>
+
                                             </td>
+
+                                            <!-- VALOR -->
+                                            <td class="py-4 px-4 font-bold text-emerald-600 whitespace-nowrap">
+                                                R$ <?= number_format($p['preco'], 2, ',', '.') ?>
+                                            </td>
+
+                                            <!-- AÇÕES -->
+                                            <td class="py-4 px-2 text-center relative">
+
+                                                <button
+                                                    onclick="toggleMenu(<?= $p['id_pedido'] ?>)"
+                                                    class="w-9 h-9 rounded-xl hover:bg-slate-100 transition font-bold text-slate-500">
+
+                                                    ⋮
+
+                                                </button>
+
+                                                <!-- MENU -->
+                                                <div
+                                                    id="menu-<?= $p['id_pedido'] ?>"
+                                                    class="hidden absolute right-0 mt-2 w-44 bg-white border border-slate-200 rounded-2xl shadow-xl z-50 overflow-hidden">
+
+                                                    <a
+                                                        href="<?= BASE_URL ?>/routes.php?action=pedidos&id=<?= $p['id_pedido'] ?>"
+                                                        class="block px-4 py-3 text-sm hover:bg-slate-50">
+
+                                                        Ver Pedido
+
+                                                    </a>
+
+                                                    <a
+                                                        href="<?= BASE_URL ?>/routes.php?action=pedidos&id=<?= $p['id_pedido'] ?>"
+                                                        class="block px-4 py-3 text-sm hover:bg-slate-50">
+
+                                                        Editar
+
+                                                    </a>
+
+                                                    <a
+                                                        href="<?= BASE_URL ?>/routes.php?action=pedidos&id=<?= $p['id_pedido'] ?>"
+                                                        class="block px-4 py-3 text-sm text-red-500 hover:bg-red-50">
+
+                                                        Excluir
+
+                                                    </a>
+
+                                                </div>
+
+                                            </td>
+
                                         </tr>
+
+
+
                                     <?php endforeach; ?>
+
                                 <?php endif; ?>
 
                             </tbody>
+
                         </table>
+
                     </div>
 
-                    <!-- Rodapé da Tabela com contagem real -->
+                    <!-- RODAPÉ -->
                     <div class="flex items-center justify-between pt-4 border-t border-slate-100">
-                        <span class="text-xs text-slate-400">Exibindo os <?= count($pedidosRecentes) ?> pedidos mais recentes de <?= $totalPedidos ?> no total</span>
-                        <a href="<?= BASE_URL ?>/routes.php?action=pedidos" class="text-xs font-bold text-indigo-600 hover:text-indigo-800 transition">Ver todos →</a>
+
+                        <span class="text-sm text-slate-400">
+
+                            Exibindo os <?= count($pedidosRecentes) ?> pedidos mais recentes de <?= $totalPedidos ?> no total
+
+                        </span>
+
+                        <a
+                            href="<?= BASE_URL ?>/routes.php?action=pedidos"
+                            class="text-sm font-bold text-indigo-600 hover:text-indigo-800 transition">
+
+                            Ver todos →
+
+                        </a>
+
                     </div>
 
                 </div>
@@ -546,7 +773,7 @@
                     <div class="min-w-0">
                         <p class="text-xs text-amber-800 font-bold uppercase tracking-wider flex items-center justify-between">
                             Dica do dia
-                            <button class="text-amber-500 hover:text-amber-800 transition">✕</button>
+
                         </p>
                         <p class="text-[11px] text-amber-900/85 leading-relaxed mt-1.5 font-medium">
                             Organize suas rotas por regiões para otimizar o tempo das entregas e reduzir custos.
@@ -631,56 +858,227 @@
     </div>
 
     <script>
-        // ================= BUSCA DA TABELA =================
-        const campoBusca = document.getElementById('campoBusca');
+        // =========================
+        // ELEMENTOS
+        // =========================
 
-        campoBusca.addEventListener('keyup', function() {
+        const campoBuscaTabela = document.getElementById('campoBusca');
+        const campoBuscaGeral = document.getElementById('campoBuscaPedidos');
+        const filtroStatus = document.getElementById('filtroStatus');
 
-            const texto = campoBusca.value.toLowerCase();
+        // =========================
+        // BUSCA DA TABELA
+        // =========================
 
-            const linhas = document.querySelectorAll('#tabelaPedidos tr');
+        function filtrarTabela() {
 
-            linhas.forEach(function(linha) {
+            const textoBusca = campoBuscaTabela.value.toLowerCase().trim();
+            const statusFiltro = filtroStatus.value;
 
-                const conteudoLinha = linha.textContent.toLowerCase();
+            const linhas = document.querySelectorAll('.pedido-linha');
 
-                if (conteudoLinha.includes(texto)) {
-                    linha.style.display = '';
-                } else {
+            linhas.forEach((linha) => {
+
+                const conteudo = linha.textContent.toLowerCase();
+                const status = linha.dataset.status;
+
+                const buscaOk = conteudo.includes(textoBusca);
+
+                const statusOk =
+                    statusFiltro === 'todos' ||
+                    status === statusFiltro;
+
+                // RESET
+                linha.style.display = '';
+                linha.style.filter = '';
+                linha.style.opacity = '';
+                linha.style.transform = '';
+                linha.style.transition = 'all 0.25s ease';
+                linha.style.backgroundColor = '';
+                linha.style.zIndex = '';
+
+                // FILTRO DE STATUS
+                if (!statusOk) {
+
                     linha.style.display = 'none';
+                    return;
+
+                }
+
+                // SE TIVER TEXTO NA BUSCA
+                if (textoBusca !== '') {
+
+                    if (buscaOk) {
+
+                        // DESTACA A LINHA ENCONTRADA
+                        linha.style.filter = 'blur(0px)';
+                        linha.style.opacity = '1';
+                        linha.style.transform = 'scale(1.01)';
+                        linha.style.backgroundColor = '#ffffff';
+                        linha.style.position = 'relative';
+                        linha.style.zIndex = '10';
+
+                    } else {
+
+                        // DESFOCA AS OUTRAS
+                        linha.style.filter = 'blur(2px)';
+                        linha.style.opacity = '0.2';
+                        linha.style.transform = 'scale(0.98)';
+
+                    }
+
                 }
 
             });
 
-        });
+        }
 
+        // =========================
+        // BUSCA GERAL DA PÁGINA
+        // =========================
 
-        // ================= BUSCA GERAL DO TOPO =================
-        const buscaGeral = document.getElementById('campoBuscaPedidos');
+        function buscaGeralPagina() {
 
-        buscaGeral.addEventListener('keyup', function() {
+            const texto = campoBuscaGeral.value.toLowerCase().trim();
 
-            const texto = buscaGeral.value.toLowerCase();
-
-            // elementos pesquisáveis
+            // TODOS OS BLOCOS PRINCIPAIS
             const elementos = document.querySelectorAll(
-                '.hover-card, section, table, h1, h2, h3, h4, p'
+                'main section, main .hover-card, main .pedido-linha, main .bg-white'
             );
 
-            elementos.forEach(function(elemento) {
+            elementos.forEach((elemento) => {
 
                 const conteudo = elemento.textContent.toLowerCase();
 
+                // RESET
+                elemento.style.transition = 'all 0.25s ease';
+                elemento.style.filter = '';
+                elemento.style.opacity = '';
+                elemento.style.transform = '';
+                elemento.style.outline = '';
+
+                // SEM TEXTO = NORMAL
+                if (texto === '') return;
+
+                // ENCONTROU
                 if (conteudo.includes(texto)) {
+
+                    elemento.style.filter = 'blur(0px)';
                     elemento.style.opacity = '1';
+                    elemento.style.transform = 'scale(1.01)';
+                    elemento.style.position = 'relative';
+                    elemento.style.zIndex = '20';
+                    elemento.style.outline = '2px solid rgba(79,70,229,0.15)';
+
                 } else {
-                    elemento.style.opacity = '0.25';
+
+                    // DESFOCA RESTO DA PÁGINA
+                    elemento.style.filter = 'blur(3px)';
+                    elemento.style.opacity = '0.18';
+                    elemento.style.transform = 'scale(0.98)';
+
                 }
 
             });
 
+        }
+
+        // =========================
+        // EVENTOS
+        // =========================
+
+        // BUSCA DA TABELA
+        campoBuscaTabela.addEventListener('keyup', filtrarTabela);
+
+        filtroStatus.addEventListener('change', filtrarTabela);
+
+        // BUSCA GERAL
+        campoBuscaGeral.addEventListener('keyup', buscaGeralPagina);
+
+        // =========================
+        // MENU DE AÇÕES
+        // =========================
+
+        function toggleMenu(id) {
+
+            document.querySelectorAll('[id^="menu-"]').forEach(menu => {
+
+                if (menu.id !== `menu-${id}`) {
+
+                    menu.classList.add('hidden');
+
+                }
+
+            });
+
+            const menu = document.getElementById(`menu-${id}`);
+
+            menu.classList.toggle('hidden');
+
+        }
+
+        // =========================
+        // FECHAR MENU AO CLICAR FORA
+        // =========================
+
+        document.addEventListener('click', function(e) {
+
+            if (!e.target.closest('[onclick^="toggleMenu"]')) {
+
+                document.querySelectorAll('[id^="menu-"]').forEach(menu => {
+
+                    menu.classList.add('hidden');
+
+                });
+
+            }
+
         });
     </script>
+
+    <script>
+        // =========================
+        // SIDEBAR RESPONSIVA
+        // =========================
+
+        const toggleSidebarBtn = document.getElementById('toggleSidebar');
+        const sidebar = document.getElementById('sidebar');
+
+        toggleSidebarBtn.addEventListener('click', () => {
+
+            // MOBILE
+            if (window.innerWidth <= 1024) {
+
+                sidebar.classList.toggle('mobile-open');
+
+            }
+
+            // DESKTOP
+            else {
+
+                sidebar.classList.toggle('sidebar-closed');
+
+            }
+
+        });
+
+        // FECHAR AO CLICAR FORA NO MOBILE
+        document.addEventListener('click', (e) => {
+
+            if (
+                window.innerWidth <= 1024 &&
+                !sidebar.contains(e.target) &&
+                !toggleSidebarBtn.contains(e.target)
+            ) {
+
+                sidebar.classList.remove('mobile-open');
+
+            }
+
+        });
+    </script>
+
+
 </body>
 
 </html>

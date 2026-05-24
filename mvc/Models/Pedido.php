@@ -204,7 +204,7 @@ class Pedido
     public function getRecent($company_id, $limit = 8)
     {
         try {
-            $sql = "SELECT p.id_pedido, p.nome_cliente, p.endereco, p.bairro, p.status,
+            $sql = "SELECT p.id_pedido, p.nome_cliente, p.endereco, p.preco, p.bairro, p.status,
                            e.nome_completo AS nome_entregador
                     FROM pedido p
                     LEFT JOIN entregador e ON p.id_entregador = e.id_entregador

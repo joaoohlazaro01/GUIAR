@@ -5,19 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acompanhamento de Entregadores | Administrador</title>
-    
+
     <!-- Leaflet & Leaflet Routing Machine CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
-    
+
     <!-- Bootstrap 5 & Google Fonts -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+
     <link rel="Shortcut Icon" type="image/png" href="<?= BASE_URL ?>/img/G.png">
     <link href="<?= BASE_URL ?>/style/indexAdm.css" rel="stylesheet">
 
@@ -60,7 +60,8 @@
             display: flex;
             gap: 20px;
             flex: 1;
-            min-height: 0; /* Permite scroll interno */
+            min-height: 0;
+            /* Permite scroll interno */
             margin-bottom: 20px;
         }
 
@@ -113,14 +114,14 @@
             border-radius: 12px;
             padding: 15px;
             border-left: 6px solid #ccc;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
             transition: all 0.3s ease;
             cursor: pointer;
         }
 
         .driver-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
         }
 
         .driver-card.online-active {
@@ -237,7 +238,7 @@
         .moto-icon-wrapper {
             font-size: 26px;
             animation: bounce 0.8s ease infinite alternate;
-            filter: drop-shadow(0px 3px 4px rgba(0,0,0,0.3));
+            filter: drop-shadow(0px 3px 4px rgba(0, 0, 0, 0.3));
         }
 
         .pulse-ring {
@@ -265,6 +266,7 @@
                 transform: scale(0.6);
                 opacity: 1;
             }
+
             100% {
                 transform: scale(1.6);
                 opacity: 0;
@@ -272,8 +274,13 @@
         }
 
         @keyframes bounce {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-4px); }
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-4px);
+            }
         }
 
         .delivery-marker {
@@ -286,7 +293,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
             width: 24px;
             height: 24px;
         }
@@ -313,14 +320,17 @@
         ::-webkit-scrollbar {
             width: 6px;
         }
+
         ::-webkit-scrollbar-track {
             background: #f1f1f1;
             border-radius: 10px;
         }
+
         ::-webkit-scrollbar-thumb {
             background: #fc8835;
             border-radius: 10px;
         }
+
         ::-webkit-scrollbar-thumb:hover {
             background: #ff7b00;
         }
@@ -336,13 +346,16 @@
                 padding: 10px !important;
                 justify-content: center !important;
             }
+
             .sidebar a {
                 padding: 8px 12px !important;
                 font-size: 14px !important;
             }
+
             .sidebar .spacer {
                 display: none !important;
             }
+
             .logout-btn {
                 position: static !important;
                 display: block !important;
@@ -350,32 +363,38 @@
                 text-align: center !important;
                 width: fit-content !important;
             }
+
             .main {
                 margin-left: 0 !important;
                 padding: 15px !important;
                 height: auto !important;
                 min-height: 100vh !important;
             }
+
             .page-header {
                 flex-direction: column !important;
                 align-items: center !important;
                 text-align: center !important;
             }
+
             .page-title h1 {
                 font-size: 24px !important;
             }
+
             .tracking-container {
                 flex-direction: column !important;
                 height: auto !important;
                 min-height: 0 !important;
                 gap: 15px !important;
             }
+
             #map {
                 height: 400px !important;
                 width: 100% !important;
                 min-height: 350px !important;
                 flex: none !important;
             }
+
             .tracking-sidebar {
                 width: 100% !important;
                 height: 450px !important;
@@ -467,7 +486,7 @@
         function calcularMelhorRotaParaEntregador(id_entregador, startLatLng, pedidos, corRota) {
             var promises = pedidos.map(ponto => {
                 if (!ponto.latitude || !ponto.longitude) return Promise.resolve(null);
-                
+
                 var waypoints = [
                     startLatLng,
                     L.latLng(ponto.latitude, ponto.longitude)
@@ -481,9 +500,14 @@
                         }),
                         show: false,
                         lineOptions: {
-                            styles: [{ color: 'rgba(0,0,0,0)', weight: 1 }]
+                            styles: [{
+                                color: 'rgba(0,0,0,0)',
+                                weight: 1
+                            }]
                         },
-                        createMarker: function() { return null; }
+                        createMarker: function() {
+                            return null;
+                        }
                     }).on('routesfound', function(e) {
                         var routeLength = e.routes[0].summary.totalDistance;
                         map.removeControl(tempControl);
@@ -527,9 +551,15 @@
                         addWaypoints: false,
                         draggableWaypoints: false,
                         fitSelectedRoutes: false,
-                        createMarker: function() { return null; },
+                        createMarker: function() {
+                            return null;
+                        },
                         lineOptions: {
-                            styles: [{ color: corRota, weight: 6, opacity: 0.8 }]
+                            styles: [{
+                                color: corRota,
+                                weight: 6,
+                                opacity: 0.8
+                            }]
                         },
                         router: L.Routing.osrmv1({
                             serviceUrl: 'https://router.project-osrm.org/route/v1'
@@ -655,7 +685,9 @@
                         marcadoresEntregadores[entregador.id_entregador].setLatLng([lat, lng]);
                     } else {
                         // Cria novo marcador
-                        var marker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
+                        var marker = L.marker([lat, lng], {
+                            icon: customIcon
+                        }).addTo(map);
                         marcadoresEntregadores[entregador.id_entregador] = marker;
                     }
 
@@ -687,7 +719,9 @@
                                 if (marcadoresPedidos[pedido.id_pedido]) {
                                     marcadoresPedidos[pedido.id_pedido].setLatLng([plat, plng]);
                                 } else {
-                                    var pMarker = L.marker([plat, plng], { icon: pedidoIcon }).addTo(map);
+                                    var pMarker = L.marker([plat, plng], {
+                                        icon: pedidoIcon
+                                    }).addTo(map);
                                     marcadoresPedidos[pedido.id_pedido] = pMarker;
                                 }
 
@@ -707,13 +741,17 @@
                         var idsPedidosStr = pedidosPendentes.map(p => p.id_pedido).sort().join(',');
 
                         var estadoAnterior = estadoEntregadores[entregador.id_entregador];
-                        var mudou = !estadoAnterior || 
-                                    estadoAnterior.lat !== lat || 
-                                    estadoAnterior.lng !== lng || 
-                                    estadoAnterior.idsPedidosStr !== idsPedidosStr;
+                        var mudou = !estadoAnterior ||
+                            estadoAnterior.lat !== lat ||
+                            estadoAnterior.lng !== lng ||
+                            estadoAnterior.idsPedidosStr !== idsPedidosStr;
 
                         if (mudou) {
-                            estadoEntregadores[entregador.id_entregador] = { lat: lat, lng: lng, idsPedidosStr: idsPedidosStr };
+                            estadoEntregadores[entregador.id_entregador] = {
+                                lat: lat,
+                                lng: lng,
+                                idsPedidosStr: idsPedidosStr
+                            };
                             calcularMelhorRotaParaEntregador(entregador.id_entregador, L.latLng(lat, lng), pedidosPendentes, corRota);
                         }
                     } else {
@@ -773,7 +811,6 @@
         // Primeira carga e loop de atualização (a cada 5 segundos)
         atualizarRastreamento();
         setInterval(atualizarRastreamento, 5000);
-
     </script>
 </body>
 

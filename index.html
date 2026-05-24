@@ -4,108 +4,211 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <title>GUIAR</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="Shortcut Icon" type="image/png" href="img/Glogo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 
 <body class="bg-[#F5F5F5] overflow-x-hidden text-gray-900">
-    <header class="bg-white shadow-md py-0 px-8 sticky top-0 z-50">
+
+    <!-- HEADER -->
+    <header class="bg-white shadow-md py-0 px-4 md:px-8 sticky top-0 z-50">
+
         <div class="max-w-7xl mx-auto flex items-center justify-between">
 
             <!-- LOGO -->
-            <div class="flex items-center -my-6">
-                <img src="img/LogoGuiar.png" alt="Logo GUIAR" class="w-52 h-auto object-contain">
-            </div>
-            <!-- MENU -->
-            <nav class="hidden md:flex items-center gap-12 font-semibold text-xl">
+            <div class="flex items-center -my-4 md:-my-6">
 
-                <a href="index.html" class="text-[#1B138F] hover:text-[#FFD400] transition duration-300">
+                <img src="img/LogoGuiar.png" alt="Logo GUIAR" class="w-36 md:w-52 h-auto object-contain">
+
+            </div>
+
+            <!-- MENU DESKTOP -->
+            <nav class="hidden md:flex items-center gap-12 font-semibold text-2xl">
+
+                <a href="index.html" class="relative text-[#1B138F] hover:text-[#FFD400] transition duration-300
+                    after:content-[''] after:absolute after:left-0 after:-bottom-1
+                    after:w-0 after:h-[3px] after:bg-[#FFD400]
+                    after:transition-all after:duration-300
+                    hover:after:w-full">
+
                     Home
+
                 </a>
-                <a href="routes.php?action=loginEmpresa"
-                    class="text-[#1B138F] hover:text-[#FFD400] transition duration-300">
+
+                <a href="routes.php?action=loginEmpresa" class="relative text-[#1B138F] hover:text-[#FFD400] transition duration-300
+                    after:content-[''] after:absolute after:left-0 after:-bottom-1
+                    after:w-0 after:h-[3px] after:bg-[#FFD400]
+                    after:transition-all after:duration-300
+                    hover:after:w-full">
+
                     Empresa
+
                 </a>
-                <a href="routes.php?action=loginEntregador"
-                    class="text-[#1B138F] hover:text-[#FFD400] transition duration-300">
+
+                <a href="routes.php?action=loginEntregador" class="relative text-[#1B138F] hover:text-[#FFD400] transition duration-300
+                    after:content-[''] after:absolute after:left-0 after:-bottom-1
+                    after:w-0 after:h-[3px] after:bg-[#FFD400]
+                    after:transition-all after:duration-300
+                    hover:after:w-full">
+
                     Entregador
+
                 </a>
-                <a href="contato.php" class="text-[#1B138F] hover:text-[#FFD400] transition duration-300">
+
+                <a href="contato.php" class="relative text-[#1B138F] hover:text-[#FFD400] transition duration-300
+                    after:content-[''] after:absolute after:left-0 after:-bottom-1
+                    after:w-0 after:h-[3px] after:bg-[#FFD400]
+                    after:transition-all after:duration-300
+                    hover:after:w-full">
+
                     Contato
+
                 </a>
 
             </nav>
 
+            <!-- BOTÃO MOBILE -->
+            <button id="nav-toggle" class="md:hidden p-2 text-white focus:outline-none
+                bg-[#1B138F] rounded-lg transition-colors" type="button">
+
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                    </path>
+
+                </svg>
+
+            </button>
+
         </div>
+
+        <!-- MENU MOBILE -->
+        <div id="nav-menu" class="hidden w-full md:hidden pb-4">
+
+            <div class="flex flex-col gap-4 text-lg font-semibold mt-4">
+
+                <a href="index.html" class="text-[#1B138F] hover:text-[#FFD400] transition duration-300">
+
+                    Home
+
+                </a>
+
+                <a href="routes.php?action=loginEmpresa"
+                    class="text-[#1B138F] hover:text-[#FFD400] transition duration-300">
+
+                    Empresa
+
+                </a>
+
+                <a href="routes.php?action=loginEntregador"
+                    class="text-[#1B138F] hover:text-[#FFD400] transition duration-300">
+
+                    Entregador
+
+                </a>
+
+                <a href="contato.php" class="text-[#1B138F] hover:text-[#FFD400] transition duration-300">
+
+                    Contato
+
+                </a>
+
+            </div>
+
+        </div>
+
     </header>
 
     <!-- HERO -->
-    <section class="relative bg-[#1B138F] overflow-hidden py-24">
+    <section class="relative bg-[#1B138F] overflow-hidden py-16 md:py-24">
 
         <!-- DECORAÇÃO -->
         <div class="absolute -left-40 -top-40 w-[500px] h-[500px] rounded-full bg-[#2414B8] opacity-70"></div>
-        <div class="absolute right-0 bottom-0 w-[300px] h-[300px] rounded-full bg-[#2414B8] opacity-50"></div>
-        <div class="max-w-7xl mx-auto px-8 relative z-10">
 
-            <div class="grid md:grid-cols-2 items-center gap-16">
+        <div class="absolute right-0 bottom-0 w-[300px] h-[300px] rounded-full bg-[#2414B8] opacity-50"></div>
+
+        <div class="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
+
+            <div class="grid md:grid-cols-2 items-center gap-10 md:gap-16 text-center md:text-left">
 
                 <!-- IMAGEM -->
                 <div class="flex justify-center">
+
                     <div class="relative">
+
                         <div class="absolute -inset-4 rounded-full border-2 border-yellow-400"></div>
-                        <div
-                            class="w-[360px] h-[360px] rounded-full overflow-hidden border-[18px] border-[#2F1BFF] shadow-2xl bg-white flex items-center justify-center">
+
+                        <div class="w-[250px] h-[250px]
+                            md:w-[360px] md:h-[360px]
+                            rounded-full overflow-hidden
+                            border-[12px] md:border-[18px]
+                            border-[#2F1BFF]
+                            shadow-2xl bg-white flex items-center justify-center">
+
                             <img src="img/Inicio.png" alt="Equipe" class="w-full h-full object-cover scale-[1.15]">
 
                         </div>
+
                     </div>
+
                 </div>
 
                 <!-- TEXTO -->
                 <div class="text-white">
-                    <h2 class="text-5xl md:text-6xl font-black leading-tight mb-6"
-                        style="font-family: 'Inter', sans-serif;">
+
+                    <h2 class="text-3xl md:text-6xl font-black leading-tight mb-6">
 
                         Bem-vindo(a) ao
+
                         <span class="text-[#FFD400] block">
                             GUIAR!
                         </span>
 
                     </h2>
 
-                    <p class="text-xl text-white/80 leading-relaxed mb-10 max-w-lg">
+                    <p class="text-lg md:text-xl text-white/80 leading-relaxed mb-10 max-w-lg mx-auto md:mx-0">
+
                         Aprimore sua experiência conosco.
                         Desbloqueie possibilidades, alcance a excelência.
+
                     </p>
 
-                    <button onclick="window.location.href='contato.php'"
-                        class="bg-[#FFD400] text-[#1B138F] px-20 py-4 rounded-full text-lg font-black hover:scale-105 transition shadow-xl">
+                    <button onclick="window.location.href='contato.php'" class="bg-[#FFD400] text-[#1B138F]
+                        px-10 md:px-20 py-4 rounded-full
+                        text-lg font-black hover:scale-105
+                        transition shadow-xl">
 
                         CONTATO →
 
                     </button>
+
                 </div>
+
             </div>
+
         </div>
+
     </section>
 
     <!-- SERVIÇOS -->
-    <section class="py-24 px-8 bg-[#F5F5F5]">
+    <section class="py-16 md:py-24 px-4 md:px-8 bg-[#F5F5F5]">
 
         <div class="max-w-7xl mx-auto">
 
-            <h2 class="text-center text-6xl font-black text-[#1B138F] mb-6" style="font-family: 'Inter', sans-serif;">
+            <h2 class="text-center text-4xl md:text-6xl font-black text-[#1B138F] mb-6">
 
                 Nossos serviços
 
             </h2>
 
             <p class="text-center text-gray-500 max-w-3xl mx-auto leading-relaxed mb-20">
+
                 O GUIAR cria rotas inteligentes que ajuda na melhor alocação para seus entregadores,
                 considerando múltiplos pontos de entrega e priorizando a otimização do tempo e do percurso.
+
             </p>
 
             <div class="grid md:grid-cols-2 gap-10">
@@ -117,13 +220,17 @@
                     <div class="bg-[#2414B8] text-white rounded-2xl shadow-xl p-8 flex items-center gap-5">
 
                         <div class="w-20 h-20 rounded-xl bg-white flex items-center justify-center text-3xl">
+
                             <img class="w-16 h-16" src="img/localizacao.png" alt="">
+
                         </div>
 
                         <div>
 
-                            <h3 class="text-2xl font-bold">
+                            <h3 class="text-xl md:text-2xl font-bold">
+
                                 Roteamento Inteligente
+
                             </h3>
 
                         </div>
@@ -134,13 +241,17 @@
                     <div class="bg-white rounded-2xl shadow-lg p-8 flex items-center gap-5">
 
                         <div class="w-20 h-20 rounded-xl bg-orange-100 flex items-center justify-center text-3xl">
+
                             <img class="w-16 h-16" src="img/TempoReal.png" alt="">
+
                         </div>
 
                         <div>
 
-                            <h3 class="text-2xl font-bold text-gray-800">
+                            <h3 class="text-xl md:text-2xl font-bold text-gray-800">
+
                                 Atualização em Tempo Real
+
                             </h3>
 
                         </div>
@@ -151,13 +262,17 @@
                     <div class="bg-white rounded-2xl shadow-lg p-8 flex items-center gap-5">
 
                         <div class="w-20 h-20 rounded-xl bg-orange-100 flex items-center justify-center text-3xl">
+
                             <img class="w-16 h-16" src="img/InterfaceUsuario.png" alt="">
+
                         </div>
 
                         <div>
 
-                            <h3 class="text-2xl font-bold text-gray-800">
+                            <h3 class="text-xl md:text-2xl font-bold text-gray-800">
+
                                 Interface Intuitiva
+
                             </h3>
 
                         </div>
@@ -167,8 +282,9 @@
                 </div>
 
                 <!-- DIREITA -->
-                <div
-                    class="bg-white rounded-[30px] shadow-2xl border-l-[8px] border-[#FFD400] p-10 py-16 space-y-10 h-full flex flex-col justify-center">
+                <div class="bg-white rounded-[30px] shadow-2xl border-l-[8px]
+                    border-[#FFD400] p-6 md:p-10 py-10 md:py-16
+                    space-y-10 h-full flex flex-col justify-center">
 
                     <div class="flex gap-5">
 
@@ -218,30 +334,34 @@
                 </div>
 
             </div>
+
         </div>
+
     </section>
 
     <!-- SOBRE -->
-    <section class="py-24 px-8">
+    <section class="py-16 md:py-24 px-4 md:px-8">
 
         <div class="max-w-7xl mx-auto">
 
-            <div class="relative bg-[#1B138F] rounded-[40px] overflow-hidden p-16">
+            <div class="relative bg-[#1B138F] rounded-[40px] overflow-hidden p-8 md:p-16">
 
                 <!-- DECORAÇÃO -->
                 <div class="absolute -bottom-24 -left-24 w-[250px] h-[250px] bg-orange-500 rounded-full opacity-80">
                 </div>
 
-                <div class="grid md:grid-cols-2 gap-16 items-center relative z-10">
+                <div class="grid md:grid-cols-2 gap-10 md:gap-16 items-center relative z-10 text-center md:text-left">
 
                     <!-- TEXTO -->
                     <div class="text-white">
 
-                        <h2 class="text-5xl font-black text-[#FFD400] mb-8" style="font-family: 'Inter', sans-serif;">
+                        <h2 class="text-4xl md:text-5xl font-black text-[#FFD400] mb-8">
+
                             SOBRE NÓS
+
                         </h2>
 
-                        <p class="text-2xl leading-relaxed text-white/90">
+                        <p class="text-lg md:text-2xl leading-relaxed text-white/90">
 
                             O GUIAR é um sistema inteligente que cria as rotas mais eficazes para seus entregadores,
                             considerando múltiplos pontos de entrega e priorizando a otimização do tempo e do percurso.
@@ -261,49 +381,67 @@
 
                             <div class="absolute -inset-5 rounded-full border-2 border-yellow-400"></div>
 
-                            <div
-                                class="w-[390px] h-[390px] rounded-full overflow-hidden border-[18px] border-[#2F1BFF] bg-white flex items-center justify-center">
+                            <div class="w-[250px] h-[250px]
+                                md:w-[390px] md:h-[390px]
+                                rounded-full overflow-hidden
+                                border-[12px] md:border-[18px]
+                                border-[#2F1BFF]
+                                bg-white flex items-center justify-center">
+
                                 <img src="img/Entrega.png" alt="Equipe" class="w-full h-full object-cover scale-[1.15]">
+
                             </div>
+
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </section>
 
-    <!-- Contate-nos -->
-    <section class="py-24 px-8 bg-white">
+    <!-- CONTATE-NOS -->
+    <section class="py-16 md:py-24 px-4 md:px-8 bg-white">
+
         <div class="max-w-7xl mx-auto">
-            <!-- Container com Imagem de Fundo -->
-            <div class="relative rounded-[40px] overflow-hidden h-[600px] shadow-2xl bg-cover bg-center bg-no-repeat"
-                style="background-image: url('img/contatosR.png');">
 
-                <!-- Gradiente Escuro (Overlay) - Direcionado para a direita onde ficará o card -->
-                <div class="absolute inset-0 bg-gradient-to-l from-[#1B138F]/95 via-[#1B138F]/70 to-transparent"></div>
+            <div class="relative rounded-[40px] overflow-hidden min-h-[700px] md:h-[600px]
+                shadow-2xl bg-cover bg-center bg-no-repeat" style="background-image: url('img/contatosR.png');">
 
-                <!-- Card com Efeito Glassmorphism -->
-                <div
-                    class="absolute bottom-10 right-10 left-10 md:top-16 md:bottom-16 md:right-16 md:left-auto md:w-[500px] z-10 flex flex-col justify-center">
+                <!-- OVERLAY -->
+                <div class="absolute inset-0 bg-gradient-to-l from-[#1B138F]/95 via-[#1B138F]/70 to-transparent">
+                </div>
 
-                    <div class="bg-white p-10 rounded-3xl shadow-2xl h-full flex flex-col justify-center text-center">
+                <!-- CARD -->
+                <div class="relative z-10 flex items-center justify-center md:justify-end
+                    h-full p-6 md:p-16">
 
-                        <h2 class="text-4xl font-awesome text-[#1B138F] mb-6 drop-shadow-sm">
+                    <div class="bg-white p-6 md:p-10 rounded-3xl shadow-2xl
+                        w-full max-w-[500px] text-center">
+
+                        <h2 class="text-3xl md:text-4xl font-black text-[#1B138F] mb-6">
+
                             Tecnologia que move sua jornada
 
                         </h2>
 
-                        <p class="text-gray-700 text-xl leading-relaxed mb-8">
-                            O Guiar nasceu para transformar a forma como pessoas e processos se conectam. Com uma
-                            experiência simples, moderna e inteligente, nossa plataforma oferece mais controle,
-                            agilidade e eficiência para o seu dia a dia. Menos complicação, mais movimento.
+                        <p class="text-gray-700 text-lg md:text-xl leading-relaxed mb-8">
+
+                            O Guiar nasceu para transformar a forma como pessoas e processos se conectam.
+                            Com uma experiência simples, moderna e inteligente.
 
                         </p>
 
-                        <!-- BOTÃO PARA A PÁGINA DE CONTATO -->
-                        <a href="contato.php"
-                            class="inline-block bg-[#FFD400] text-[#1B138F] py-4 px-8 rounded-xl font-black text-lg hover:scale-[1.03] hover:shadow-xl transition">
+                        <a href="contato.php" class="inline-block bg-[#FFD400] text-[#1B138F]
+                            py-4 px-8 rounded-xl font-black text-lg
+                            hover:scale-[1.03] hover:shadow-xl transition">
+
                             MENSAGEM VIA SITE
+
                         </a>
 
                     </div>
@@ -311,44 +449,73 @@
                 </div>
 
             </div>
+
         </div>
+
     </section>
 
     <!-- FOOTER -->
-    <footer class="bg-[#1B138F] text-white py-10 px-8 overflow-hidden">
+    <footer class="bg-[#1B138F] text-white py-10 px-4 md:px-8 overflow-hidden">
 
         <div class="max-w-7xl mx-auto">
 
-            <div class="grid md:grid-cols-4 gap-10 items-start">
+            <div class="grid md:grid-cols-4 gap-10 items-start text-center md:text-left">
 
                 <!-- LOGO -->
-                <div>
+                <div class="flex justify-center md:justify-start">
 
                     <img src="img/Glogo.png" alt="Logo GUIAR" class="w-20 h-auto object-contain mb-4">
 
                 </div>
 
                 <!-- LINKS -->
-                <div class="border-l border-white/20 pl-8">
+                <div class="md:border-l border-white/20 md:pl-8">
 
                     <ul class="space-y-3">
 
-                        <li><a href="index.html" class="hover:text-[#FFD400] transition">Home</a></li>
-                        <li><a href="routes.php?action=loginEmpresa" class="hover:text-[#FFD400] transition">Empresa</a>
+                        <li>
+                            <a href="index.html" class="hover:text-[#FFD400] transition">
+
+                                Home
+
+                            </a>
                         </li>
-                        <li><a href="routes.php?action=loginEntregador"
-                                class="hover:text-[#FFD400] transition">Entregador</a></li>
-                        <li><a href="contato.php" class="hover:text-[#FFD400] transition">Contato</a></li>
+
+                        <li>
+                            <a href="routes.php?action=loginEmpresa" class="hover:text-[#FFD400] transition">
+
+                                Empresa
+
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="routes.php?action=loginEntregador" class="hover:text-[#FFD400] transition">
+
+                                Entregador
+
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="contato.php" class="hover:text-[#FFD400] transition">
+
+                                Contato
+
+                            </a>
+                        </li>
 
                     </ul>
 
                 </div>
 
                 <!-- CONTATO -->
-                <div class="border-l border-white/20 pl-8">
+                <div class="md:border-l border-white/20 md:pl-8">
 
                     <h3 class="font-bold text-xl mb-4">
+
                         Ligue para nós
+
                     </h3>
 
                     <p>
@@ -358,10 +525,12 @@
                 </div>
 
                 <!-- EMAIL -->
-                <div class="border-l border-white/20 pl-8">
+                <div class="md:border-l border-white/20 md:pl-8">
 
                     <h3 class="font-bold text-xl mb-4">
+
                         Envie-nos um e-mail
+
                     </h3>
 
                     <p>
@@ -373,7 +542,26 @@
             </div>
 
         </div>
+
     </footer>
+
+    <!-- SCRIPT MENU MOBILE -->
+    <script>
+
+        const btn = document.getElementById('nav-toggle');
+        const menu = document.getElementById('nav-menu');
+
+        if (btn && menu) {
+
+            btn.addEventListener('click', () => {
+
+                menu.classList.toggle('hidden');
+
+            });
+
+        }
+
+    </script>
 
 </body>
 
