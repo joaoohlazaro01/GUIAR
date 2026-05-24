@@ -9,12 +9,12 @@
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<<<<<<< HEAD
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="Shortcut Icon" type="image/png" href="<?= BASE_URL ?>/img/Glogo.png">
-=======
+
  <link rel="Shortcut Icon" type="image/png" href="<?= BASE_URL ?>/img/logoIcon.png" class=" w-50 h-60 object-contain">
->>>>>>> fa1e0b8574f0fb715dab579702773dd34511eaa5
+
 
   <script>
     tailwind.config = {
