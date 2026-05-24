@@ -59,7 +59,7 @@
         <div class="max-w-7xl mx-auto flex items-center justify-between">
 
             <!-- LOGO -->
-            div class="flex items-center -my-6">
+            <div class="flex items-center -my-6">
                 <a href="<?= BASE_URL ?>/index.html">
                     <img src="<?= BASE_URL ?>/img/LogoGuiar.png" alt="LOGO" class="w-52 h-auto object-contain brightness-0 invert">
                 </a>
