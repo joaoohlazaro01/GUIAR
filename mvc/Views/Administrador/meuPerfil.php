@@ -14,34 +14,27 @@
 
     <style>
 
-        @font-face {
-            font-family: 'Brice-Bold';
-            src: url('<?= BASE_URL ?>/fonts/Brice-BoldSemiCondensed.ttf') format('truetype');
+        /* SIDEBAR - Comportamento Responsivo */
+        .sidebar {
+            height: 100vh;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
         }
 
-        @font-face {
-            font-family: 'BasisGrotesque-Regular';
-            src: url('<?= BASE_URL ?>/fonts/BasisGrotesqueArabicPro-Regular.ttf') format('truetype');
+        .main {
+            margin-left: 250px;
+            padding: 15px;
+            transition: 0.3s;
         }
 
-        @font-face {
-            font-family: 'Brice-SemiBoldSemi';
-            src: url('<?= BASE_URL ?>/fonts/Brice-SemiBoldSemiCondensed.ttf');
-        }
-
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-        }
-
-        body{
-            background:#F3F4F6;
-            font-family:'BasisGrotesque-Regular';
-            overflow-x:hidden;
-        }
-
-        /* MOBILE */
+         /* MOBILE */
         @media(max-width:768px){
 
             #sidebar{
@@ -84,9 +77,13 @@
         class="hidden fixed inset-0 bg-black/40 z-30 md:hidden">
     </div>
 
-    <!-- SIDEBAR -->
+
    <!-- SIDEBAR -->
-<aside id="sidebar"
+<?php
+$nomeAdmin = $admin["nome_adm"] ?? "Admin";
+?>
+
+ <aside id="sidebar"
     class="w-72 bg-[#0B0D2F] flex flex-col fixed top-4 left-4 text-white z-40 shadow-2xl transition-all rounded-[24px] overflow-hidden h-[92vh]">
 
     <div class="flex flex-col h-full">
@@ -110,7 +107,7 @@
 
             <!-- INÍCIO -->
             <a href="<?= BASE_URL ?>/routes.php?action=dashboardAdm"
-                class="menu-item flex items-center gap-3.5 px-5 py-3 rounded-xl font-bold text-sm bg-[#FFD400] text-[#0B0D2F] shadow-lg shadow-yellow-500/10 transition-all">
+                 class="menu-item flex items-center gap-3.5 px-5 py-3 rounded-xl font-semibold text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-all">
 
                 <svg xmlns="http://www.w3.org/2000/svg"
                     class="w-5 h-5"
@@ -186,8 +183,7 @@
 
             <!-- MAPA -->
             <a href="<?= BASE_URL ?>/routes.php?action=mapaAdm"
-                class="menu-item flex items-center gap-3.5 px-5 py-3 rounded-xl font-semibold text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-all">
-
+                 class="menu-item flex items-center gap-3.5 px-5 py-3 rounded-xl font-semibold text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-all">
                 <svg xmlns="http://www.w3.org/2000/svg"
                     class="w-5 h-5 opacity-70"
                     fill="none"
@@ -205,8 +201,7 @@
 
             <!-- PERFIL -->
             <a href="<?= BASE_URL ?>/routes.php?action=perfilAdm"
-                class="menu-item flex items-center gap-3.5 px-5 py-3 rounded-xl font-semibold text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-all">
-
+                class="menu-item flex items-center gap-3.5 px-5 py-3 rounded-xl font-bold text-sm bg-[#FFD400] text-[#0B0D2F] shadow-lg shadow-yellow-500/10 transition-all">
                 <svg xmlns="http://www.w3.org/2000/svg"
                     class="w-5 h-5 opacity-70"
                     fill="none"
@@ -263,20 +258,28 @@
         </div>
     </div>
 </aside>
+        <!-- MAIN -->
+        <main class="flex-1 flex flex-col min-h-screen w-full md:ml-[304px]">
 
-    <!-- MAIN -->
-    <main class="flex-1 flex flex-col min-h-screen md:ml-[320px] content-mobile">
+            <!-- HEADER -->
+            <header class="bg-white/80 backdrop-blur-md border-b border-gray-200 px-4 md:px-8 py-4 md:py-5 flex items-center gap-4 sticky top-0 z-10">
 
-        <!-- HEADER -->
-        <header class="bg-white/80 backdrop-blur-md border-b border-gray-200 px-4 md:px-8 py-4 md:py-5 flex items-center justify-between sticky top-0 z-10">
+                <!-- MENU MOBILE -->
+                <button id="hamburger"
+                    class="md:hidden flex items-center justify-center w-10 h-10 rounded-xl bg-gray-100">
 
-            <!-- MENU MOBILE -->
-            <button id="hamburger"
-                class="md:hidden flex items-center justify-center w-10 h-10 rounded-xl bg-gray-100">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-6 h-6 text-gray-700"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor">
 
-                ☰
-            </button>
-
+                        <path stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
             <h2 class="text-lg md:text-2xl font-bold text-gray-800">
                 Meu Perfil
             </h2>

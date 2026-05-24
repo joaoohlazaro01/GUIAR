@@ -10,27 +10,57 @@
     <script src="https://cdn.tailwindcss.com"></script>
     
     <style>
-        @font-face {
-            font-family: 'Brice-Bold';
-            src: url('<?= BASE_URL ?>/fonts/Brice-BoldSemiCondensed.ttf') format('truetype');
-        }
-        @font-face {
-            font-family: 'BasisGrotesque-Regular';
-            src: url('<?= BASE_URL ?>/fonts/BasisGrotesqueArabicPro-Regular.ttf') format('truetype');
-        }
-        @font-face {
-            font-family: 'Brice-SemiBoldSemi';
-            src: url('<?= BASE_URL ?>/fonts/Brice-SemiBoldSemiCondensed.ttf');
-        }
-
-        body {
-            font-family: 'BasisGrotesque-Regular', sans-serif;
-            background-color: #f0f2f5;
+       /* SIDEBAR - Comportamento Responsivo */
+        .sidebar {
+            height: 100vh;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
         }
 
-        .modal {
-            display: none;
+        .main {
+            margin-left: 250px;
+            padding: 15px;
+            transition: 0.3s;
         }
+
+         /* MOBILE */
+        @media(max-width:768px){
+
+            #sidebar{
+                transform:translateX(-100%);
+                transition:.3s ease;
+                border-radius:0 !important;
+                top:0 !important;
+                left:0 !important;
+                margin:0 !important;
+                height:100vh !important;
+                width:280px !important;
+            }
+
+            #sidebar.mobile-open{
+                transform:translateX(0);
+            }
+
+            #overlay.active{
+                display:block;
+            }
+
+            .content-mobile{
+                margin-left:0 !important;
+            }
+
+            .profile-card{
+                padding:24px !important;
+            }
+        }
+    </style>
     </style>
 </head>
 
@@ -38,80 +68,204 @@
 
     <div id="sidebarOverlay" class="fixed inset-0 bg-[#0B0D2F]/50 backdrop-blur-sm z-40 hidden transition-opacity md:hidden"></div>
 
-    <aside id="sidebar"
-        class="w-72 bg-[#0B0D2F] flex flex-col fixed top-4 left-4 text-white sticky top-0 z-40 shadow-2xl transition-all rounded-[24px] overflow-hidden h-[92vh]">
+   <aside id="sidebar"
+    class="w-72 bg-[#0B0D2F] flex flex-col fixed top-4 left-4 text-white z-40 shadow-2xl transition-all rounded-[24px] overflow-hidden h-[92vh]">
 
-        <div class="flex flex-col h-full">
-            
-            <button id="closeSidebarBtn" class="absolute top-6 right-6 text-gray-400 hover:text-white md:hidden">
-                <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-            </button>
+    <div class="flex flex-col h-full">
 
-            <div class="h-28 flex items-center justify-center px-8 mt-2">
-                <img src="img/logobrancaR.png" alt="Logo GUIAR" class="w-32 h-auto object-contain">
-            </div>
+        <!-- BOTÃO FECHAR MOBILE -->
+        <button id="closeSidebar"
+            class="absolute top-5 right-5 md:hidden text-white text-2xl z-50">
 
-            <nav class="flex-1 px-6 py-2 space-y-2 overflow-y-auto">
-                
-                <a href="<?= BASE_URL ?>/routes.php?action=dashboardAdm" class="flex items-center gap-4 px-5 py-3.5 text-[#8890A4] font-medium hover:text-white rounded-2xl transition-colors">
-                    <svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" /></svg>
-                    Início
-                </a>
+            ✕
+        </button>
 
-                <a href="<?= BASE_URL ?>/routes.php?action=pedidos" class="flex items-center gap-4 px-5 py-3.5 text-[#8890A4] font-medium hover:text-white rounded-2xl transition-colors">
-                    <svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" /></svg>
-                    Pedidos
-                </a>
+        <!-- LOGO -->
+        <div class="p-8 mb-4">
+            <img src="<?= BASE_URL ?>/img/logobrancaR.png"
+                alt="Logo GUIAR"
+                class="w-32 h-auto object-contain">
+        </div>
 
-                <a href="<?= BASE_URL ?>/routes.php?action=entregadores" class="flex items-center gap-4 px-5 py-3.5 bg-[#FFC107] text-[#0c1120] font-bold rounded-xl shadow-lg transition-colors">
-                    <svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" /></svg>
-                    Entregadores
-                </a>
+        <!-- MENU -->
+        <nav class="px-4 space-y-2 flex-grow overflow-y-auto">
 
-                <a href="<?= BASE_URL ?>/routes.php?action=pedidosEntregues" class="flex items-center gap-4 px-5 py-3.5 text-[#8890A4] font-medium hover:text-white rounded-2xl transition-colors">
-                    <svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" /></svg>
-                    Pedidos Entregues
-                </a>
+            <!-- INÍCIO -->
+            <a href="<?= BASE_URL ?>/routes.php?action=dashboardAdm"
+                 class="menu-item flex items-center gap-3.5 px-5 py-3 rounded-xl font-semibold text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-all">
 
-                <a href="<?= BASE_URL ?>/routes.php?action=mapaAdm" class="flex items-center gap-4 px-5 py-3.5 text-[#8890A4] font-medium hover:text-white rounded-2xl transition-colors">
-                    <svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" /></svg>
-                    Acompanhar Rotas
-                </a>
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor">
 
-                <a href="<?= BASE_URL ?>/routes.php?action=perfilAdm" class="flex items-center gap-4 px-5 py-3.5 text-[#8890A4] font-medium hover:text-white rounded-2xl transition-colors">
-                    <svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" /></svg>
-                    Meu Perfil
-                </a>
-                
-            </nav>
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
 
-            <div class="p-6 mb-2 mt-auto">
-                <div class="flex items-center justify-between bg-[#13192B] p-3 rounded-2xl border border-white/5">
-                    <div class="flex items-center gap-3 min-w-0">
-                        <div class="w-11 h-11 flex-shrink-0 bg-[#FFC107] text-[#0c1120] font-extrabold text-sm flex items-center justify-center rounded-full shadow-inner">
-                            <?= strtoupper(substr($nomeAdmin, 0, 2)) ?>
-                        </div>
-                        <div class="flex flex-col min-w-0">
-                            <span class="text-white font-bold text-sm tracking-wide truncate"><?= htmlspecialchars($nomeAdmin) ?></span>
-                            <span class="text-[10px] text-gray-500 font-bold tracking-widest mt-0.5 uppercase">Admin</span>
-                        </div>
-                    </div>
-                    <a href="<?= BASE_URL ?>/routes.php?action=logoutAdm" class="flex-shrink-0 text-[#8890A4] hover:text-[#FFC107] transition-colors p-2" title="Sair">
-                        <svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
-                        </svg>
-                    </a>
+                Início
+            </a>
+
+            <!-- PEDIDOS -->
+            <a href="<?= BASE_URL ?>/routes.php?action=pedidos"
+                 class="menu-item flex items-center gap-3.5 px-5 py-3 rounded-xl font-semibold text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5 opacity-70"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor">
+
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                </svg>
+
+                Pedidos
+            </a>
+
+            <!-- ENTREGADORES -->
+            <a href="<?= BASE_URL ?>/routes.php?action=entregadores"
+                class="menu-item flex items-center gap-3.5 px-5 py-3 rounded-xl font-bold text-sm bg-[#FFD400] text-[#0B0D2F] shadow-lg shadow-yellow-500/10 transition-all">
+
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5 opacity-70"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor">
+
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M17 20h5v-2a4 4 0 00-4-4h-1M9 20H4v-2a4 4 0 014-4h1m4-4a4 4 0 100-8 4 4 0 000 8zm6 4a2 2 0 100-4 2 2 0 000 4zM3 20v-2a2 2 0 012-2h1" />
+                </svg>
+
+                Entregadores
+            </a>
+
+            <!-- PEDIDOS ENTREGUES -->
+            <a href="<?= BASE_URL ?>/routes.php?action=pedidosEntregues"
+                class="menu-item flex items-center gap-3.5 px-5 py-3 rounded-xl font-semibold text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5 opacity-70"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor">
+
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                </svg>
+
+                Pedidos Entregues
+            </a>
+
+            <!-- MAPA -->
+            <a href="<?= BASE_URL ?>/routes.php?action=mapaAdm"
+                class="menu-item flex items-center gap-3.5 px-5 py-3 rounded-xl font-semibold text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5 opacity-70"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor">
+
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                </svg>
+
+                Acompanhar Rotas
+            </a>
+
+            <!-- PERFIL -->
+            <a href="<?= BASE_URL ?>/routes.php?action=perfilAdm"
+                class="menu-item flex items-center gap-3.5 px-5 py-3 rounded-xl font-semibold text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5 opacity-70"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor">
+
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+
+                Meu Perfil
+            </a>
+        </nav>
+
+        <!-- FOOTER -->
+        <div class="p-4 mt-auto">
+
+            <div class="flex items-center gap-3.5 p-3 rounded-2xl bg-white/5 border border-white/5">
+
+                <div class="w-10 h-10 rounded-full bg-[#FFD400] text-[#0B0D2F] font-black text-sm flex items-center justify-center shadow-lg">
+                    <?= strtoupper(substr($nomeAdmin, 0, 2)) ?>
                 </div>
+
+                <div class="flex-grow min-w-0">
+
+                    <p class="font-bold text-xs text-white truncate">
+                        <?= htmlspecialchars($nomeAdmin) ?>
+                    </p>
+
+                    <p class="text-[10px] text-slate-500 font-bold tracking-wider uppercase">
+                        Admin
+                    </p>
+                </div>
+
+                <!-- LOGOUT -->
+                <a href="<?= BASE_URL ?>/routes.php?action=logoutAdm"
+                    class="text-slate-500 hover:text-rose-500 transition-colors p-1">
+
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-5 h-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor">
+
+                        <path stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                </a>
             </div>
         </div>
-    </aside>
+    </div>
+</aside>
 
-    <main class="flex-1 flex flex-col h-full overflow-hidden w-full relative">
-        
-        <header class="px-5 md:px-10 py-6 md:py-8 flex justify-between items-center z-10 flex-shrink-0 gap-4">
-            <div class="flex items-center gap-4">
-                <button id="openSidebarBtn" class="md:hidden bg-white text-gray-800 p-2.5 rounded-xl shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#FFC107]">
-                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+     <!-- MAIN -->
+        <main class="flex-1 flex flex-col min-h-screen w-full md:ml-[304px]">
+
+            <!-- HEADER -->
+            <header class="bg-white/80 backdrop-blur-md border-b border-gray-200 px-4 md:px-8 py-4 md:py-5 flex items-center gap-4 sticky top-0 z-10">
+
+                <!-- MENU MOBILE -->
+                <button id="hamburger"
+                    class="md:hidden flex items-center justify-center w-10 h-10 rounded-xl bg-gray-100">
+
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-6 h-6 text-gray-700"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor">
+
+                        <path stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
                 </button>
                 
                 <div>
@@ -452,5 +606,50 @@
                 });
             }
             </script>
+
+            <script>
+
+    // SIDEBAR MOBILE
+    const menuBtn = document.getElementById('hamburger');
+    const sidebar = document.getElementById('sidebar');
+    const closeSidebar = document.getElementById('closeSidebar');
+    const overlay = document.getElementById('overlay');
+
+    menuBtn.addEventListener('click', () => {
+        sidebar.classList.add('mobile-open');
+        overlay.classList.add('active');
+    });
+
+    closeSidebar.addEventListener('click', () => {
+        sidebar.classList.remove('mobile-open');
+        overlay.classList.remove('active');
+    });
+
+    overlay.addEventListener('click', () => {
+        sidebar.classList.remove('mobile-open');
+        overlay.classList.remove('active');
+    });
+
+    // MODAL
+    const modal = document.getElementById("editProfileModal");
+    const openBtn = document.getElementById("openEditModalBtn");
+    const closeBtn = document.getElementById("closeEditModalBtn");
+
+    openBtn.addEventListener("click", () => {
+        modal.classList.remove("hidden");
+    });
+
+    closeBtn.addEventListener("click", () => {
+        modal.classList.add("hidden");
+    });
+
+    window.addEventListener("click", (event) => {
+
+        if (event.target === modal) {
+            modal.classList.add("hidden");
+        }
+    });
+
+</script>
 </body>
 </html>
