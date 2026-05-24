@@ -6,10 +6,7 @@
     <link rel="Shortcut Icon" type="image/png" href="img/Glogo.png">
     <title>Pedidos Entregues</title>
 
-    <link
-    rel="Shortcut Icon"
-    type="image/png"
-    href="<?= BASE_URL ?>/img/G.png">
+    
 
     <script src="https://cdn.tailwindcss.com"></script>
 

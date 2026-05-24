@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard dos Motoboys</title>
-    <link rel="shortcut icon" type="image/png" href="<?= BASE_URL ?>/src/G.png">
+   <link rel="Shortcut Icon" type="image/png" href="img/Glogo.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
     
