@@ -144,13 +144,13 @@
     </style>
 </head>
 
-<body class="min-h-screen flex bg-[#F8FAFC] text-[#0F172A] overflow-x-hidden">
+<body class="min-h-screen flex bg-[#F8FAFC] text-[#0F172A] overflow-x-hidden lg:pl-72">
 
     <!-- Overlay do Sidebar Mobile -->
     <div id="sidebarOverlay" class="fixed inset-0 bg-slate-900/50 z-40 hidden lg:hidden transition-opacity"></div>
 
     <!-- SIDEBAR -->
-    <aside id="sidebar" class="w-72 bg-white flex flex-col justify-between flex-shrink-0 min-h-screen text-slate-900 fixed lg:sticky top-0 left-0 z-50 shadow-2xl overflow-y-auto transform -translate-x-full lg:translate-x-0 transition-transform duration-300 border-r border-slate-200">
+    <aside id="sidebar" class="w-72 bg-white flex flex-col justify-between flex-shrink-0 min-h-screen text-slate-900 fixed top-0 left-0 z-50 shadow-2xl overflow-y-auto transform -translate-x-full lg:translate-x-0 transition-transform duration-300 border-r border-slate-200">
 
         <div>
             <div class="p-8">
@@ -220,8 +220,8 @@
         </header>
 
         <!-- CONTEÚDO PRINCIPAL -->
-        <main class="flex-grow p-8">
-            <div class="bg-white p-2 rounded-3xl border border-slate-100 shadow-sm">
+        <main class="flex-grow p-8 lg:px-12 xl:px-16">
+            <div class="max-w-[1400px] mx-auto bg-white p-2 rounded-3xl border border-slate-100 shadow-sm">
                 <div id="map"></div>
             </div>
         </main>
