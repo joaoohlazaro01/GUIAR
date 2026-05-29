@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
+     <link rel="Shortcut Icon" type="image/png" href="img/Glogo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Acompanhamento de Entregadores</title>
@@ -21,6 +22,56 @@
         href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
 
     <style>
+         /* SIDEBAR - Comportamento Responsivo */
+        .sidebar {
+            height: 100vh;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+        }
+
+        .main {
+            margin-left: 250px;
+            padding: 15px;
+            transition: 0.3s;
+        }
+
+         /* MOBILE */
+        @media(max-width:768px){
+
+            #sidebar{
+                transform:translateX(-100%);
+                transition:.3s ease;
+                border-radius:0 !important;
+                top:0 !important;
+                left:0 !important;
+                margin:0 !important;
+                height:100vh !important;
+                width:280px !important;
+            }
+
+            #sidebar.mobile-open{
+                transform:translateX(0);
+            }
+
+            #overlay.active{
+                display:block;
+            }
+
+            .content-mobile{
+                margin-left:0 !important;
+            }
+
+            .profile-card{
+                padding:24px !important;
+            }
+        }
         body {
             font-family: 'Outfit', sans-serif;
         }
@@ -118,118 +169,209 @@
     <div class="flex h-screen">
 
         <!-- SIDEBAR -->
-        <aside
-            class="hidden lg:flex w-[280px] bg-[#05073b] text-white flex-col justify-between p-6 rounded-r-[35px]">
+        <aside id="sidebar"
+    class="w-72 bg-[#0B0D2F] flex flex-col fixed top-4 left-4 text-white z-40 shadow-2xl transition-all rounded-[24px] overflow-hidden h-[92vh]">
 
-            <div>
+    <div class="flex flex-col h-full">
 
-                <!-- LOGO -->
-                <div class="mb-12">
-                    <h1 class="text-4xl font-black tracking-wide">
-                        GUIAR
-                    </h1>
-                </div>
+        <!-- BOTÃO FECHAR MOBILE -->
+        <button id="closeSidebar"
+            class="absolute top-5 right-5 md:hidden text-white text-2xl z-50">
 
-                <!-- MENU -->
-                <nav class="space-y-3">
+            ✕
+        </button>
 
-                    <a href="<?= BASE_URL ?>/routes.php?action=dashboardAdm"
-                        class="flex items-center gap-3 bg-yellow-400 text-black px-5 py-4 rounded-2xl font-bold shadow-lg">
-                        🏠
-                        <span>Início</span>
-                    </a>
+        <!-- LOGO -->
+        <div class="p-8 mb-4">
+            <img src="<?= BASE_URL ?>/img/logobrancaR.png"
+                alt="Logo GUIAR"
+                class="w-32 h-auto object-contain">
+        </div>
 
-                    <a href="<?= BASE_URL ?>/routes.php?action=pedidos"
-                        class="flex items-center gap-3 px-5 py-4 rounded-2xl text-slate-300 hover:bg-white/10 transition">
-                        📦
-                        <span>Pedidos</span>
-                    </a>
+        <!-- MENU -->
+        <nav class="px-4 space-y-2 flex-grow overflow-y-auto">
 
-                    <a href="<?= BASE_URL ?>/routes.php?action=entregadores"
-                        class="flex items-center gap-3 px-5 py-4 rounded-2xl text-slate-300 hover:bg-white/10 transition">
-                        🏍️
-                        <span>Entregadores</span>
-                    </a>
+            <!-- INÍCIO -->
+            <a href="<?= BASE_URL ?>/routes.php?action=dashboardAdm"
+                 class="menu-item flex items-center gap-3.5 px-5 py-3 rounded-xl font-semibold text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-all">
 
-                    <a href="<?= BASE_URL ?>/routes.php?action=pedidosEntregues"
-                        class="flex items-center gap-3 px-5 py-4 rounded-2xl text-slate-300 hover:bg-white/10 transition">
-                        ✅
-                        <span>Pedidos Entregues</span>
-                    </a>
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor">
 
-                    <a href="<?= BASE_URL ?>/routes.php?action=mapaAdm"
-                        class="flex items-center gap-3 px-5 py-4 rounded-2xl bg-white/10 text-white font-semibold">
-                        🗺️
-                        <span>Acompanhar Rotas</span>
-                    </a>
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
 
-                    <a href="<?= BASE_URL ?>/routes.php?action=perfilAdm"
-                        class="flex items-center gap-3 px-5 py-4 rounded-2xl text-slate-300 hover:bg-white/10 transition">
-                        👤
-                        <span>Meu Perfil</span>
-                    </a>
+                Início
+            </a>
 
-                </nav>
-            </div>
+            <!-- PEDIDOS -->
+            <a href="<?= BASE_URL ?>/routes.php?action=pedidos"
+                class="menu-item flex items-center gap-3.5 px-5 py-3 rounded-xl font-semibold text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5 opacity-70"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor">
+
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                </svg>
+
+                Pedidos
+            </a>
+
+            <!-- ENTREGADORES -->
+            <a href="<?= BASE_URL ?>/routes.php?action=entregadores"
+                class="menu-item flex items-center gap-3.5 px-5 py-3 rounded-xl font-semibold text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5 opacity-70"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor">
+
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M17 20h5v-2a4 4 0 00-4-4h-1M9 20H4v-2a4 4 0 014-4h1m4-4a4 4 0 100-8 4 4 0 000 8zm6 4a2 2 0 100-4 2 2 0 000 4zM3 20v-2a2 2 0 012-2h1" />
+                </svg>
+
+                Entregadores
+            </a>
+
+            <!-- PEDIDOS ENTREGUES -->
+            <a href="<?= BASE_URL ?>/routes.php?action=pedidosEntregues"
+                class="menu-item flex items-center gap-3.5 px-5 py-3 rounded-xl font-semibold text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5 opacity-70"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor">
+
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                </svg>
+
+                Pedidos Entregues
+            </a>
+
+            <!-- MAPA -->
+            <a href="<?= BASE_URL ?>/routes.php?action=mapaAdm"
+                 class="menu-item flex items-center gap-3.5 px-5 py-3 rounded-xl font-bold text-sm bg-[#FFD400] text-[#0B0D2F] shadow-lg shadow-yellow-500/10 transition-all">
+
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5 opacity-70"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor">
+
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                </svg>
+
+                Acompanhar Rotas
+            </a>
 
             <!-- PERFIL -->
-            <div
-                class="bg-white/5 border border-white/10 rounded-3xl p-4 flex items-center justify-between">
+            <a href="<?= BASE_URL ?>/routes.php?action=perfilAdm"
+                class="menu-item flex items-center gap-3.5 px-5 py-3 rounded-xl font-semibold text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-all">
 
-                <div class="flex items-center gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5 opacity-70"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor">
 
-                    <div
-                        class="w-12 h-12 rounded-full bg-yellow-400 text-[#05073b] font-black flex items-center justify-center">
-                        VI
-                    </div>
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
 
-                    <div>
-                        <p class="font-bold">Vini</p>
-                        <p class="text-xs text-slate-400 uppercase">ADMIN</p>
-                    </div>
+                Meu Perfil
+            </a>
+        </nav>
+
+        <!-- FOOTER -->
+        <div class="p-4 mt-auto">
+
+            <div class="flex items-center gap-3.5 p-3 rounded-2xl bg-white/5 border border-white/5">
+
+                <div class="w-10 h-10 rounded-full bg-[#FFD400] text-[#0B0D2F] font-black text-sm flex items-center justify-center shadow-lg">
+                    <?= strtoupper(substr($nomeAdmin, 0, 2)) ?>
                 </div>
 
-                <a href="<?= BASE_URL ?>/routes.php?action=logoutAdm"
-                    class="text-slate-400 hover:text-white transition">
-                    ↩
-                </a>
-            </div>
+                <div class="flex-grow min-w-0">
 
-        </aside>
+                    <p class="font-bold text-xs text-white truncate">
+                        <?= htmlspecialchars($nomeAdmin) ?>
+                    </p>
 
-        <!-- MAIN -->
-        <main class="flex-1 overflow-hidden flex flex-col">
-
-            <!-- HEADER -->
-            <header
-                class="h-[95px] bg-white border-b border-slate-200 px-5 lg:px-10 flex items-center justify-between">
-
-                <div>
-                    <h1 class="text-3xl font-extrabold text-[#0B0D2F]">
-                        Acompanhamento de <span class="text-orange-500">Entregadores</span>
-                    </h1>
-
-                    <p class="text-slate-500 mt-1">
-                        Monitoramento em tempo real das entregas
+                    <p class="text-[10px] text-slate-500 font-bold tracking-wider uppercase">
+                        Admin
                     </p>
                 </div>
 
-                <div class="hidden md:flex items-center gap-4">
+                <!-- LOGOUT -->
+                <a href="<?= BASE_URL ?>/routes.php?action=logoutAdm"
+                    class="text-slate-500 hover:text-rose-500 transition-colors p-1">
 
-                    <div
-                        class="bg-[#f5f7fb] border border-slate-200 rounded-2xl px-5 h-12 flex items-center w-[320px]">
-                        <input type="text"
-                            placeholder="Buscar entregador..."
-                            class="bg-transparent outline-none w-full text-sm">
-                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-5 h-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor">
 
-                    <a href="<?= BASE_URL ?>/routes.php?action=logoutAdm"
-                        class="bg-orange-500 hover:bg-orange-600 transition text-white px-6 h-12 rounded-2xl font-semibold flex items-center">
-                        Logout
-                    </a>
+                        <path stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</aside>
+        <!-- MAIN -->
+        <main class="flex-1 flex flex-col min-h-screen w-full md:ml-[304px]">
 
-                </div>
+            <!-- HEADER -->
+            <header class="bg-white/80 backdrop-blur-md border-b border-gray-200 px-4 md:px-8 py-4 md:py-5 flex items-center gap-4 sticky top-0 z-10">
 
+                <!-- MENU MOBILE -->
+                <button id="hamburger"
+                    class="md:hidden flex items-center justify-center w-10 h-10 rounded-xl bg-gray-100">
+
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-6 h-6 text-gray-700"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor">
+
+                        <path stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+
+                <h2 class="text-lg md:text-2xl font-bold text-gray-800">
+                    Gerenciamento de Pedidos
+                </h2>
             </header>
 
             <!-- CONTENT -->
@@ -779,6 +921,53 @@
         setInterval(atualizarRastreamento, 5000);
 
     </script>
+
+    <!-- SCRIPT -->
+   <script>
+
+    // SIDEBAR MOBILE
+    const menuBtn = document.getElementById('hamburger');
+    const sidebar = document.getElementById('sidebar');
+    const closeSidebar = document.getElementById('closeSidebar');
+    const overlay = document.getElementById('overlay');
+
+    menuBtn.addEventListener('click', () => {
+        sidebar.classList.add('mobile-open');
+        overlay.classList.add('active');
+    });
+
+    closeSidebar.addEventListener('click', () => {
+        sidebar.classList.remove('mobile-open');
+        overlay.classList.remove('active');
+    });
+
+    overlay.addEventListener('click', () => {
+        sidebar.classList.remove('mobile-open');
+        overlay.classList.remove('active');
+    });
+
+    // MODAL
+    const modal = document.getElementById("editProfileModal");
+    const openBtn = document.getElementById("openEditModalBtn");
+    const closeBtn = document.getElementById("closeEditModalBtn");
+
+    openBtn.addEventListener("click", () => {
+        modal.classList.remove("hidden");
+    });
+
+    closeBtn.addEventListener("click", () => {
+        modal.classList.add("hidden");
+    });
+
+    window.addEventListener("click", (event) => {
+
+        if (event.target === modal) {
+            modal.classList.add("hidden");
+        }
+    });
+
+</script>
+
 
 </body>
 
