@@ -5,9 +5,11 @@ O **GUIAR** é um sistema web desenvolvido com foco em tecnologia e inovação, 
 O projeto tem como objetivo unir aplicações web com dispositivos inteligentes, proporcionando monitoramento, automação e controle em tempo real.
 
 ---
-🌐 Demonstração
+## 🌐 Demonstração
 👉 Acesse o site online:
 https://guiartccrotas.serv00.net
+
+---
 
 ## 🚀 Objetivo do Projeto
 
