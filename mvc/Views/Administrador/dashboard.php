@@ -1078,7 +1078,19 @@
         });
     </script>
 
-
+    <?php
+    $logoEmpresaDashboard = '';
+    if (isset($company_id) && isset($this->empresaModel)) {
+        $empresaInfo = $this->empresaModel->getById($company_id);
+        if (!empty($empresaInfo['nome_arquivo'])) {
+            $logoEmpresaDashboard = BASE_URL . '/public/uploads/empresas/' . htmlspecialchars($empresaInfo['nome_arquivo']);
+        }
+    }
+    ?>
+    <script>
+        window.GUIAR_EMPRESA_LOGO = <?= json_encode($logoEmpresaDashboard) ?>;
+    </script>
+    <script src="<?= BASE_URL ?>/public/js/empresa-palette.js"></script>
 </body>
 
 </html>

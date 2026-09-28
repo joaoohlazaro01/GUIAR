@@ -319,6 +319,7 @@
             });
         }
     </script>
+    <script src="<?= BASE_URL ?>/public/js/empresa-palette.js"></script>
 </body>
 
 </html>

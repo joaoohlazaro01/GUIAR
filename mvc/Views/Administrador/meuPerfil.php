@@ -498,5 +498,29 @@ $nomeAdmin = $admin["nome_adm"] ?? "Admin";
 
 </script>
 
+    <?php
+    $logoEmpresaDashboard = '';
+    if (isset($empresa['nome_arquivo'])) {
+        $logoEmpresaDashboard = BASE_URL . '/public/uploads/empresas/' . htmlspecialchars($empresa['nome_arquivo']);
+    } elseif (isset($company_id) && isset($this->empresaModel)) {
+        $empresaInfo = $this->empresaModel->getById($company_id);
+        if (!empty($empresaInfo['nome_arquivo'])) {
+            $logoEmpresaDashboard = BASE_URL . '/public/uploads/empresas/' . htmlspecialchars($empresaInfo['nome_arquivo']);
+        }
+    } elseif (isset($_SESSION['company_id']) && isset($pdo)) {
+        try {
+            $stmtLogo = $pdo->prepare("SELECT nome_arquivo FROM empresa WHERE id_empresa = :id");
+            $stmtLogo->execute([':id' => $_SESSION['company_id']]);
+            $arqLogo = $stmtLogo->fetchColumn();
+            if ($arqLogo) {
+                $logoEmpresaDashboard = BASE_URL . '/public/uploads/empresas/' . htmlspecialchars($arqLogo);
+            }
+        } catch (\Exception $e) {}
+    }
+    ?>
+    <script>
+        window.GUIAR_EMPRESA_LOGO = <?= json_encode($logoEmpresaDashboard) ?>;
+    </script>
+    <script src="<?= BASE_URL ?>/public/js/empresa-palette.js"></script>
 </body>
 </html>

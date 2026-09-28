@@ -505,6 +505,16 @@
     });
   </script>
 
+  <?php
+  $logoEmpresaUrl = '';
+  if (!empty($empresa['nome_arquivo'])) {
+      $logoEmpresaUrl = BASE_URL . '/public/uploads/empresas/' . htmlspecialchars($empresa['nome_arquivo']);
+  }
+  ?>
+  <script>
+    window.GUIAR_EMPRESA_LOGO = <?= json_encode($logoEmpresaUrl) ?>;
+  </script>
+  <script src="<?= BASE_URL ?>/public/js/empresa-palette.js"></script>
 </body>
 
 </html>
