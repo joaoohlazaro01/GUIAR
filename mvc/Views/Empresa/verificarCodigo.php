@@ -62,7 +62,7 @@
     </style>
 </head>
 
-
+<body class="min-h-screen flex flex-col font-sans">
 
     <!-- HEADER -->
     <header class="bg-brand-blue shadow-md py-0 px-8 sticky top-0 z-50">
@@ -85,7 +85,7 @@
             </nav>
         </div>
     </header>
-<body class="min-h-screen flex flex-col font-sans">
+
     <!-- Container centralizador do formulário -->
     <div class="flex-grow flex items-center justify-center p-4 sm:p-8">
 
@@ -139,7 +139,7 @@
                     </div>
 
                     <!-- Início do Formulário -->
-                    <form class="flex flex-col gap-5" action="" method="POST">
+                    <form class="flex flex-col gap-5" action="<?= BASE_URL ?>/routes.php?action=verificarCodigo" method="POST">
 
                         <!-- Informação -->
                         <div class="text-center mb-2">
