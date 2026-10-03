@@ -240,7 +240,7 @@
       <!-- DIREITA: empresa + sino + logout -->
       <div class="flex items-center flex-wrap gap-4">
 
-        <!-- Card Empresa -->
+    
         <div class="flex items-center gap-2 border border-[#E2E8F0] bg-white rounded-2xl px-4 py-2.5 shadow-sm text-sm">
           <span class="text-[#94A3B8]">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
