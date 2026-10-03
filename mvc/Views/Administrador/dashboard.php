@@ -7,7 +7,7 @@
     <title>Dashboard | GUIAR</title>
     <link rel="Shortcut Icon" type="image/png" href="img/Glogo.png">
 
-    <!-- Google Fonts: Inter para interface moderna e limpa -->
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Tailwind CSS -->
