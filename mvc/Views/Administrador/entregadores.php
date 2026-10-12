@@ -69,7 +69,7 @@
     <div id="sidebarOverlay" class="fixed inset-0 bg-[#0B0D2F]/50 backdrop-blur-sm z-40 hidden transition-opacity md:hidden"></div>
 
    <aside id="sidebar"
-    class="w-72 bg-[#0B0D2F] flex flex-col fixed top-4 left-4 text-white z-40 shadow-2xl transition-all rounded-[24px] overflow-hidden h-[92vh]">
+    class="w-72 bg-[#0B0D2F] flex flex-col fixed top-0 left-0 text-white z-40 transition-all rounded-none overflow-hidden h-screen">
 
     <div class="flex flex-col h-full">
 
@@ -81,7 +81,7 @@
         </button>
 
         <!-- LOGO -->
-        <div class="p-8 mb-4">
+        <div class="p-8 mb-4 flex justify-center">
             <img src="<?= BASE_URL ?>/img/logobrancaR.png"
                 alt="Logo GUIAR"
                 class="w-32 h-auto object-contain">
@@ -206,6 +206,14 @@
 
         <!-- FOOTER -->
         <div class="p-4 mt-auto">
+            <div class="px-4 pb-4 flex flex-col items-center gap-1.5">
+                <img src="<?= BASE_URL ?>/img/logobrancaR.png"
+                    alt="GUIAR"
+                    class="w-24 h-auto object-contain">
+                <p class="text-[10px] text-slate-400 text-center leading-tight">
+                    Conectando você ao seu destino.
+                </p>
+            </div>
 
             <div class="flex items-center gap-3.5 p-3 rounded-2xl bg-white/5 border border-white/5">
 
@@ -249,32 +257,21 @@
         <main class="flex-1 flex flex-col min-h-screen w-full md:ml-[304px]">
 
             <!-- HEADER -->
-            <header class="bg-white/80 backdrop-blur-md border-b border-gray-200 px-4 md:px-8 py-4 md:py-5 flex items-center gap-4 sticky top-0 z-10">
+            <header class="bg-white border-b border-[#E2E8F0] px-8 py-5 flex items-center justify-between sticky top-0 z-30 shadow-sm gap-4">
 
-                <!-- MENU MOBILE -->
-                <button id="hamburger"
-                    class="md:hidden flex items-center justify-center w-10 h-10 rounded-xl bg-gray-100">
-
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                        class="w-6 h-6 text-gray-700"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor">
-
-                        <path stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
-                
-                <div>
-                    <h2 class="text-2xl md:text-4xl font-extrabold text-gray-900 mb-1 md:mb-2">Entregadores</h2>
-                    <p class="text-xs md:text-sm text-gray-500 font-medium">Gerencie os administradores com acesso ao sistema.</p>
+                <div class="flex items-center gap-4 min-w-0">
+                    <button id="hamburger" class="md:hidden p-2 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                    <div class="min-w-0">
+                        <h1 class="text-2xl font-extrabold text-slate-900">Entregadores</h1>
+                        <p class="text-xs text-slate-500 font-medium mt-0.5">Gerencie os administradores com acesso ao sistema.</p>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="flex items-center gap-4">
+
+                <div class="flex items-center gap-4 flex-shrink-0">
                 <div class="relative hidden md:block shadow-sm">
                    <input type="text" id="searchInput" placeholder="Buscar administrador..." class="pl-11 pr-4 py-3 border-none bg-white rounded-xl focus:outline-none focus:ring-2 focus:ring-[#FFC107] w-72 text-sm">
                     <svg class="w-5 h-5 text-gray-400 absolute left-4 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>

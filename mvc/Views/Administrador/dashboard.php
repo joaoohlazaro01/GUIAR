@@ -180,13 +180,28 @@
             margin-left: 0 !important;
             margin-right: 0 !important;
         }
+
+        #mainContent {
+            margin-left: 18rem;
+            transition: margin-left 0.3s ease-in-out;
+        }
+
+        #mainContent.sidebar-expanded {
+            margin-left: 0 !important;
+        }
+
+        @media (max-width: 1024px) {
+            #mainContent {
+                margin-left: 0 !important;
+            }
+        }
     </style>
 </head>
 
 <body class="min-h-screen flex bg-[#F8FAFC] text-[#0F172A] overflow-x-hidden">
 
     <aside id="sidebar"
-        class="w-72 bg-[#0B0D2F] flex flex-col fixed top-4 left-4 text-white sticky top-0 z-40 shadow-2xl transition-all rounded-[24px] overflow-hidden h-[92vh]">
+        class="w-72 bg-[#0B0D2F] flex flex-col fixed top-0 left-0 text-white z-40 transition-all rounded-none overflow-hidden h-screen">
 
 
         <?php
@@ -264,6 +279,15 @@
             </nav>
 
             <div class="p-4 mt-auto">
+                <div class="px-4 pb-4 flex flex-col items-center gap-1.5">
+                    <img src="<?= BASE_URL ?>/img/logobrancaR.png"
+                        alt="GUIAR"
+                        class="w-24 h-auto object-contain">
+                    <p class="text-[10px] text-slate-400 text-center leading-tight">
+                        Conectando você ao seu destino.
+                    </p>
+                </div>
+
                 <div class="flex items-center gap-3.5 p-3 rounded-2xl bg-white/5 border border-white/5">
                     <div class="w-10 h-10 rounded-full bg-[#FFD400] text-[#0B0D2F] font-black text-sm flex items-center justify-center shadow-lg">
                         <?= strtoupper(substr($nomeAdmin, 0, 2)) ?>
@@ -1351,6 +1375,7 @@
 
         const toggleSidebarBtn = document.getElementById('toggleSidebar');
         const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('mainContent');
 
         toggleSidebarBtn.addEventListener('click', () => {
 
@@ -1365,6 +1390,7 @@
             else {
 
                 sidebar.classList.toggle('sidebar-closed');
+                mainContent.classList.toggle('sidebar-expanded');
 
             }
 

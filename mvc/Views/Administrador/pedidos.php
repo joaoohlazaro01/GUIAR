@@ -118,6 +118,10 @@
     padding: 30px;
 }
 
+.main > header {
+    margin: -30px -30px 30px;
+}
+
 /* HEADER */
 .page-header {
     background: rgba(255,255,255,.8);
@@ -343,6 +347,10 @@ select:focus {
         padding: 20px;
     }
 
+    .main > header {
+        margin: -20px -20px 20px;
+    }
+
     .container {
         justify-content: center;
     }
@@ -375,7 +383,7 @@ select:focus {
 $nomeAdmin = $_SESSION['nome_usuario'] ?? ($admin["nome_adm"] ?? "Admin");
 ?>
         <aside id="sidebar"
-    class="w-72 bg-[#0B0D2F] flex flex-col fixed top-4 left-4 text-white z-40 shadow-2xl transition-all rounded-[24px] overflow-hidden h-[92vh]">
+    class="w-72 bg-[#0B0D2F] flex flex-col fixed top-0 left-0 text-white z-40 transition-all rounded-none overflow-hidden h-screen">
 
     <div class="flex flex-col h-full">
 
@@ -387,7 +395,7 @@ $nomeAdmin = $_SESSION['nome_usuario'] ?? ($admin["nome_adm"] ?? "Admin");
         </button>
 
         <!-- LOGO -->
-        <div class="p-8 mb-4">
+        <div class="p-8 mb-4 flex justify-center">
             <img src="<?= BASE_URL ?>/img/logobrancaR.png"
                 alt="Logo GUIAR"
                 class="w-32 h-auto object-contain">
@@ -513,6 +521,14 @@ $nomeAdmin = $_SESSION['nome_usuario'] ?? ($admin["nome_adm"] ?? "Admin");
 
         <!-- FOOTER -->
         <div class="p-4 mt-auto">
+            <div class="px-4 pb-4 flex flex-col items-center gap-1.5">
+                <img src="<?= BASE_URL ?>/img/logobrancaR.png"
+                    alt="GUIAR"
+                    class="w-24 h-auto object-contain">
+                <p class="text-[10px] text-slate-400 text-center leading-tight">
+                    Conectando você ao seu destino.
+                </p>
+            </div>
 
             <div class="flex items-center gap-3.5 p-3 rounded-2xl bg-white/5 border border-white/5">
 
@@ -555,29 +571,17 @@ $nomeAdmin = $_SESSION['nome_usuario'] ?? ($admin["nome_adm"] ?? "Admin");
 
         <!-- HEADER DA PÁGINA (Com campo de busca, sino e logout) -->
         <header class="bg-white border-b border-[#E2E8F0] px-8 py-5 flex items-center justify-between sticky top-0 z-30 shadow-sm gap-4">
-
-        <!-- MENU MOBILE -->
-                <button id="hamburger"
-                    class="md:hidden flex items-center justify-center w-10 h-10 rounded-xl bg-gray-100">
-
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                        class="w-6 h-6 text-gray-700"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor">
-
-                        <path stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16" />
+            <div class="flex items-center gap-4 min-w-0">
+                <button id="hamburger" class="md:hidden p-2 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
                 </button>
-
-            <div class="flex items-center gap-4 min-w-0">
-    
-                    <p class="text-2xl font-extrabold text-slate-900 flex items-center gap-2">Pedidos</p>
+                <div class="min-w-0">
+                    <h1 class="text-2xl font-extrabold text-slate-900">Pedidos</h1>
                 </div>
             </div>
+        </header>
 
         <form id="sendOrdersForm"
               method="POST"
