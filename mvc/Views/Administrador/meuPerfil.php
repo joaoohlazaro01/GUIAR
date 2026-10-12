@@ -70,7 +70,7 @@
 
 <div class="flex min-h-screen relative">
 
-    <!-- OVERLAY -->
+    <!-- OVERLAY- -->
     <div id="overlay"
         class="hidden fixed inset-0 bg-black/40 z-30 md:hidden">
     </div>
