@@ -372,7 +372,7 @@ select:focus {
 
         <!-- SIDEBAR -->
          <?php
-$nomeAdmin = $admin["nome_adm"] ?? "Admin";
+$nomeAdmin = $_SESSION['nome_usuario'] ?? ($admin["nome_adm"] ?? "Admin");
 ?>
         <aside id="sidebar"
     class="w-72 bg-[#0B0D2F] flex flex-col fixed top-4 left-4 text-white z-40 shadow-2xl transition-all rounded-[24px] overflow-hidden h-[92vh]">

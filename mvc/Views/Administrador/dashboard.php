@@ -6,8 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | GUIAR</title>
     <link rel="Shortcut Icon" type="image/png" href="img/Glogo.png">
-
     
+    <!-- CSS do Dashboard -->
+    <link rel="stylesheet" href="<?= BASE_URL ?>/style/dashboard.css">
+
+    <!-- Fonte Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Tailwind CSS -->

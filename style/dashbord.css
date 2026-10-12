@@ -1,0 +1,163 @@
+ @font-face {
+            font-family: 'Brice-Bold';
+            src: url('<?= BASE_URL ?>/fonts/Brice-BoldSemiCondensed.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'BasisGrotesque-Regular';
+            src: url('<?= BASE_URL ?>/fonts/BasisGrotesqueArabicPro-Regular.ttf') format('truetype');
+        }
+
+        body {
+            font-family: 'Inter', 'BasisGrotesque-Regular', sans-serif;
+            background-color: #F8FAFC;
+        }
+
+        .logo-circular {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            background-color: #ffffff;
+        }
+
+        .logo-circular-wrap {
+            overflow: hidden;
+            border-radius: 9999px;
+            background-color: #ffffff;
+            flex-shrink: 0;
+        }
+
+        .brand-crop-stage {
+            position: relative;
+            width: 92%;
+            max-width: 520px;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            border-radius: 9999px;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.18), rgba(255,255,255,0.02) 55%, rgba(255,255,255,0) 70%);
+            border: 10px solid rgba(255,255,255,0.15);
+            box-shadow: inset 0 0 0 6px rgba(255,255,255,0.05);
+            cursor: grab;
+            user-select: none;
+            touch-action: none;
+        }
+
+        .brand-crop-stage:active {
+            cursor: grabbing;
+        }
+
+        .brand-crop-image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translate(0, 0) scale(1.08);
+            transition: transform 0.08s ease-out;
+            will-change: transform;
+        }
+
+        /* --- CORREÇÕES DE ESTILO SEM REMOVER ELEMENTOS --- */
+
+        /* Ajuste para evitar que a sidebar empurre o conteúdo no mobile */
+        @media (max-width: 1024px) {
+            body {
+                flex-direction: column;
+                /* Em vez de linha, coloca um abaixo do outro */
+            }
+
+            #sidebar {
+                position: fixed;
+                left: -100%;
+                top: 0;
+                bottom: 0;
+                z-index: 50;
+                width: 280px;
+                margin: 0 !important;
+                height: 100vh;
+                border-radius: 0 !important;
+            }
+
+            #sidebar.mobile-open {
+                left: 0;
+            }
+
+            /* Garante que o conteúdo ocupe a tela toda */
+            #mainContent {
+                width: 100% !important;
+                margin-left: 0 !important;
+            }
+        }
+
+        /* Transição suave para fechar/abrir */
+        #sidebar {
+            transition: all 0.3s ease-in-out;
+        }
+
+        .sidebar-closed {
+            width: 0 !important;
+            opacity: 0;
+            overflow: hidden;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+
+        /* Efeitos visuais mantidos */
+        .menu-item {
+            transition: all 0.25s ease;
+        }
+
+        .menu-item:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            transform: translateX(4px);
+        }
+
+        .active-menu {
+            background: linear-gradient(90deg, rgba(255, 212, 0, 0.15) 0%, rgba(255, 212, 0, 0.02) 100%);
+            border-left: 4px solid #FFD400;
+            color: #FFD400 !important;
+        }
+
+        .hover-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Impede que a tabela quebre o layout no celular */
+        .table-container {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Estilo para esconder e mostrar no mobile */
+        @media (max-width: 1024px) {
+            #sidebar {
+                position: fixed !important;
+                left: -100% !important;
+                /* Começa totalmente escondida */
+                top: 0;
+                bottom: 0;
+                margin: 0 !important;
+                height: 100vh !important;
+                border-radius: 0 !important;
+                z-index: 9999;
+                /* Garante que fique em cima de tudo */
+                transition: left 0.3s ease-in-out;
+            }
+
+            /* Essa é a classe que o JavaScript vai ativar */
+            #sidebar.mobile-open {
+                left: 0 !important;
+            }
+        }
+
+        /* Estilo para recolher no Desktop (Opcional) */
+        .sidebar-closed {
+            width: 0 !important;
+            opacity: 0;
+            pointer-events: none;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
