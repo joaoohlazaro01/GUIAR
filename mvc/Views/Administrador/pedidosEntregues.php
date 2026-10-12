@@ -184,7 +184,7 @@ class="menu-item flex items-center gap-3.5 px-5 py-3 rounded-xl font-semibold te
 
             <!-- PEDIDOS ENTREGUES -->
             <a href="<?= BASE_URL ?>/routes.php?action=pedidosEntregues"
-                class="menu-item flex items-center gap-3.5 px-5 py-3 rounded-xl font-bold text-sm bg-[#FFD400] text-[#0B0D2F] shadow-lg shadow-yellow-500/10 transition-all">
+                class="menu-item active flex items-center gap-3.5 px-5 py-3 rounded-xl font-bold text-sm bg-[#4F46E5] text-white shadow-lg shadow-indigo-500/10 transition-all">
 
                 <svg xmlns="http://www.w3.org/2000/svg"
                     class="w-5 h-5 opacity-70"

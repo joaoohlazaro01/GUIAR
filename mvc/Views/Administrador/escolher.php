@@ -220,6 +220,52 @@
     .admin-card.hidden-by-search {
       display: none !important;
     }
+
+    .logo-circular {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      background-color: #ffffff;
+    }
+
+    .logo-circular-wrap {
+      overflow: hidden;
+      border-radius: 9999px;
+      background-color: #ffffff;
+      flex-shrink: 0;
+    }
+
+    .brand-crop-stage {
+      position: relative;
+      width: 92%;
+      max-width: 520px;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      border-radius: 9999px;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.18), rgba(255,255,255,0.02) 55%, rgba(255,255,255,0) 70%);
+      border: 10px solid rgba(255,255,255,0.15);
+      box-shadow: inset 0 0 0 6px rgba(255,255,255,0.05);
+      cursor: grab;
+      user-select: none;
+      touch-action: none;
+    }
+
+    .brand-crop-stage:active {
+      cursor: grabbing;
+    }
+
+    .brand-crop-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: translate(0, 0) scale(1.08);
+      transition: transform 0.08s ease-out;
+      will-change: transform;
+    }
   </style>
 </head>
 
@@ -240,14 +286,90 @@
       <!-- DIREITA: empresa + sino + logout -->
       <div class="flex items-center flex-wrap gap-4">
 
-    
+        <?php
+        $logoEmpresaHeader = isset($empresa['nome_arquivo']) && !empty($empresa['nome_arquivo'])
+            ? BASE_URL . '/public/uploads/empresas/' . htmlspecialchars($empresa['nome_arquivo'])
+            : BASE_URL . '/img/logoIcon.png';
+        ?>
         <div class="flex items-center gap-2 border border-[#E2E8F0] bg-white rounded-2xl px-4 py-2.5 shadow-sm text-sm">
-          <span class="text-[#94A3B8]">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0H5m14 0h2M5 21H3m4-10h2m4 0h2M7 7h2m4 0h2" />
-            </svg>
-          </span>
-          <span class="text-[#475569] font-semibold">Empresa: <strong class="text-[#1B138F] font-bold"><?php echo htmlspecialchars($nome_empresa); ?></strong></span>
+          <div class="relative">
+            <button type="button" id="empresaLogoTrigger" class="block focus:outline-none">
+              <div class="logo-circular-wrap w-9 h-9 border border-slate-200 bg-white shadow-sm">
+                <img
+                  id="empresaLogoTop"
+                  src="<?= htmlspecialchars($logoEmpresaHeader) ?>"
+                  alt="Logo da empresa"
+                  onerror="this.onerror=null; this.src='<?= BASE_URL ?>/img/logoIcon.png';"
+                  class="logo-circular"
+                >
+              </div>
+            </button>
+
+            <div id="empresaMenu" class="hidden absolute right-0 top-full mt-2 w-44 bg-white border border-slate-200 rounded-2xl shadow-xl z-50 overflow-hidden">
+              <button type="button" id="empresaImageOption" class="block w-full text-left px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50">
+                Trocar imagem
+              </button>
+              <button type="button" id="empresaEditNameBtn" class="block w-full text-left px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50">
+                Editar nome
+              </button>
+            </div>
+
+            <div id="empresaImageCard" class="hidden fixed inset-0 z-[70] bg-black/50 backdrop-blur-[1px]">
+              <div class="absolute inset-0" data-close="empresa-card"></div>
+              <div class="relative mx-auto mt-12 max-w-5xl rounded-[26px] overflow-hidden border border-slate-700 bg-[#111b21] shadow-[0_20px_60px_rgba(0,0,0,0.45)]" style="width: min(92vw, 1100px);">
+                <div class="flex items-center justify-between px-5 py-4 border-b border-slate-700 text-white">
+                  <div class="flex items-center gap-3">
+                    <button type="button" id="empresaImageCardClose" class="text-xl text-white/90 hover:text-white">←</button>
+                    <h3 class="text-xl font-semibold">Editar perfil</h3>
+                  </div>
+                  <label for="empresaLogoInputCard" class="cursor-pointer inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold bg-transparent text-white hover:bg-white/5 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3-3 3 3M12 16V5" />
+                    </svg>
+                    Carregar
+                  </label>
+                </div>
+
+                <div class="grid md:grid-cols-[260px_1fr] gap-0 min-h-[540px]">
+                  <aside class="bg-[#0b141a] px-6 py-8 border-r border-slate-700">
+                    <div class="flex justify-center">
+                      <div class="logo-circular-wrap w-32 h-32 border-2 border-slate-600 bg-slate-800 shadow-lg">
+                        <img id="empresaLogoPreview" src="<?= htmlspecialchars($logoEmpresaHeader) ?>" onerror="this.onerror=null; this.src='<?= BASE_URL ?>/img/logoIcon.png';" class="logo-circular" alt="Pré-visualização da logo">
+                      </div>
+                    </div>
+
+                    <div class="mt-8 text-white">
+                      <div class="text-sm text-slate-400 mb-2">Nome</div>
+                      <input id="empresaNomeInputCard" type="text" maxlength="120" value="<?= htmlspecialchars($nome_empresa, ENT_QUOTES, 'UTF-8') ?>" aria-label="Nome da empresa" class="w-full rounded-lg border border-slate-600 bg-[#15232c] px-3 py-2 text-base font-semibold text-white outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20">
+                    </div>
+                  </aside>
+
+                  <main class="bg-[#101a22] px-6 py-8 flex flex-col justify-center">
+                    <div class="flex items-center justify-between mb-5 text-white">
+                      <h4 class="text-2xl font-semibold">Arraste a imagem para ajustar</h4>
+                    </div>
+
+                    <div class="relative flex-1 flex items-center justify-center rounded-[28px] border border-slate-700 bg-[#1d2b33]/70 p-4 overflow-hidden">
+                      <div id="empresaCropStage" class="brand-crop-stage">
+                        <img id="empresaLogoPreviewCrop" src="<?= htmlspecialchars($logoEmpresaHeader) ?>" onerror="this.onerror=null; this.src='<?= BASE_URL ?>/img/logoIcon.png';" class="brand-crop-image" alt="Logo ajustada">
+                      </div>
+                    </div>
+
+                    <div class="flex justify-end gap-3 mt-6">
+                      <button type="button" id="empresaImageCardCancel" class="border border-slate-600 text-slate-200 font-semibold px-4 py-2.5 rounded-xl text-sm hover:bg-slate-800">
+                        Cancelar
+                      </button>
+                      <button type="button" id="empresaImageCardSave" class="bg-[#4F46E5] text-white font-bold px-5 py-2.5 rounded-xl text-sm hover:bg-[#4338CA] shadow-md shadow-indigo-500/20">
+                        Salvar
+                      </button>
+                    </div>
+                  </main>
+                </div>
+              </div>
+              <input id="empresaLogoInputCard" type="file" accept="image/*" class="hidden">
+            </div>
+          </div>
+          <span class="text-[#475569] font-semibold">Empresa: <strong id="empresaNomeDisplay" class="text-[#1B138F] font-bold"><?php echo htmlspecialchars($nome_empresa); ?></strong></span>
         </div>
 
 
@@ -462,6 +584,165 @@
 
   <!-- ======= SCRIPTS DE COMPORTAMENTO ======= -->
   <script>
+    const empresaLogoTrigger = document.getElementById('empresaLogoTrigger');
+    const empresaMenu = document.getElementById('empresaMenu');
+    const empresaLogoTop = document.getElementById('empresaLogoTop');
+    const empresaEditNameBtn = document.getElementById('empresaEditNameBtn');
+    const empresaImageOption = document.getElementById('empresaImageOption');
+    const empresaImageCard = document.getElementById('empresaImageCard');
+    const empresaImageCardClose = document.getElementById('empresaImageCardClose');
+    const empresaImageCardCancel = document.getElementById('empresaImageCardCancel');
+    const empresaImageCardSave = document.getElementById('empresaImageCardSave');
+    const empresaLogoPreview = document.getElementById('empresaLogoPreview');
+    const empresaLogoPreviewCrop = document.getElementById('empresaLogoPreviewCrop');
+    const empresaLogoInputCard = document.getElementById('empresaLogoInputCard');
+    const empresaNomeInputCard = document.getElementById('empresaNomeInputCard');
+    const empresaCropStage = document.getElementById('empresaCropStage');
+
+    let cropState = {
+      active: false,
+      x: 0,
+      y: 0,
+      startX: 0,
+      startY: 0,
+      originX: 0,
+      originY: 0,
+    };
+
+    const applyCompanyLogo = (src) => {
+      if (empresaLogoTop) empresaLogoTop.src = src;
+      if (empresaLogoPreview) empresaLogoPreview.src = src;
+      if (empresaLogoPreviewCrop) empresaLogoPreviewCrop.src = src;
+      localStorage.setItem('guiar_empresa_logo_url', src);
+    };
+
+    const closeAllMenus = () => {
+      if (empresaMenu) empresaMenu.classList.add('hidden');
+      if (empresaImageCard) empresaImageCard.classList.add('hidden');
+    };
+
+    const setCropPosition = (x, y) => {
+      if (!empresaLogoPreviewCrop) return;
+      empresaLogoPreviewCrop.style.transform = `translate(${x}px, ${y}px) scale(1.08)`;
+    };
+
+    if (empresaCropStage && empresaLogoPreviewCrop) {
+      empresaCropStage.addEventListener('pointerdown', (event) => {
+        cropState.active = true;
+        cropState.startX = event.clientX;
+        cropState.startY = event.clientY;
+        cropState.originX = cropState.x;
+        cropState.originY = cropState.y;
+        empresaLogoPreviewCrop.setPointerCapture?.(event.pointerId);
+      });
+
+      empresaCropStage.addEventListener('pointermove', (event) => {
+        if (!cropState.active) return;
+
+        const deltaX = event.clientX - cropState.startX;
+        const deltaY = event.clientY - cropState.startY;
+        cropState.x = cropState.originX + deltaX;
+        cropState.y = cropState.originY + deltaY;
+        setCropPosition(cropState.x, cropState.y);
+      });
+
+      const stopCropDrag = () => {
+        cropState.active = false;
+      };
+
+      empresaCropStage.addEventListener('pointerup', stopCropDrag);
+      empresaCropStage.addEventListener('pointerleave', stopCropDrag);
+      empresaCropStage.addEventListener('pointercancel', stopCropDrag);
+    }
+
+    if (empresaLogoTrigger && empresaMenu) {
+      empresaLogoTrigger.addEventListener('click', () => {
+        empresaMenu.classList.toggle('hidden');
+        if (empresaImageCard) empresaImageCard.classList.add('hidden');
+      });
+
+      document.addEventListener('click', (event) => {
+        if (!empresaLogoTrigger.contains(event.target) && empresaMenu && !empresaMenu.contains(event.target) && empresaImageCard && !empresaImageCard.contains(event.target)) {
+          closeAllMenus();
+        }
+      });
+    }
+
+    if (empresaImageOption) {
+      empresaImageOption.addEventListener('click', () => {
+        if (empresaMenu) empresaMenu.classList.add('hidden');
+        if (empresaImageCard) {
+          empresaImageCard.classList.remove('hidden');
+          const nomeAtual = document.getElementById('empresaNomeDisplay');
+          if (empresaNomeInputCard && nomeAtual) empresaNomeInputCard.value = nomeAtual.textContent.trim();
+          if (empresaLogoTop && empresaLogoPreview) {
+            empresaLogoPreview.src = empresaLogoTop.src;
+          }
+          if (empresaLogoPreviewCrop && empresaLogoTop) {
+            empresaLogoPreviewCrop.src = empresaLogoTop.src;
+          }
+        }
+      });
+    }
+
+    if (empresaEditNameBtn) {
+      empresaEditNameBtn.addEventListener('click', () => {
+        if (empresaMenu) empresaMenu.classList.add('hidden');
+        if (empresaImageCard) empresaImageCard.classList.remove('hidden');
+        const nomeAtual = document.getElementById('empresaNomeDisplay');
+        if (empresaNomeInputCard && nomeAtual) empresaNomeInputCard.value = nomeAtual.textContent.trim();
+        empresaNomeInputCard?.focus();
+      });
+    }
+
+    if (empresaImageCardClose) {
+      empresaImageCardClose.addEventListener('click', () => closeAllMenus());
+    }
+
+    if (empresaImageCardCancel) {
+      empresaImageCardCancel.addEventListener('click', () => closeAllMenus());
+    }
+
+    if (empresaLogoInputCard) {
+      empresaLogoInputCard.addEventListener('change', (event) => {
+        const file = event.target.files && event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const result = e.target.result;
+          if (empresaLogoPreview) empresaLogoPreview.src = result;
+          if (empresaLogoPreviewCrop) empresaLogoPreviewCrop.src = result;
+          applyCompanyLogo(result);
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    if (empresaImageCardSave) {
+      empresaImageCardSave.addEventListener('click', () => {
+        const empresaNomeDisplay = document.getElementById('empresaNomeDisplay');
+        const novoNome = empresaNomeInputCard ? empresaNomeInputCard.value.trim() : '';
+        if (novoNome && empresaNomeDisplay) {
+          empresaNomeDisplay.textContent = novoNome;
+          localStorage.setItem('guiar_empresa_nome', novoNome);
+        }
+        closeAllMenus();
+      });
+    }
+
+    const localLogo = localStorage.getItem('guiar_empresa_logo_url');
+    if (localLogo) {
+      applyCompanyLogo(localLogo);
+    }
+
+    const localNome = localStorage.getItem('guiar_empresa_nome');
+    if (localNome) {
+      const empresaNomeDisplay = document.getElementById('empresaNomeDisplay');
+      if (empresaNomeDisplay) empresaNomeDisplay.textContent = localNome;
+      if (empresaNomeInputCard) empresaNomeInputCard.value = localNome;
+    }
+
     // Preenche o campo de username ao abrir o modal de login
     $('#loginModal').on('show.bs.modal', function(event) {
       var button = $(event.relatedTarget);
