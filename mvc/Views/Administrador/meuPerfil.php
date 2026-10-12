@@ -78,7 +78,7 @@
 
    <!-- SIDEBAR -->
 <?php
-$nomeAdmin = $admin["nome_adm"] ?? "Admin";
+$nomeAdmin = $_SESSION['nome_usuario'] ?? ($admin["nome_adm"] ?? "Admin");
 ?>
 
  <aside id="sidebar"
