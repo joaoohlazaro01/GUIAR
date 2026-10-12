@@ -234,7 +234,7 @@
     <script src="https://rawgit.com/bbecquet/Leaflet.RotatedMarker/master/leaflet.rotatedMarker.js"></script>
 
     <script>
-        // CRIA O MAPA
+          // CRIA O MAPA
         var map = L.map('map').setView([-22.3674, -46.9428], 15);
 
         // ÍCONE MOTO
@@ -245,29 +245,12 @@
             iconAnchor: [20, 40]
         });
 
-        // MAPA PADRÃO (CLARO)
-        var padrao = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; CartoDB'
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png?key=cb1_3p8m_1_09944103c911a8c84b986e32', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attributions">CARTO</a>',
+          subdomains: 'abcd', maxZoom: 20
         }).addTo(map);
+      
 
-        // MAPA SATÉLITE
-        var satelite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-            attribution: 'Tiles © Esri'
-        });
-
-        // MAPA ESCURO
-        var escuro = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; CartoDB'
-        });
-
-        // CONTROLE DE TROCA
-        var baseMaps = {
-            "Claro": padrao,
-            "Satélite": satelite,
-            "Escuro": escuro
-        };
-
-        L.control.layers(baseMaps).addTo(map);
 
         fetch('<?= BASE_URL ?>/routes.php?action=apiPedidosMapa')
             .then(response => response.json())
