@@ -489,30 +489,15 @@
     <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
 
     <script>
+  // CRIA O MAPA
+        var map = L.map('map').setView([-22.3674, -46.9428], 15);
 
-        // Inicializa o mapa centralizado em Mogi Guaçu / Região padrão
-        var map = L.map('map').setView([-22.3674, -46.9428], 14);
 
-        // Layers de mapas
-        var padrao = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; CartoDB'
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png?key=cb1_3p8m_1_09944103c911a8c84b986e32', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attributions">CARTO</a>',
+          subdomains: 'abcd', maxZoom: 20
         }).addTo(map);
-
-        var satelite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-            attribution: 'Tiles © Esri'
-        });
-
-        var escuro = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; CartoDB'
-        });
-
-        var baseMaps = {
-            "Claro": padrao,
-            "Satélite": satelite,
-            "Escuro": escuro
-        };
-
-        L.control.layers(baseMaps).addTo(map);
+      
 
         // Paleta de cores para rotas individuais de cada motoboy
         var coresRotas = ['#fc8835', '#0f9f90', '#3a86c8', '#8338ec', '#e63946', '#2a9d8f'];
