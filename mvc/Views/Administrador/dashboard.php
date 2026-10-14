@@ -52,7 +52,7 @@
             position: relative;
             width: 92%;
             max-width: 520px;
-            aspect-ratio: 1 / 1;
+            aspect-ratio: 1 / 1;     
             overflow: hidden;
             border-radius: 9999px;
             background: radial-gradient(circle at center, rgba(255,255,255,0.18), rgba(255,255,255,0.02) 55%, rgba(255,255,255,0) 70%);
@@ -201,7 +201,7 @@
 <body class="min-h-screen flex bg-[#F8FAFC] text-[#0F172A] overflow-x-hidden">
 
     <aside id="sidebar"
-        class="w-72 bg-[#0B0D2F] flex flex-col fixed top-0 left-0 text-white z-40 transition-all rounded-none overflow-hidden h-screen">
+        class="w-72 bg-[#ffff] flex flex-col fixed top-0 left-0 text-white z-40 transition-all rounded-none overflow-hidden h-screen">
 
 
         <?php
@@ -213,19 +213,14 @@
             }
         }
         if (empty($logoEmpresaSidebar)) {
-            $logoEmpresaSidebar = BASE_URL . '/img/logobrancaR.png';
+            $logoEmpresaSidebar = BASE_URL . '/img/LogoPreto.png';
         }
         ?>
-        <div class="flex flex-col h-full">
-            <div class="p-8 mb-4 flex justify-center">
-                <div class="logo-circular-wrap w-20 h-20 border-2 border-white/10 bg-white/10 shadow-lg">
-                    <img
-                        src="<?= htmlspecialchars($logoEmpresaSidebar) ?>"
-                        alt="Logo da empresa"
-                        onerror="this.onerror=null; this.src='<?= BASE_URL ?>/img/logobrancaR.png';"
-                        class="logo-circular"
-                    >
-                </div>
+       <div class="p-8 mb-4 flex justify-center">
+            <img src="<?= BASE_URL ?>/img/LogoPreto.png"
+                alt="Logo GUIAR"
+                class="w-32 h-auto object-contain">
+        </div>
             </div>
 
             <nav class="px-4 space-y-2 flex-grow">
@@ -280,7 +275,7 @@
 
             <div class="p-4 mt-auto">
                 <div class="px-4 pb-4 flex flex-col items-center gap-1.5">
-                    <img src="<?= BASE_URL ?>/img/logobrancaR.png"
+                    <img src="<?= BASE_URL ?>/img/logoPreto.png"
                         alt="GUIAR"
                         class="w-24 h-auto object-contain">
                     <p class="text-[10px] text-slate-400 text-center leading-tight">
@@ -293,10 +288,10 @@
                         <?= strtoupper(substr($nomeAdmin, 0, 2)) ?>
                     </div>
                     <div class="flex-grow min-w-0">
-                        <p class="font-bold text-xs text-white truncate"><?= htmlspecialchars($nomeAdmin) ?></p>
+                        <p class="font-bold text-xs text-black truncate"><?= htmlspecialchars($nomeAdmin) ?></p>
                         <p class="text-[10px] text-slate-500 font-bold tracking-wider uppercase">Admin</p>
                     </div>
-                    <a href="<?= BASE_URL ?>/routes.php?action=logoutAdm" class="text-slate-500 hover:text-rose-500 transition-colors p-1">
+                    <a href="<?= BASE_URL ?>/routes.php?action=escolherAdm" class="text-slate-500 hover:text-rose-500 transition-colors p-1">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                         </svg>

@@ -66,10 +66,10 @@
 
 <body class="flex h-screen overflow-hidden text-gray-800">
 
-    <div id="sidebarOverlay" class="fixed inset-0 bg-[#0B0D2F]/50 backdrop-blur-sm z-40 hidden transition-opacity md:hidden"></div>
+    <div id="sidebarOverlay" class="fixed inset-0 bg-[#ffff]/50 backdrop-blur-sm z-40 hidden transition-opacity md:hidden"></div>
 
    <aside id="sidebar"
-    class="w-72 bg-[#0B0D2F] flex flex-col fixed top-0 left-0 text-white z-40 transition-all rounded-none overflow-hidden h-screen">
+    class="w-72 bg-[#ffff] flex flex-col fixed top-0 left-0 text-white z-40 transition-all rounded-none overflow-hidden h-screen">
 
     <div class="flex flex-col h-full">
 
@@ -82,7 +82,7 @@
 
         <!-- LOGO -->
         <div class="p-8 mb-4 flex justify-center">
-            <img src="<?= BASE_URL ?>/img/logobrancaR.png"
+            <img src="<?= BASE_URL ?>/img/LogoPreto.png"
                 alt="Logo GUIAR"
                 class="w-32 h-auto object-contain">
         </div>
@@ -207,7 +207,7 @@
         <!-- FOOTER -->
         <div class="p-4 mt-auto">
             <div class="px-4 pb-4 flex flex-col items-center gap-1.5">
-                <img src="<?= BASE_URL ?>/img/logobrancaR.png"
+                <img src="<?= BASE_URL ?>/img/LogoPreto.png"
                     alt="GUIAR"
                     class="w-24 h-auto object-contain">
                 <p class="text-[10px] text-slate-400 text-center leading-tight">
@@ -223,7 +223,7 @@
 
                 <div class="flex-grow min-w-0">
 
-                    <p class="font-bold text-xs text-white truncate">
+                    <p class="font-bold text-xs text-black truncate">
                         <?= htmlspecialchars($nomeAdmin) ?>
                     </p>
 
