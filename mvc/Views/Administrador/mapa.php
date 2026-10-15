@@ -10,11 +10,13 @@
 
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="<?= BASE_URL ?>/style/sidebar.css">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -164,7 +166,7 @@
     </style>
 </head>
 
-<body class="bg-[#f5f7fb] overflow-hidden">
+<body class="sidebar-page bg-[#f5f7fb] overflow-hidden">
 
     <div class="flex h-screen">
 
@@ -189,7 +191,7 @@
         </div>
 
         <!-- MENU -->
-        <nav class="px-4 space-y-2 flex-grow overflow-y-auto">
+        <nav class="sidebar-menu px-4 space-y-2 flex-grow">
 
             <!-- INÍCIO -->
             <a href="<?= BASE_URL ?>/routes.php?action=dashboardAdm"
@@ -317,19 +319,19 @@
                 </p>
             </div>
 
-            <div class="flex items-center gap-3.5 p-3 rounded-2xl bg-white/5 border border-white/5">
+            <div class="admin-user-card flex items-center gap-3.5 p-3 rounded-2xl bg-white/5 border border-white/5">
 
-                <div class="w-10 h-10 rounded-full bg-[#FFD400] text-[#0B0D2F] font-black text-sm flex items-center justify-center shadow-lg">
+                <div class="admin-user-avatar w-10 h-10 rounded-full bg-[#FFD400] text-[#0B0D2F] font-black text-sm flex items-center justify-center shadow-lg">
                     <?= strtoupper(substr($nomeAdmin, 0, 2)) ?>
                 </div>
 
                 <div class="flex-grow min-w-0">
 
-                    <p class="font-bold text-xs text-black truncate">
+                    <p class="admin-user-name font-bold text-xs text-black truncate">
                         <?= htmlspecialchars($nomeAdmin) ?>
                     </p>
 
-                    <p class="text-[10px] text-slate-500 font-bold tracking-wider uppercase">
+                    <p class="admin-user-role text-[10px] text-slate-500 font-bold tracking-wider uppercase">
                         Admin
                     </p>
                 </div>
@@ -355,7 +357,7 @@
     </div>
 </aside>
         <!-- MAIN -->
-        <main class="flex-1 flex flex-col min-h-screen w-full md:ml-[304px]">
+        <main class="flex-1 flex flex-col min-h-screen w-full md:ml-72">
 
             <!-- HEADER -->
             <header class="bg-white/80 backdrop-blur-md border-b border-gray-200 px-4 md:px-8 py-4 md:py-5 flex items-center gap-4 sticky top-0 z-10">
@@ -377,9 +379,12 @@
                     </svg>
                 </button>
 
-                <h2 class="text-lg md:text-2xl font-bold text-gray-800">
-                    Gerenciamento de Pedidos
-                </h2>
+                <div class="min-w-0">
+                    <h1 class="page-heading">
+                        Acompanhar Rotas
+                    </h1>
+                    <p class="page-subheading">Gerencie aqui suas entregas.</p>
+                </div>
             </header>
 
             <!-- CONTENT -->

@@ -12,6 +12,7 @@
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="<?= BASE_URL ?>/style/sidebar.css">
 
     <style>
         @font-face {
@@ -88,20 +89,20 @@
     </style>
 </head>
 
-<body class="min-h-screen flex bg-[#F8FAFC] text-[#0F172A] overflow-x-hidden lg:pl-72">
+<body class="sidebar-page min-h-screen flex bg-[#F8FAFC] text-[#0F172A] overflow-x-hidden lg:pl-72">
 
     <!-- Overlay do Sidebar Mobile -->
     <div id="sidebarOverlay" class="fixed inset-0 bg-slate-900/50 z-40 hidden lg:hidden transition-opacity"></div>
 
     <!-- SIDEBAR -->
-    <aside id="sidebar" class="w-72 bg-white flex flex-col justify-between flex-shrink-0 min-h-screen text-slate-900 fixed top-0 left-0 z-50 shadow-2xl overflow-y-auto transform -translate-x-full lg:translate-x-0 transition-transform duration-300 border-r border-slate-200">
+    <aside id="sidebar" class="w-72 bg-white flex flex-col justify-between flex-shrink-0 h-screen min-h-screen text-slate-900 fixed top-0 left-0 z-50 shadow-2xl overflow-hidden transform -translate-x-full lg:translate-x-0 transition-transform duration-300 border-r border-slate-200">
 
-        <div>
+        <div class="flex min-h-0 flex-1 flex-col">
             <div class="p-8">
                 <img src="<?= BASE_URL ?>/img/LogoGuiar.png" alt="Logo GUIAR" class="w-32 h-auto object-contain">
             </div>
 
-            <nav class="px-4 space-y-1.5">
+            <nav class="sidebar-menu flex-1 px-4 space-y-1.5">
                 <a href="<?= BASE_URL ?>/routes.php?action=meusPedidosEntregador" class="menu-item active-menu flex items-center gap-3.5 px-5 py-3.5 rounded-xl font-semibold text-sm text-[#A16207]">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#A16207]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
@@ -147,10 +148,10 @@
                     </svg>
                 </button>
                 <div class="min-w-0 flex-1">
-                    <h1 class="text-xl lg:text-2xl font-extrabold text-slate-900 flex items-center gap-2 truncate">
+                    <h1 class="page-heading truncate">
                         Meus Pedidos
                     </h1>
-                    <p class="text-xs text-slate-500 font-medium mt-0.5 truncate">Acompanhe e gerencie as entregas atribuídas a você</p>
+                    <p class="page-subheading truncate">Acompanhe e gerencie as entregas atribuídas a você</p>
                 </div>
             </div>
             <div class="flex items-center gap-4">

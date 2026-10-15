@@ -15,6 +15,7 @@
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="<?= BASE_URL ?>/style/sidebar.css">
 
     <style>
         @font-face {
@@ -125,6 +126,7 @@
 
         /* Efeitos visuais mantidos */
         .menu-item {
+            font-family: inherit;
             transition: all 0.25s ease;
         }
 
@@ -148,6 +150,34 @@
         .table-container {
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
+        }
+
+        #recentOrdersCard.is-expanded {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            z-index: 60;
+            display: flex;
+            width: min(90vw, 1200px);
+            height: min(80vh, 760px);
+            min-width: min(320px, calc(100vw - 2rem));
+            min-height: min(280px, calc(100vh - 2rem));
+            max-width: calc(100vw - 2rem);
+            max-height: calc(100vh - 2rem);
+            flex-direction: column;
+            overflow: auto;
+            resize: both;
+            transform: translate(-50%, -50%);
+        }
+
+        #recentOrdersCard.is-expanded > .recent-orders-table {
+            min-height: 0;
+            flex: 1;
+            overflow: auto;
+        }
+
+        #recentOrdersBackdrop.is-visible {
+            display: block;
         }
 
         /* Estilo para esconder e mostrar no mobile */
@@ -198,7 +228,9 @@
     </style>
 </head>
 
-<body class="min-h-screen flex bg-[#F8FAFC] text-[#0F172A] overflow-x-hidden">
+<body class="sidebar-page min-h-screen flex bg-[#F8FAFC] text-[#0F172A] overflow-x-hidden">
+
+    <div id="recentOrdersBackdrop" class="fixed inset-0 z-[55] hidden bg-slate-950/40 backdrop-blur-sm" aria-hidden="true"></div>
 
     <aside id="sidebar"
         class="w-72 bg-[#ffff] flex flex-col fixed top-0 left-0 text-white z-40 transition-all rounded-none overflow-hidden h-screen">
@@ -223,7 +255,7 @@
         </div>
             </div>
 
-            <nav class="px-4 space-y-2 flex-grow">
+            <nav id="sidebarMenu" class="sidebar-menu px-4 space-y-2 flex-grow">
                 <a href="<?= BASE_URL ?>/routes.php?action=dashboardAdm"
                     class="menu-item active flex items-center gap-3.5 px-5 py-3 rounded-xl font-bold text-sm bg-[#4F46E5] text-black shadow-lg shadow-indigo-500/10 transition-all">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -283,13 +315,13 @@
                     </p>
                 </div>
 
-                <div class="flex items-center gap-3.5 p-3 rounded-2xl bg-white/5 border border-white/5">
-                    <div class="w-10 h-10 rounded-full bg-[#FFD400] text-[#0B0D2F] font-black text-sm flex items-center justify-center shadow-lg">
+                <div class="admin-user-card flex items-center gap-3.5 p-3 rounded-2xl bg-white/5 border border-white/5">
+                    <div class="admin-user-avatar w-10 h-10 rounded-full bg-[#FFD400] text-[#0B0D2F] font-black text-sm flex items-center justify-center shadow-lg">
                         <?= strtoupper(substr($nomeAdmin, 0, 2)) ?>
                     </div>
                     <div class="flex-grow min-w-0">
-                        <p class="font-bold text-xs text-black truncate"><?= htmlspecialchars($nomeAdmin) ?></p>
-                        <p class="text-[10px] text-slate-500 font-bold tracking-wider uppercase">Admin</p>
+                        <p class="admin-user-name font-bold text-xs text-black truncate"><?= htmlspecialchars($nomeAdmin) ?></p>
+                        <p class="admin-user-role text-[10px] text-slate-500 font-bold tracking-wider uppercase">Admin</p>
                     </div>
                     <a href="<?= BASE_URL ?>/routes.php?action=escolherAdm" class="text-slate-500 hover:text-rose-500 transition-colors p-1">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -316,10 +348,10 @@
                 </button>
 
                 <div class="min-w-0">
-                    <h1 class="text-2xl font-extrabold text-slate-900 flex items-center gap-2">
-                        Olá, <span class="text-[#1B138F]"><?= htmlspecialchars($nomeAdmin) ?>!</span>
+                    <h1 class="page-heading flex items-center gap-2">
+                        Olá, <span class="page-heading-highlight"><?= htmlspecialchars($nomeAdmin) ?>!</span>
                     </h1>
-                    <p class="text-xs text-slate-500 font-medium mt-0.5">Aqui está o status das suas entregas hoje.</p>
+                    <p class="page-subheading">Aqui está o status das suas entregas hoje.</p>
                 </div>
             </div>
 
@@ -506,40 +538,21 @@
             <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
 
                 <!-- ================= PEDIDOS RECENTES ================= -->
-                <div class="xl:col-span-2 w-full bg-white rounded-3xl border border-slate-100 shadow-sm p-6 space-y-6 overflow-hidden">
+                <div id="recentOrdersCard" class="xl:col-span-2 w-full bg-white rounded-3xl border border-slate-100 shadow-sm p-6 space-y-6 overflow-hidden" role="dialog" aria-label="Tabela de pedidos recentes" aria-modal="false">
 
                     <!-- TOPO -->
                     <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
 
-                        <h3 class="text-lg font-extrabold text-slate-900">
-                            Pedidos Recentes
-                        </h3>
+                        <div class="flex items-center justify-between gap-3">
+                            <h3 class="text-lg font-extrabold text-slate-900">
+                                Pedidos Recentes
+                            </h3>
+                            <button id="resizeRecentOrders" type="button" aria-expanded="false" aria-label="Ampliar e redimensionar a tabela de pedidos" class="flex-shrink-0 rounded-lg border border-slate-200 px-3 py-2 text-xs font-semibold text-slate-600 transition hover:bg-slate-50 hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                Ampliar tabela
+                            </button>
+                        </div>
 
                         <div class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
-
-                            <!-- BUSCA -->
-                            <div class="flex items-center gap-2 border border-slate-200 rounded-xl px-3 py-2 bg-[#F8FAFC] w-full sm:w-[320px]">
-
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="w-4 h-4 text-slate-400"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor">
-
-                                    <path stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-
-                                </svg>
-
-                                <input
-                                    type="text"
-                                    id="campoBusca"
-                                    placeholder="Buscar pedidos, clientes..."
-                                    class="bg-transparent border-none outline-none text-sm text-slate-700 placeholder-slate-400 w-full">
-
-                            </div>
 
                             <!-- FILTRO -->
                             <select
@@ -558,7 +571,7 @@
                     </div>
 
                     <!-- TABELA -->
-                    <div class="w-full overflow-x-auto">
+                    <div class="recent-orders-table w-full overflow-x-auto">
 
                         <table class="w-full min-w-full text-left">
 
@@ -1404,6 +1417,53 @@
 
             }
 
+        });
+    </script>
+
+    <script>
+        const recentOrdersCard = document.getElementById('recentOrdersCard');
+        const resizeRecentOrdersButton = document.getElementById('resizeRecentOrders');
+        const recentOrdersBackdrop = document.getElementById('recentOrdersBackdrop');
+        let recentOrdersSize = null;
+
+        function setRecentOrdersExpanded(expanded) {
+            if (expanded) {
+                recentOrdersCard.style.width = recentOrdersSize ? `${recentOrdersSize.width}px` : '';
+                recentOrdersCard.style.height = recentOrdersSize ? `${recentOrdersSize.height}px` : '';
+            } else if (recentOrdersCard.classList.contains('is-expanded')) {
+                const { width, height } = recentOrdersCard.getBoundingClientRect();
+                recentOrdersSize = { width, height };
+            }
+
+            recentOrdersCard.classList.toggle('is-expanded', expanded);
+            recentOrdersBackdrop.classList.toggle('is-visible', expanded);
+            resizeRecentOrdersButton.setAttribute('aria-expanded', String(expanded));
+            resizeRecentOrdersButton.setAttribute(
+                'aria-label',
+                expanded ? 'Redimensionar ou restaurar a tabela de pedidos' : 'Ampliar e redimensionar a tabela de pedidos'
+            );
+            resizeRecentOrdersButton.textContent = expanded ? 'Restaurar tabela' : 'Ampliar tabela';
+            recentOrdersCard.setAttribute('aria-modal', String(expanded));
+
+            if (expanded) {
+                resizeRecentOrdersButton.focus();
+            } else {
+                recentOrdersCard.style.removeProperty('width');
+                recentOrdersCard.style.removeProperty('height');
+                resizeRecentOrdersButton.focus();
+            }
+        }
+
+        resizeRecentOrdersButton.addEventListener('click', () => {
+            setRecentOrdersExpanded(!recentOrdersCard.classList.contains('is-expanded'));
+        });
+
+        recentOrdersBackdrop.addEventListener('click', () => setRecentOrdersExpanded(false));
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && recentOrdersCard.classList.contains('is-expanded')) {
+                setRecentOrdersExpanded(false);
+            }
         });
     </script>
 
