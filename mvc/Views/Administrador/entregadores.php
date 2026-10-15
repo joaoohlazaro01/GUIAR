@@ -8,6 +8,8 @@
    <link rel="Shortcut Icon" type="image/png" href="img/Glogo.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="<?= BASE_URL ?>/style/sidebar.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
        /* SIDEBAR - Comportamento Responsivo */
@@ -64,7 +66,7 @@
     </style>
 </head>
 
-<body class="flex h-screen overflow-hidden text-gray-800">
+<body class="sidebar-page flex h-screen overflow-hidden text-gray-800">
 
     <div id="sidebarOverlay" class="fixed inset-0 bg-[#ffff]/50 backdrop-blur-sm z-40 hidden transition-opacity md:hidden"></div>
 
@@ -88,7 +90,7 @@
         </div>
 
         <!-- MENU -->
-        <nav class="px-4 space-y-2 flex-grow overflow-y-auto">
+        <nav class="sidebar-menu px-4 space-y-2 flex-grow">
 
             <!-- INÍCIO -->
             <a href="<?= BASE_URL ?>/routes.php?action=dashboardAdm"
@@ -215,19 +217,19 @@
                 </p>
             </div>
 
-            <div class="flex items-center gap-3.5 p-3 rounded-2xl bg-white/5 border border-white/5">
+            <div class="admin-user-card flex items-center gap-3.5 p-3 rounded-2xl bg-white/5 border border-white/5">
 
-                <div class="w-10 h-10 rounded-full bg-[#FFD400] text-[#0B0D2F] font-black text-sm flex items-center justify-center shadow-lg">
+                <div class="admin-user-avatar w-10 h-10 rounded-full bg-[#FFD400] text-[#0B0D2F] font-black text-sm flex items-center justify-center shadow-lg">
                     <?= strtoupper(substr($nomeAdmin, 0, 2)) ?>
                 </div>
 
                 <div class="flex-grow min-w-0">
 
-                    <p class="font-bold text-xs text-black truncate">
+                    <p class="admin-user-name font-bold text-xs text-black truncate">
                         <?= htmlspecialchars($nomeAdmin) ?>
                     </p>
 
-                    <p class="text-[10px] text-slate-500 font-bold tracking-wider uppercase">
+                    <p class="admin-user-role text-[10px] text-slate-500 font-bold tracking-wider uppercase">
                         Admin
                     </p>
                 </div>
@@ -254,7 +256,7 @@
 </aside>
 
      <!-- MAIN -->
-        <main class="flex-1 flex flex-col min-h-screen w-full md:ml-[304px]">
+        <main class="flex-1 flex flex-col min-h-screen w-full md:ml-72">
 
             <!-- HEADER -->
             <header class="bg-white border-b border-[#E2E8F0] px-8 py-5 flex items-center justify-between sticky top-0 z-30 shadow-sm gap-4">
@@ -266,8 +268,8 @@
                         </svg>
                     </button>
                     <div class="min-w-0">
-                        <h1 class="text-2xl font-extrabold text-slate-900">Entregadores</h1>
-                        <p class="text-xs text-slate-500 font-medium mt-0.5">Gerencie os administradores com acesso ao sistema.</p>
+                        <h1 class="page-heading">Nossos Entregadores</h1>
+                        <p class="page-subheading">Gerencie os entregadores com acesso ao sistema.</p>
                     </div>
                 </div>
 
@@ -284,7 +286,7 @@
         </header>
 
         <div class="px-5 md:px-10 pb-8 overflow-y-auto flex-1 relative w-full">
-            <div id="cardsContainer" class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+            <div id="cardsContainer" class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 row mt-6">
     <?php if (!empty($result)): ?>
         <?php foreach ($result as $row): ?>
             <div class="motoboy-card bg-white rounded-[24px] p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col relative">
@@ -299,7 +301,7 @@
                                 </div>
                                 <h3 class="text-xl font-bold text-gray-800 text-center"><?php echo htmlspecialchars($row["nome_completo"]); ?></h3>
                                 <p class="text-sm text-gray-400 text-center font-medium mt-1 mb-3 break-all"><?php echo htmlspecialchars($row["email"]); ?></p>
-                                <span class="px-4 py-1.5 bg-blue-50 text-blue-600 text-xs font-bold rounded-full">Administrador</span>
+                                <span class="px-4 py-1.5 bg-blue-50 text-blue-600 text-xs font-bold rounded-full">Entregador</span>
                             </div>
 
                             <div class="text-[13px] text-gray-500 mb-6 space-y-2 px-4 bg-gray-50 p-4 rounded-xl">
@@ -335,7 +337,7 @@
 
             <div class="mt-8 text-center flex items-center justify-center gap-2 text-sm text-gray-400 font-bold pb-24">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-                Total: <?php echo !empty($result) ? count($result) : 0; ?> administradores
+                Total: <?php echo !empty($result) ? count($result) : 0; ?> Entregadores
             </div>
             
             <button onclick="document.getElementById('newMotoboyModal').style.display='block'" class="fixed bottom-6 right-6 md:bottom-8 md:right-8 w-16 h-16 md:w-20 md:h-20 bg-[#FFC107] hover:bg-yellow-500 text-gray-900 rounded-full shadow-[0_8px_30px_rgb(255,193,7,0.4)] hover:scale-105 transition-all flex flex-col items-center justify-center font-bold text-[10px] md:text-[11px] gap-1 z-30">

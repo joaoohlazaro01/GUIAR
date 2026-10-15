@@ -14,6 +14,8 @@
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="<?= BASE_URL ?>/style/sidebar.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     @font-face {
       font-family: 'Brice-Bold';
@@ -277,10 +279,10 @@
 
       <!-- TÍTULO -->
       <div>
-        <h1 class="text-3xl font-extrabold text-[#0F172A] tracking-tight">
+        <h1 class="page-heading">
           Administradores
         </h1>
-        <p class="text-sm text-[#64748B] mt-1 font-medium">Gerencie os administradores com acesso ao sistema.</p>
+        <p class="page-subheading">Gerencie os administradores com acesso ao sistema.</p>
       </div>
 
       <!-- DIREITA: empresa + sino + logout -->

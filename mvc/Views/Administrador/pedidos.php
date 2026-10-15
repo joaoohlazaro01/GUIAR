@@ -8,6 +8,8 @@
 
     <link rel="shortcut icon" type="image/png" href="<?= BASE_URL ?>/img/G.png">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="<?= BASE_URL ?>/style/sidebar.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
       
@@ -114,7 +116,7 @@
         }
 /* MAIN */
 .main {
-    margin-left: 320px;
+    margin-left: 288px;
     padding: 30px;
 }
 
@@ -371,7 +373,7 @@ select:focus {
     </style>
 </head>
 
-<body>
+<body class="sidebar-page">
 
     <!-- OVERLAY MOBILE -->
         <div id="overlay"
@@ -402,7 +404,7 @@ $nomeAdmin = $_SESSION['nome_usuario'] ?? ($admin["nome_adm"] ?? "Admin");
         </div>
 
         <!-- MENU -->
-        <nav class="px-4 space-y-2 flex-grow overflow-y-auto">
+        <nav class="sidebar-menu px-4 space-y-2 flex-grow">
 
             <!-- INÍCIO -->
             <a href="<?= BASE_URL ?>/routes.php?action=dashboardAdm"
@@ -530,19 +532,19 @@ $nomeAdmin = $_SESSION['nome_usuario'] ?? ($admin["nome_adm"] ?? "Admin");
                 </p>
             </div>
 
-            <div class="flex items-center gap-3.5 p-3 rounded-2xl bg-white/5 border border-white/5">
+            <div class="admin-user-card flex items-center gap-3.5 p-3 rounded-2xl bg-white/5 border border-white/5">
 
-                <div class="w-10 h-10 rounded-full bg-[#FFD400] text-[#0B0D2F] font-black text-sm flex items-center justify-center shadow-lg">
+                <div class="admin-user-avatar w-10 h-10 rounded-full bg-[#FFD400] text-[#0B0D2F] font-black text-sm flex items-center justify-center shadow-lg">
                     <?= strtoupper(substr($nomeAdmin, 0, 2)) ?>
                 </div>
 
                 <div class="flex-grow min-w-0">
 
-                    <p class="font-bold text-xs text-black truncate">
+                    <p class="admin-user-name font-bold text-xs text-black truncate">
                         <?= htmlspecialchars($nomeAdmin) ?>
                     </p>
 
-                    <p class="text-[10px] text-slate-500 font-bold tracking-wider uppercase">
+                    <p class="admin-user-role text-[10px] text-slate-500 font-bold tracking-wider uppercase">
                         Admin
                     </p>
                 </div>
@@ -578,7 +580,10 @@ $nomeAdmin = $_SESSION['nome_usuario'] ?? ($admin["nome_adm"] ?? "Admin");
                     </svg>
                 </button>
                 <div class="min-w-0">
-                    <h1 class="text-2xl font-extrabold text-slate-900">Pedidos</h1>
+                    <h1 class="page-heading">
+                        Gestão de Pedidos
+                    </h1>
+                    <p class="page-subheading">Aqui está o status das suas entregas hoje.</p>
                 </div>
             </div>
         </header>

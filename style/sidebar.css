@@ -1,0 +1,74 @@
+.sidebar-page {
+    background-color: #F8FAFC !important;
+}
+
+.page-heading {
+    color: #0f172a;
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.25;
+}
+
+.page-heading-highlight {
+    color: #f3243e;
+}
+
+.page-subheading {
+    margin-top: 0.25rem;
+    color: #718096;
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+}
+
+.sidebar-menu {
+    min-height: 0;
+    overflow-y: auto;
+    scrollbar-color: #d4d4d4 #f8fafc;
+    scrollbar-width: thin;
+}
+
+.sidebar-menu::-webkit-scrollbar {
+    width: 8px;
+}
+
+.sidebar-menu::-webkit-scrollbar-track {
+    background: #f8fafc;
+}
+
+.sidebar-menu::-webkit-scrollbar-thumb {
+    background: #d4d4d4;
+    border-radius: 999px;
+}
+
+.admin-user-card {
+    font-family: 'Inter', Arial, sans-serif;
+}
+
+.admin-user-card .admin-user-avatar {
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 20px;
+}
+
+.admin-user-card .admin-user-name {
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 16px;
+    letter-spacing: normal;
+    text-transform: none;
+}
+
+.admin-user-card .admin-user-role {
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 14px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
