@@ -3,6 +3,7 @@
 namespace mvc\Controllers;
 
 use mvc\Models\Empresa;
+use mvc\Services\EmailService;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -60,13 +61,7 @@ class EmpresaController
             $mail = new PHPMailer(true);
             try {
                 // Configurações do servidor de email
-                $mail->isSMTP();
-                $mail->Host = 'smtp.gmail.com';
-                $mail->SMTPAuth = true;
-                $mail->Username = 'projGuiar@gmail.com';
-                $mail->Password = 'jjuj ysee xhvs fnji';
-                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                $mail->Port = 587;
+                EmailService::configure($mail);
 
                 // Configurações de envio
                 $mail->setFrom('projGuiar@gmail.com', 'GUIAR');
@@ -210,13 +205,7 @@ class EmpresaController
 
             $mail = new PHPMailer(true);
             try {
-                $mail->isSMTP();
-                $mail->Host = 'smtp.gmail.com';
-                $mail->SMTPAuth = true;
-                $mail->Username = 'projGuiar@gmail.com';
-                $mail->Password = 'jjuj ysee xhvs fnji';
-                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                $mail->Port = 587;
+                EmailService::configure($mail);
 
                 $mail->setFrom('projGuiar@gmail.com', 'GUIAR');
                 $mail->addAddress($email);

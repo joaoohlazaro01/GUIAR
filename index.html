@@ -12,6 +12,8 @@
 
     <link rel="Shortcut Icon" type="image/png" href="img/logoIcon.png" class=" w-50 h-60 object-contain">
 
+    <link rel="stylesheet" href="public/css/contato.css">
+
 </head>
 
 <body class="bg-[#F5F5F5] overflow-x-hidden text-gray-900">
@@ -61,16 +63,6 @@
 
                 </a>
 
-                <a href="contato.php" class="relative text-[#1B138F] hover:text-[#FFD400] transition duration-300
-                    after:content-[''] after:absolute after:left-0 after:-bottom-1
-                    after:w-0 after:h-[3px] after:bg-[#FFD400]
-                    after:transition-all after:duration-300
-                    hover:after:w-full">
-
-                    Contato
-
-                </a>
-
             </nav>
 
             <!-- BOTÃO MOBILE -->
@@ -110,12 +102,6 @@
                     class="text-[#1B138F] hover:text-[#FFD400] transition duration-300">
 
                     Entregador
-
-                </a>
-
-                <a href="contato.php" class="text-[#1B138F] hover:text-[#FFD400] transition duration-300">
-
-                    Contato
 
                 </a>
 
@@ -178,15 +164,6 @@
                         Desbloqueie possibilidades, alcance a excelência.
 
                     </p>
-
-                    <button onclick="window.location.href='contato.php'" class="bg-[#FFD400] text-[#1B138F]
-                        px-10 md:px-20 py-4 rounded-full
-                        text-lg font-black hover:scale-105
-                        transition shadow-xl">
-
-                        CONTATO →
-
-                    </button>
 
                 </div>
 
@@ -407,55 +384,57 @@
 
     </section>
 
-    <!-- CONTATE-NOS -->
-    <section class="py-16 md:py-24 px-4 md:px-8 bg-white">
-
-        <div class="max-w-7xl mx-auto">
-
-            <div class="relative rounded-[40px] overflow-hidden min-h-[700px] md:h-[600px]
-                shadow-2xl bg-cover bg-center bg-no-repeat" style="background-image: url('img/contatosR.png');">
-
-                <!-- OVERLAY -->
-                <div class="absolute inset-0 bg-gradient-to-l from-[#1B138F]/95 via-[#1B138F]/70 to-transparent">
-                </div>
-
-                <!-- CARD -->
-                <div class="relative z-10 flex items-center justify-center md:justify-end
-                    h-full p-6 md:p-16">
-
-                    <div class="bg-white p-6 md:p-10 rounded-3xl shadow-2xl
-                        w-full max-w-[500px] text-center">
-
-                        <h2 class="text-3xl md:text-4xl font-black text-[#1B138F] mb-6">
-
-                            Tecnologia que move sua jornada
-
-                        </h2>
-
-                        <p class="text-gray-700 text-lg md:text-xl leading-relaxed mb-8">
-
-                            O Guiar nasceu para transformar a forma como pessoas e processos se conectam.
-                            Com uma experiência simples, moderna e inteligente.
-
-                        </p>
-
-                        <a href="contato.php" class="inline-block bg-[#FFD400] text-[#1B138F]
-                            py-4 px-8 rounded-xl font-black text-lg
-                            hover:scale-[1.03] hover:shadow-xl transition">
-
-                            MENSAGEM VIA SITE
-
-                        </a>
-
-                    </div>
-
-                </div>
-
+    <!-- CONTATO FLUTUANTE -->
+    <div id="contato" class="contact-panel" role="dialog" aria-labelledby="contato-titulo" hidden>
+        <div class="contact-panel-header">
+            <div>
+                <span class="contact-heading-icon" aria-hidden="true">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="3"/><path stroke-linecap="round" stroke-linejoin="round" d="m3 7 9 6 9-6"/></svg>
+                </span>
+                <h2 id="contato-titulo">Fale conosco!</h2>
+                <p>Sua mensagem chega à nossa equipe.</p>
             </div>
-
+            <button id="contato-fechar" type="button" aria-label="Fechar contato" class="contact-close">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+            </button>
         </div>
-
-    </section>
+        <div class="contact-panel-body">
+            <p id="home-contato-aviso" role="status" aria-live="polite" class="hidden"></p>
+    <form id="home-contato-form" action="enviarContato.php" method="post" class="contact-form">
+        <input type="hidden" name="csrf_token" value="">
+        <div>
+            <label for="home-contato-nome">Seu nome</label>
+            <input id="home-contato-nome" name="nome" type="text" autocomplete="name" required maxlength="100" placeholder="Como podemos chamar você?">
+        </div>
+        <div>
+            <label for="home-contato-email">Seu e-mail</label>
+            <input id="home-contato-email" name="email" type="email" autocomplete="email" required maxlength="254" placeholder="voce@exemplo.com" aria-describedby="contato-nota">
+        </div>
+        <div>
+            <label for="home-contato-mensagem">Sua mensagem</label>
+            <textarea id="home-contato-mensagem" name="mensagem" rows="4" required maxlength="5000" placeholder="Conte como podemos ajudar..." aria-describedby="contato-contador"></textarea>
+            <span id="contato-contador" class="contact-counter">0 / 5.000 caracteres</span>
+        </div>
+        <button id="home-contato-enviar" type="submit" class="contact-send" aria-busy="false">
+            <svg class="contact-send-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m22 2-7 20-4-9-9-4 20-7ZM22 2 11 13"/></svg>
+            <span class="contact-spinner" aria-hidden="true"></span>
+            <span id="contato-enviar-texto">Enviar mensagem</span>
+        </button>
+        <p id="contato-nota" class="contact-note">Responderemos pelo e-mail informado.</p>
+        <noscript><p class="text-sm text-red-700">Ative o JavaScript para enviar a mensagem pelo site.</p></noscript>
+    </form>
+        </div>
+    </div>
+    <button id="contato-abrir" type="button" class="contact-launcher" aria-controls="contato" aria-expanded="false" aria-haspopup="dialog">
+        <span class="contact-launcher-icon" aria-hidden="true">
+            <svg class="contact-chat" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" /><path stroke-linecap="round" d="M8 10h8M8 14h5"/></svg>
+            <svg class="contact-dismiss" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="m6 6 12 12M18 6 6 18"/></svg>
+        </span>
+        <span>
+            <span class="contact-launcher-title">Fale conosco!</span>
+            <span class="contact-launcher-subtitle">Envie sua mensagem</span>
+        </span>
+    </button>
 
     <!-- FOOTER -->
     <footer class="bg-[#1B138F] text-white py-10 px-4 md:px-8 overflow-hidden">
@@ -500,14 +479,6 @@
                             </a>
                         </li>
 
-                        <li>
-                            <a href="contato.php" class="hover:text-[#FFD400] transition">
-
-                                Contato
-
-                            </a>
-                        </li>
-
                     </ul>
 
                 </div>
@@ -537,7 +508,7 @@
                     </h3>
 
                     <p>
-                        contato@guiar.com
+                        projGuiar@gmail.com
                     </p>
 
                 </div>
@@ -566,6 +537,7 @@
 
     </script>
 
+    <script src="public/js/contato.js"></script>
 </body>
 
 </html>

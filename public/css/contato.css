@@ -1,0 +1,53 @@
+.contact-panel[hidden] { display: none; }
+.contact-launcher, .contact-panel { font-family: inherit; }
+.contact-launcher {
+    position: fixed; right: max(24px, env(safe-area-inset-right)); bottom: max(24px, env(safe-area-inset-bottom));
+    z-index: 60; display: flex; align-items: center; gap: 12px; padding: 14px 20px;
+    border: 2px solid #FFD400; border-radius: 999px; background: #1B138F; color: white;
+    box-shadow: 0 8px 28px #1b138f40; cursor: pointer; transition: background .2s, transform .2s;
+}
+.contact-launcher:hover { background: #2414B8; transform: translateY(-3px); }
+.contact-launcher-icon { color: #FFD400; }
+.contact-launcher-title, .contact-launcher-subtitle { display: block; text-align: left; }
+.contact-launcher-title { font-weight: 800; font-size: 15px; }
+.contact-launcher-subtitle { font-size: 12px; color: #e0dcff; }
+.contact-dismiss, .contact-launcher[aria-expanded="true"] .contact-chat { display: none; }
+.contact-launcher[aria-expanded="true"] .contact-dismiss { display: block; }
+.contact-panel {
+    position: fixed; right: max(24px, env(safe-area-inset-right)); bottom: calc(110px + env(safe-area-inset-bottom));
+    z-index: 60; width: min(390px, calc(100vw - 32px)); max-height: calc(100dvh - 134px);
+    overflow-y: auto; border-radius: 22px; background: white; color: #191631;
+    border: 1px solid #e4e1f4; box-shadow: 0 16px 60px #1b138f35;
+}
+.contact-panel-header { display: flex; justify-content: space-between; gap: 12px; padding: 22px 24px; background: #1B138F; color: white; border-bottom: 4px solid #FFD400; }
+.contact-heading-icon { display: block; color: #FFD400; margin-bottom: 8px; }
+.contact-panel-header h2 { margin: 0; font-size: 21px; font-weight: 800; }
+.contact-panel-header p { margin: 5px 0 0; color: #e0dcff; font-size: 13px; }
+.contact-close { align-self: flex-start; padding: 6px; border: 0; border-radius: 8px; color: white; background: #ffffff18; cursor: pointer; }
+.contact-close:hover { background: #ffffff30; }
+.contact-panel-body { padding: 22px 24px; }
+.contact-form { display: grid; gap: 15px; }
+.contact-form label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 700; color: #1B138F; }
+.contact-form input, .contact-form textarea { box-sizing: border-box; width: 100%; padding: 11px 12px; border: 1px solid #dcd8ed; border-radius: 10px; background: #faf9fd; font: inherit; font-size: 16px; color: #191631; }
+.contact-form textarea { min-height: 100px; resize: vertical; }
+.contact-form input:focus, .contact-form textarea:focus { border-color: #1B138F; outline: 3px solid #1b138f20; }
+.contact-counter { display: block; margin-top: 4px; text-align: right; color: #68647a; font-size: 11px; }
+.contact-send { display: flex; justify-content: center; align-items: center; gap: 9px; padding: 13px; border: 0; border-radius: 11px; background: #FFD400; color: #1B138F; font-weight: 800; cursor: pointer; }
+.contact-send:hover { background: #f0c800; }
+.contact-send:disabled { opacity: .65; cursor: wait; }
+.contact-note { margin: 0; text-align: center; font-size: 12px; color: #68647a; }
+.contact-launcher:focus-visible, .contact-close:focus-visible, .contact-send:focus-visible { outline: 3px solid #FFD400; outline-offset: 4px; }
+#home-contato-aviso { margin: 0 0 16px; padding: 12px; border-radius: 10px; font-size: 14px; }
+#home-contato-aviso.hidden { display: none; }
+#home-contato-aviso[data-kind="success"] { background: #eaf8ee; color: #205c31; }
+#home-contato-aviso[data-kind="error"] { background: #fff0ef; color: #9f2424; }
+.contact-spinner { display: none; width: 18px; height: 18px; border: 2px solid #1b138f40; border-top-color: #1B138F; border-radius: 50%; animation: contact-spin .8s linear infinite; }
+.contact-send[aria-busy="true"] .contact-spinner { display: block; }
+.contact-send[aria-busy="true"] .contact-send-icon { display: none; }
+@keyframes contact-spin { to { transform: rotate(360deg); } }
+@media (max-width: 480px) {
+    .contact-launcher { right: 16px; bottom: max(16px, env(safe-area-inset-bottom)); padding: 12px 16px; }
+    .contact-panel { right: 16px; bottom: calc(96px + env(safe-area-inset-bottom)); max-height: calc(100dvh - 112px); }
+    .contact-panel-header, .contact-panel-body { padding: 18px; }
+}
+@media (prefers-reduced-motion: reduce) { .contact-launcher { transition: none; } .contact-spinner { animation: none; } }
