@@ -12,7 +12,7 @@
 }
 
 .page-heading-highlight {
-    color: #f3243e;
+    color: var(--emp-primary, #f3243e);
 }
 
 .page-subheading {

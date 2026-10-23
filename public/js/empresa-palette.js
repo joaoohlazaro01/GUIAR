@@ -422,10 +422,14 @@
                     color: var(--emp-secondary-contrast) !important;
                 }
 
-                /* Headers Gerais: Nome do Admin ou Destaques */
+                /* Headers Gerais: Nome do Admin ou Destaques (ex: Olá, Grazi! no topo do Dashboard) */
                 header h1 span.text-\\[\\#1B138F\\],
                 header h1 span.text-brand-blue,
-                header span.text-\\[\\#1B138F\\] {
+                header span.text-\\[\\#1B138F\\],
+                .page-heading-highlight,
+                header h1 .page-heading-highlight,
+                .page-heading .page-heading-highlight,
+                header .page-heading-highlight {
                     color: var(--emp-primary) !important;
                 }
 
@@ -580,41 +584,106 @@
                 /* ========================================================
                    TELA: entregadores.php
                    ======================================================== */
-                #openNewMotoboyModal,
-                button.bg-\\[\\#FFC107\\] {
-                    background-color: var(--emp-secondary) !important;
-                    color: var(--emp-secondary-contrast) !important;
-                }
-                #openNewMotoboyModal:hover,
-                button.bg-\\[\\#FFC107\\]:hover {
-                    background-color: var(--emp-secondary-hover) !important;
-                }
-                button[onclick*="newMotoboyModal"] {
-                    background-color: var(--emp-secondary) !important;
-                    color: var(--emp-secondary-contrast) !important;
-                    box-shadow: 0 8px 30px var(--emp-secondary-light) !important;
-                }
-                #searchInput:focus {
-                    box-shadow: 0 0 0 2px var(--emp-primary-ring) !important;
-                }
-                #newMotoboyForm button[type="submit"],
-                #newMotoboyModal button[type="submit"] {
+
+                /* Header: Botão "Novo Entregador" */
+                .header-add-btn,
+                #openNewMotoboyModal {
                     background-color: var(--emp-primary) !important;
                     color: var(--emp-primary-contrast) !important;
+                    box-shadow: 0 4px 12px var(--emp-primary-ring) !important;
                 }
-                .motoboy-card .bg-blue-50.text-blue-600 {
+                .header-add-btn:hover,
+                #openNewMotoboyModal:hover {
+                    background-color: var(--emp-primary-hover) !important;
+                }
+
+                /* FAB Mobile */
+                .entregador-add-fab button {
+                    background-color: var(--emp-primary) !important;
+                    color: var(--emp-primary-contrast) !important;
+                    box-shadow: 0 8px 24px var(--emp-primary-ring) !important;
+                }
+                .entregador-add-fab button:hover {
+                    background-color: var(--emp-primary-hover) !important;
+                }
+
+                /* Ícone do header */
+                .entregadores-page-icon {
+                    color: var(--emp-primary) !important;
+                }
+
+                /* Borda lateral dos cards da tabela */
+                .entregador-card {
+                    border-left-color: var(--emp-primary) !important;
+                }
+
+                /* Avatar com iniciais */
+                .entregador-avatar {
                     background-color: var(--emp-primary-light) !important;
                     color: var(--emp-primary) !important;
                 }
-                .motoboy-card .btn-edit {
+
+                /* Badge de Status */
+                .entregador-status-badge {
+                    background-color: var(--emp-primary-light) !important;
                     color: var(--emp-primary) !important;
+                }
+
+                /* Contador */
+                .entregadores-count {
+                    background-color: var(--emp-primary-light) !important;
+                    color: var(--emp-primary) !important;
+                }
+
+                /* Botão Editar */
+                .entregador-action-edit {
+                    color: var(--emp-primary) !important;
+                    background-color: var(--emp-primary-light) !important;
                     border-color: var(--emp-primary-light-border) !important;
                 }
-                .motoboy-card .btn-edit:hover {
-                    background-color: var(--emp-primary-light) !important;
+                .entregador-action-edit:hover {
+                    background-color: var(--emp-primary-light-border) !important;
+                    color: var(--emp-primary-hover) !important;
                 }
-                #newMotoboyModal input:focus {
-                    box-shadow: 0 0 0 2px var(--emp-primary-ring) !important;
+
+                /* Botão Retry / Empty State */
+                .entregadores-retry {
+                    background-color: var(--emp-primary) !important;
+                    color: var(--emp-primary-contrast) !important;
+                    box-shadow: 0 5px 12px var(--emp-primary-ring) !important;
+                }
+                .entregadores-retry:hover {
+                    background-color: var(--emp-primary-hover) !important;
+                }
+
+                /* Toolbar busca: Focus */
+                .entregadores-search-wrap:focus-within {
+                    border-color: var(--emp-primary) !important;
+                    box-shadow: 0 0 0 3px var(--emp-primary-ring) !important;
+                }
+
+                /* Modal inputs focus */
+                .modal-overlay .modal-input:focus {
+                    border-color: var(--emp-primary) !important;
+                    box-shadow: 0 0 0 3px var(--emp-primary-ring) !important;
+                }
+
+                /* Modal botão submit primário */
+                .modal-submit-primary {
+                    background-color: var(--emp-primary) !important;
+                    color: var(--emp-primary-contrast) !important;
+                    box-shadow: 0 4px 14px var(--emp-primary-ring) !important;
+                }
+                .modal-submit-primary:hover {
+                    background-color: var(--emp-primary-hover) !important;
+                }
+
+                /* Ilustração SVG accent */
+                .entregadores-illustration-accent {
+                    fill: var(--emp-primary) !important;
+                }
+                .entregadores-illustration-accent-stroke {
+                    stroke: var(--emp-primary) !important;
                 }
             `;
         }

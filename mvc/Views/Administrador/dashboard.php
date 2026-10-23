@@ -349,7 +349,7 @@
 
                 <div class="min-w-0">
                     <h1 class="page-heading flex items-center gap-2">
-                        Olá, <span class="page-heading-highlight"><?= htmlspecialchars($nomeAdmin) ?>!</span>
+                        Olá, <span class="page-heading-highlight" style="color: var(--emp-primary, #f3243e);"><?= htmlspecialchars($nomeAdmin) ?>!</span>
                     </h1>
                     <p class="page-subheading">Aqui está o status das suas entregas hoje.</p>
                 </div>
