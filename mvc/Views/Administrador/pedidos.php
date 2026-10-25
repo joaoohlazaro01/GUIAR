@@ -10,6 +10,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="<?= BASE_URL ?>/style/sidebar.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
 
     <style>
       
@@ -713,6 +715,8 @@ $nomeAdmin = $_SESSION['nome_usuario'] ?? ($admin["nome_adm"] ?? "Admin");
 
 </div>
 
+
+
 <!-- MODAL NOVO PEDIDO -->
 <div id="newOrderModal" class="modal">
     <div class="modal-content">
@@ -796,6 +800,30 @@ $nomeAdmin = $_SESSION['nome_usuario'] ?? ($admin["nome_adm"] ?? "Admin");
                 id="estado"
                 name="estado">
 
+            
+<!-- MAPA PARA ESCOLHER A LOCALIZAÇÃO -->
+<div class="form-group">
+    <label>Localização do cliente:</label>
+
+    <p id="mapStatus">
+        Arraste o marcador até o local desejado ou informe o CEP.
+    </p>
+
+    <div id="mapaNovoPedido"
+         style="width: 100%;
+                height: 280px;
+                border-radius: 10px;
+                display: block;">
+    </div>
+
+    <button type="button"
+            id="confirmarLocalizacao"
+            style="margin-top: 10px;">
+        Confirmar localização
+    </button>
+</div>
+
+
             <div class="form-group">
                 <label for="descricao">
                     Descrição:
@@ -825,6 +853,7 @@ $nomeAdmin = $_SESSION['nome_usuario'] ?? ($admin["nome_adm"] ?? "Admin");
 
     </div>
 </div>
+
 
 <!-- MODAL ENVIAR PEDIDOS -->
 <div id="sendOrdersModal" class="modal">
@@ -1663,5 +1692,292 @@ $nomeAdmin = $_SESSION['nome_usuario'] ?? ($admin["nome_adm"] ?? "Admin");
         window.GUIAR_EMPRESA_LOGO = <?= json_encode($logoEmpresaDashboard) ?>;
     </script>
     <script src="<?= BASE_URL ?>/public/js/empresa-palette.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+
+<script>
+let mapaNovoPedido;
+let marcadorNovoPedido;
+let localizacaoConfirmada = false;
+let consultaAtual = 0;
+let temporizadorEndereco;
+
+// Centro inicial próximo à região de Mogi Guaçu
+const LAT_INICIAL = -22.3674;
+const LNG_INICIAL = -46.9428;
+
+// Formatar CEP como 00000-000
+function formatarCEP(cep) {
+    const numeros = (cep || '').replace(/\D/g, '');
+
+    if (numeros.length !== 8) return '';
+
+    return numeros.replace(/^(\d{5})(\d{3})$/, '$1-$2');
+}
+
+// Atualizar campos do endereço
+function preencherEndereco(endereco) {
+    const rua =
+        endereco.road ||
+        endereco.pedestrian ||
+        endereco.residential ||
+        endereco.footway ||
+        '';
+
+    const bairro =
+        endereco.suburb ||
+        endereco.neighbourhood ||
+        endereco.quarter ||
+        endereco.city_district ||
+        '';
+
+    const cidade =
+        endereco.city ||
+        endereco.town ||
+        endereco.village ||
+        endereco.municipality ||
+        '';
+
+    document.getElementById('endereco').value = rua;
+    document.getElementById('bairro').value = bairro;
+    document.getElementById('cidade').value = cidade;
+    document.getElementById('estado').value =
+        endereco.state || '';
+
+    document.getElementById('cep').value =
+        formatarCEP(endereco.postcode);
+}
+
+// Salvar as coordenadas selecionadas
+function atualizarCoordenadas(lat, lng) {
+    document.getElementById('latitude').value =
+        Number(lat).toFixed(7);
+
+    document.getElementById('longitude').value =
+        Number(lng).toFixed(7);
+}
+
+// Inicializar mapa imediatamente
+function iniciarMapaPedido() {
+    mapaNovoPedido = L.map('mapaNovoPedido').setView(
+        [LAT_INICIAL, LNG_INICIAL],
+        14
+    );
+
+    L.tileLayer(
+        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap'
+        }
+    ).addTo(mapaNovoPedido);
+
+    marcadorNovoPedido = L.marker(
+        [LAT_INICIAL, LNG_INICIAL],
+        { draggable: true }
+    ).addTo(mapaNovoPedido);
+
+    // Ao arrastar, buscar endereço e CEP das coordenadas
+    marcadorNovoPedido.on('dragend', async function () {
+        const posicao = marcadorNovoPedido.getLatLng();
+        const numeroConsulta = ++consultaAtual;
+
+        localizacaoConfirmada = false;
+
+        atualizarCoordenadas(posicao.lat, posicao.lng);
+
+        document.getElementById('mapStatus').textContent =
+            'Buscando endereço e CEP da localização...';
+
+        try {
+            const url = new URL(
+                'https://nominatim.openstreetmap.org/reverse'
+            );
+
+            url.search = new URLSearchParams({
+                lat: posicao.lat,
+                lon: posicao.lng,
+                format: 'jsonv2',
+                addressdetails: '1',
+                zoom: '18'
+            });
+
+            const resposta = await fetch(url);
+
+            if (!resposta.ok) {
+                throw new Error('Falha na busca do endereço.');
+            }
+
+            const dados = await resposta.json();
+
+            if (numeroConsulta !== consultaAtual) return;
+
+            if (!dados.address) {
+                throw new Error('Endereço não encontrado.');
+            }
+
+            preencherEndereco(dados.address);
+
+            document.getElementById('mapStatus').textContent =
+                'Endereço atualizado. Confira os dados e clique ' +
+                'em Confirmar localização.';
+
+        } catch (erro) {
+            if (numeroConsulta !== consultaAtual) return;
+
+            console.error(erro);
+
+            document.getElementById('mapStatus').textContent =
+                'Não foi possível identificar o endereço ou CEP. ' +
+                'Você pode preencher o CEP manualmente e tentar novamente.';
+        }
+    });
+
+    // Ajustar mapa se o modal estiver inicialmente oculto
+    document.getElementById('newOrderModal')
+        .addEventListener('transitionend', function () {
+            mapaNovoPedido.invalidateSize();
+        });
+}
+
+// Pesquisar endereço quando o CEP for informado
+document.getElementById('cep').addEventListener('blur', async function () {
+    const cep = this.value.replace(/\D/g, '');
+
+    if (cep.length !== 8) return;
+
+    const numeroConsulta = ++consultaAtual;
+
+    localizacaoConfirmada = false;
+
+    document.getElementById('mapStatus').textContent =
+        'Consultando CEP...';
+
+    try {
+        const resposta = await fetch(
+            `https://viacep.com.br/ws/${cep}/json/`
+        );
+
+        if (!resposta.ok) {
+            throw new Error('Erro na consulta do CEP.');
+        }
+
+        const dados = await resposta.json();
+
+        if (numeroConsulta !== consultaAtual) return;
+
+        if (dados.erro) {
+            document.getElementById('mapStatus').textContent =
+                'CEP não encontrado. Confira o número informado.';
+            return;
+        }
+
+        document.getElementById('endereco').value =
+            dados.logradouro || '';
+
+        document.getElementById('bairro').value =
+            dados.bairro || '';
+
+        document.getElementById('cidade').value =
+            dados.localidade || '';
+
+        document.getElementById('estado').value =
+            dados.uf || '';
+
+        const endereco = [
+            dados.logradouro,
+            dados.bairro,
+            dados.localidade,
+            dados.uf,
+            'Brasil'
+        ].filter(Boolean).join(', ');
+
+        document.getElementById('mapStatus').textContent =
+            'Buscando localização aproximada do CEP...';
+
+        const url = new URL(
+            'https://nominatim.openstreetmap.org/search'
+        );
+
+        url.search = new URLSearchParams({
+            q: endereco,
+            format: 'jsonv2',
+            limit: '1',
+            countrycodes: 'br'
+        });
+
+        const respostaMapa = await fetch(url);
+
+        if (!respostaMapa.ok) {
+            throw new Error('Falha ao localizar o endereço.');
+        }
+
+        const resultados = await respostaMapa.json();
+
+        if (numeroConsulta !== consultaAtual) return;
+
+        if (!resultados.length) {
+            document.getElementById('mapStatus').textContent =
+                'CEP encontrado, mas não foi possível localizar ' +
+                'o ponto no mapa. Arraste o marcador manualmente.';
+            return;
+        }
+
+        const lat = Number(resultados[0].lat);
+        const lng = Number(resultados[0].lon);
+
+        marcadorNovoPedido.setLatLng([lat, lng]);
+        mapaNovoPedido.setView([lat, lng], 17);
+
+        atualizarCoordenadas(lat, lng);
+
+        document.getElementById('mapStatus').textContent =
+            'Localização aproximada encontrada. Ajuste o marcador ' +
+            'e confirme.';
+
+    } catch (erro) {
+        if (numeroConsulta !== consultaAtual) return;
+
+        console.error(erro);
+
+        document.getElementById('mapStatus').textContent =
+            'Erro ao consultar o endereço. Você pode escolher ' +
+            'a localização arrastando o marcador.';
+    }
+});
+
+// Confirmar localização escolhida
+document.getElementById('confirmarLocalizacao')
+    .addEventListener('click', function () {
+        const posicao = marcadorNovoPedido.getLatLng();
+
+        atualizarCoordenadas(posicao.lat, posicao.lng);
+        localizacaoConfirmada = true;
+
+        document.getElementById('mapStatus').textContent =
+            'Localização confirmada! CEP: ' +
+            (document.getElementById('cep').value || 'não identificado') +
+            ' | Coordenadas: ' +
+            posicao.lat.toFixed(6) + ', ' +
+            posicao.lng.toFixed(6);
+    });
+
+// Salvar pedido
+window.geocodeAddress = function () {
+    if (!localizacaoConfirmada) {
+        alert(
+            'Escolha a localização no mapa e clique em ' +
+            '"Confirmar localização" antes de salvar.'
+        );
+        return;
+    }
+
+    document.getElementById('newOrderForm').requestSubmit();
+};
+
+// Criar mapa quando o HTML estiver pronto
+iniciarMapaPedido();
+</script>
+
 </body>
 </html>
