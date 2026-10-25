@@ -62,6 +62,15 @@ class Empresa {
         }
     }
 
+    public function getLogoUrlById($id) {
+        $empresa = $this->getById($id);
+        if (empty($empresa['nome_arquivo'])) {
+            return BASE_URL . '/img/LogoPreto.png';
+        }
+
+        return BASE_URL . '/public/uploads/empresas/' . rawurlencode(basename($empresa['nome_arquivo']));
+    }
+
     public function emailExists($email) {
         try {
             $sql = "SELECT id_empresa FROM empresa WHERE email = :email";

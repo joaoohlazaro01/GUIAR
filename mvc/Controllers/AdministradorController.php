@@ -162,6 +162,8 @@ class AdministradorController
 
         $nomeAdmin  = $_SESSION['nome_usuario'];
         $company_id = $_SESSION['company_id'];
+        $adminFotoUrl = $this->administradorModel->getPhotoUrlForCompany($_SESSION['id_adm'] ?? 0, $company_id);
+        $logoEmpresaSidebar = $this->empresaModel->getLogoUrlById($company_id);
 
         // Modelos
         $pedidoModel = new \mvc\Models\Pedido($this->pdo);
@@ -196,6 +198,8 @@ class AdministradorController
         }
 
         $nomeAdmin = $_SESSION['nome_usuario'];
+        $adminFotoUrl = $this->administradorModel->getPhotoUrlForCompany($_SESSION['id_adm'] ?? 0, $_SESSION['company_id']);
+        $logoEmpresaSidebar = $this->empresaModel->getLogoUrlById($_SESSION['company_id']);
 
         require_once __DIR__ . '/../Views/Administrador/mapa.php';
     }
@@ -261,6 +265,8 @@ class AdministradorController
             exit;
         }
 
+        $adminFotoUrl = $this->administradorModel->getPhotoUrlForCompany($_SESSION['id_adm'], $company_id);
+        $logoEmpresaSidebar = $this->empresaModel->getLogoUrlById($company_id);
         $erro = $_GET['erro'] ?? null;
         $sucesso = $_GET['sucesso'] ?? null;
 

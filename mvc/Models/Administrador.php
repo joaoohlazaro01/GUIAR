@@ -80,6 +80,32 @@ class Administrador
         }
     }
 
+    public function getPhotoUrlForCompany($id, $companyId)
+    {
+        try {
+            $sql = "SELECT a.nome_foto, e.nome_empresa
+                    FROM administrador a
+                    INNER JOIN empresa e ON e.id_empresa = a.FK_EMPRESA_id_empresa
+                    WHERE a.id_adm = :id AND e.id_empresa = :company_id";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->bindParam(':company_id', $companyId, PDO::PARAM_INT);
+            $stmt->execute();
+            $adminPhoto = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if (empty($adminPhoto['nome_foto']) || empty($adminPhoto['nome_empresa'])) {
+                return '';
+            }
+
+            return BASE_URL . '/public/uploads/empresas/'
+                . rawurlencode($adminPhoto['nome_empresa']) . '/'
+                . rawurlencode(basename($adminPhoto['nome_foto']));
+        } catch (PDOException $e) {
+            error_log("Erro ao buscar foto do administrador: " . $e->getMessage());
+            return '';
+        }
+    }
+
     public function update($id, $data)
     {
         try {
@@ -108,4 +134,3 @@ class Administrador
         }
     }
 }
-

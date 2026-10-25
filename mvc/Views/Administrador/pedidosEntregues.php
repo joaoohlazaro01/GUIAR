@@ -415,8 +415,8 @@ $nomeAdmin = $_SESSION['nome_usuario'] ?? ($admin["nome_adm"] ?? "Admin");
 
         <!-- LOGO -->
         <div class="p-8 mb-4 flex justify-center">
-            <img src="<?= BASE_URL ?>/img/LogoPreto.png"
-                alt="Logo GUIAR"
+            <img src="<?= htmlspecialchars($logoEmpresaSidebar, ENT_QUOTES, 'UTF-8') ?>"
+                alt="Logo da empresa"
                 class="w-32 h-auto object-contain">
         </div>
 
@@ -551,9 +551,15 @@ class="menu-item flex items-center gap-3.5 px-5 py-3 rounded-xl font-semibold te
 
             <div class="admin-user-card flex items-center gap-3.5 p-3 rounded-2xl bg-white/5 border border-white/5">
 
-                <div class="admin-user-avatar w-10 h-10 rounded-full bg-[#FFD400] text-[#0B0D2F] font-black text-sm flex items-center justify-center shadow-lg">
-                    <?= strtoupper(substr($nomeAdmin, 0, 2)) ?>
-                </div>
+                <?php if (!empty($adminFotoUrl)): ?>
+                    <img src="<?= htmlspecialchars($adminFotoUrl, ENT_QUOTES, 'UTF-8') ?>"
+                        alt="Foto de <?= htmlspecialchars($nomeAdmin, ENT_QUOTES, 'UTF-8') ?>"
+                        class="w-10 h-10 rounded-full object-cover shadow-lg">
+                <?php else: ?>
+                    <div class="admin-user-avatar w-10 h-10 rounded-full bg-[#FFD400] text-[#0B0D2F] font-black text-sm flex items-center justify-center shadow-lg">
+                        <?= strtoupper(substr($nomeAdmin, 0, 2)) ?>
+                    </div>
+                <?php endif; ?>
 
                 <div class="flex-grow min-w-0">
 
@@ -567,7 +573,7 @@ class="menu-item flex items-center gap-3.5 px-5 py-3 rounded-xl font-semibold te
                 </div>
 
                 <!-- LOGOUT -->
-                <a href="<?= BASE_URL ?>/routes.php?action=logoutAdm"
+                <button type="button" data-logout-trigger aria-label="Sair da conta"
                     class="text-slate-500 hover:text-rose-500 transition-colors p-1">
 
                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -581,11 +587,12 @@ class="menu-item flex items-center gap-3.5 px-5 py-3 rounded-xl font-semibold te
                             stroke-width="2"
                             d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                     </svg>
-                </a>
+                </button>
             </div>
         </div>
     </div>
 </aside>
+<?php require __DIR__ . '/partials/logout-confirmation.php'; ?>
      <!-- MAIN -->
         <main class="orders-main flex-1 flex flex-col min-h-screen w-full md:ml-72">
 

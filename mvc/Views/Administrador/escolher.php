@@ -376,15 +376,21 @@
 
 
         <!-- Botão Logout -->
-        <a href="<?= BASE_URL ?>/routes.php?action=logoutEmpresa"
-          onclick="return confirm('Deseja sair da conta da empresa?');"
+        <button type="button" data-logout-trigger
           class="border border-[#E2E8F0] text-[#475569] bg-white px-5 py-2.5 rounded-2xl text-sm font-bold shadow-sm hover:bg-[#F8FAFC] hover:text-[#0F172A] transition duration-200">
           Logout
-        </a>
+        </button>
 
       </div>
     </div>
   </header>
+
+  <?php
+  $logoutAction = 'logoutEmpresa';
+  $logoutConfirmationTitle = 'Sair da conta da empresa?';
+  $logoutConfirmationMessage = 'Tem certeza de que deseja sair da conta da empresa?';
+  require __DIR__ . '/partials/logout-confirmation.php';
+  ?>
 
   <!-- ======= CONTEÚDO PRINCIPAL ======= -->
   <main class="max-w-7xl mx-auto px-8 py-8">

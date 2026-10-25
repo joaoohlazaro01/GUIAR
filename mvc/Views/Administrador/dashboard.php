@@ -236,21 +236,13 @@
         class="w-72 bg-[#ffff] flex flex-col fixed top-0 left-0 text-white z-40 transition-all rounded-none overflow-hidden h-screen">
 
 
-        <?php
-        $logoEmpresaSidebar = '';
-        if (isset($company_id) && isset($this->empresaModel)) {
-            $empresaInfo = $this->empresaModel->getById($company_id);
-            if (!empty($empresaInfo['nome_arquivo'])) {
-                $logoEmpresaSidebar = BASE_URL . '/public/uploads/empresas/' . htmlspecialchars($empresaInfo['nome_arquivo']);
-            }
-        }
-        if (empty($logoEmpresaSidebar)) {
+        <?php if (empty($logoEmpresaSidebar)) {
             $logoEmpresaSidebar = BASE_URL . '/img/LogoPreto.png';
         }
         ?>
        <div class="p-8 mb-4 flex justify-center">
-            <img src="<?= BASE_URL ?>/img/LogoPreto.png"
-                alt="Logo GUIAR"
+            <img src="<?= htmlspecialchars($logoEmpresaSidebar, ENT_QUOTES, 'UTF-8') ?>"
+                alt="Logo da empresa"
                 class="w-32 h-auto object-contain">
         </div>
             </div>
@@ -316,28 +308,35 @@
                 </div>
 
                 <div class="admin-user-card flex items-center gap-3.5 p-3 rounded-2xl bg-white/5 border border-white/5">
-                    <div class="admin-user-avatar w-10 h-10 rounded-full bg-[#FFD400] text-[#0B0D2F] font-black text-sm flex items-center justify-center shadow-lg">
-                        <?= strtoupper(substr($nomeAdmin, 0, 2)) ?>
-                    </div>
+                    <?php if (!empty($adminFotoUrl)): ?>
+                        <img src="<?= htmlspecialchars($adminFotoUrl, ENT_QUOTES, 'UTF-8') ?>"
+                            alt="Foto de <?= htmlspecialchars($nomeAdmin, ENT_QUOTES, 'UTF-8') ?>"
+                            class="w-10 h-10 rounded-full object-cover shadow-lg">
+                    <?php else: ?>
+                        <div class="admin-user-avatar w-10 h-10 rounded-full bg-[#FFD400] text-[#0B0D2F] font-black text-sm flex items-center justify-center shadow-lg">
+                            <?= strtoupper(substr($nomeAdmin, 0, 2)) ?>
+                        </div>
+                    <?php endif; ?>
                     <div class="flex-grow min-w-0">
                         <p class="admin-user-name font-bold text-xs text-black truncate"><?= htmlspecialchars($nomeAdmin) ?></p>
                         <p class="admin-user-role text-[10px] text-slate-500 font-bold tracking-wider uppercase">Admin</p>
                     </div>
-                    <a href="<?= BASE_URL ?>/routes.php?action=escolherAdm" class="text-slate-500 hover:text-rose-500 transition-colors p-1">
+                    <button type="button" data-logout-trigger aria-label="Sair da conta" class="text-slate-500 hover:text-rose-500 transition-colors p-1">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                         </svg>
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
     </aside>
 
+    <?php require __DIR__ . '/partials/logout-confirmation.php'; ?>
 
     <!-- ================= CONTEÚDO PRINCIPAL (DASHBOARD) ================= -->
     <div id="mainContent" class="flex-1 flex flex-col min-h-screen w-full transition-all duration-300">
 
-        <!-- HEADER DA PÁGINA (Com campo de busca, sino e logout) -->
+        <!-- HEADER DA PÁGINA -->
         <header class="bg-white border-b border-[#E2E8F0] px-8 py-5 flex items-center justify-between sticky top-0 z-30 shadow-sm gap-4">
 
             <div class="flex items-center gap-4 min-w-0">
@@ -356,7 +355,7 @@
             </div>
 
             <div class="flex items-center gap-3 flex-shrink-0 ml-auto">
-                <div class="flex items-center gap-2.5">
+                <div class="hidden">
                     <div class="relative">
                         <button type="button" id="empresaLogoTrigger" class="block focus:outline-none">
                             <div class="logo-circular-wrap w-10 h-10 border border-slate-200 shadow-sm">
@@ -434,37 +433,14 @@
                             <input id="empresaLogoInputCard" type="file" accept="image/*" class="hidden">
                         </div>
                     </div>
-                    <div class="hidden md:flex items-center gap-2.5 border border-slate-200 bg-[#F8FAFC] rounded-2xl px-4 py-2 w-72 focus-within:border-indigo-500 focus-within:bg-white focus-within:ring-2 focus-within:ring-indigo-500/10 transition">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                        <input type="text" id="campoBuscaPedidos" placeholder="Buscar pedidos, clientes..." class="bg-transparent border-none outline-none text-xs text-slate-700 placeholder-slate-400 w-full">
-                    </div>
                 </div>
 
-                <a href="<?= BASE_URL ?>/routes.php?action=logoutAdm"
-                    class="bg-[#FC8835] hover:bg-[#E27627] text-white font-bold
-   text-[10px] sm:text-xs
-   px-3 sm:px-5
-   py-2 sm:py-2.5
-   rounded-xl sm:rounded-2xl
-   flex items-center gap-1 sm:gap-2
-   transition shadow-md hover:scale-[1.02]">
-
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                        class="w-3.5 h-3.5 sm:w-4 sm:h-4"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor">
-
-                        <path stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                <div class="flex items-center gap-2.5 border border-slate-200 bg-[#F8FAFC] rounded-2xl px-4 py-2 w-56 lg:w-72 focus-within:border-indigo-500 focus-within:bg-white focus-within:ring-2 focus-within:ring-indigo-500/10 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
-
-                    Logout
-                </a>
+                    <input type="text" id="campoBuscaPedidos" placeholder="Buscar pedidos, clientes..." class="bg-transparent border-none outline-none text-xs text-slate-700 placeholder-slate-400 w-full">
+                </div>
 
             </div>
         </header>

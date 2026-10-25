@@ -5,11 +5,14 @@ namespace mvc\Controllers;
 use mvc\Models\Pedido;
 use mvc\Models\Administrador;
 use mvc\Models\Entregador;
+use mvc\Models\Empresa;
 
 class PedidoController
 {
     private $pedidoModel;
     private $entregadorModel;
+    private $administradorModel;
+    private $empresaModel;
     private $pdo;
 
     public function __construct($pdo)
@@ -17,6 +20,8 @@ class PedidoController
         $this->pdo = $pdo;
         $this->pedidoModel = new Pedido($pdo);
         $this->entregadorModel = new Entregador($pdo);
+        $this->administradorModel = new Administrador($pdo);
+        $this->empresaModel = new Empresa($pdo);
     }
 
     private function checkAuth()
@@ -35,6 +40,8 @@ class PedidoController
     {
         $this->checkAuth();
         $company_id = $_SESSION['company_id'];
+        $adminFotoUrl = $this->administradorModel->getPhotoUrlForCompany($_SESSION['id_adm'], $company_id);
+        $logoEmpresaSidebar = $this->empresaModel->getLogoUrlById($company_id);
 
         $result = $this->pedidoModel->getAllByEmpresa($company_id, 'pendente');
         $resultEntregadores = $this->entregadorModel->getAllByEmpresa($company_id);
@@ -45,6 +52,8 @@ class PedidoController
     {
         $this->checkAuth();
         $company_id = $_SESSION['company_id'];
+        $adminFotoUrl = $this->administradorModel->getPhotoUrlForCompany($_SESSION['id_adm'], $company_id);
+        $logoEmpresaSidebar = $this->empresaModel->getLogoUrlById($company_id);
 
         $pedidos = $this->pedidoModel->getAllByEmpresa($company_id, 'entregue');
 

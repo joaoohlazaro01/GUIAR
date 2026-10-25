@@ -3,16 +3,22 @@
 namespace mvc\Controllers;
 
 use mvc\Models\Entregador;
+use mvc\Models\Administrador;
+use mvc\Models\Empresa;
 
 class EntregadorController
 {
     private $entregadorModel;
+    private $administradorModel;
+    private $empresaModel;
     private $pdo;
 
     public function __construct($pdo)
     {
         $this->pdo = $pdo;
         $this->entregadorModel = new Entregador($pdo);
+        $this->administradorModel = new Administrador($pdo);
+        $this->empresaModel = new Empresa($pdo);
     }
 
     private function checkAuth()
@@ -32,6 +38,8 @@ class EntregadorController
         $this->checkAuth();
         $company_id = $_SESSION['company_id'];
         $nomeAdmin = $_SESSION['nome_usuario'] ?? '';
+        $adminFotoUrl = $this->administradorModel->getPhotoUrlForCompany($_SESSION['id_adm'] ?? 0, $company_id);
+        $logoEmpresaSidebar = $this->empresaModel->getLogoUrlById($company_id);
 
         $result = $this->entregadorModel->getAllByEmpresa($company_id);
         require_once __DIR__ . '/../Views/Administrador/entregadores.php';
@@ -315,4 +323,3 @@ class EntregadorController
         }
     }
 }
-
