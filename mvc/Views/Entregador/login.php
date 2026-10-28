@@ -153,21 +153,30 @@
         #111979 !important;
     }
 
-    body > main > div > div:first-child > div:first-child {
+    body > main > div > div:first-child > .panel-map {
+      position: absolute !important;
+      inset: auto !important;
+      top: -10% !important;
+      left: -20% !important;
+      z-index: 0;
       display: block !important;
+      width: 150% !important;
+      height: 150% !important;
+      max-width: none !important;
+      object-fit: contain !important;
       opacity: 0.16 !important;
       filter: brightness(0) invert(1) !important;
-      background-position: right bottom !important;
-      background-size: 85% auto !important;
-      pointer-events: none;
+      pointer-events: none !important;
+      mix-blend-mode: overlay;
     }
 
     body > main > div > div:first-child > div:last-child {
-      position: static !important;
+      position: relative !important;
+      z-index: 10;
       width: 100%;
     }
 
-    body > main > div > div:first-child img:not(.route-illustration) {
+    body > main > div > div:first-child img:not(.route-illustration):not(.panel-map) {
       width: 230px !important;
       height: 58px !important;
       max-height: 58px;
@@ -213,15 +222,7 @@
       width: 62px !important;
       height: 4px !important;
       margin: 0 !important;
-      background-color: #111979 !important;
-    }
-
-    body > main > div > div:first-child > div:last-child > div:last-child {
-      position: absolute;
-      right: 18px;
-      bottom: 8px;
-      width: 58%;
-      margin: 0 !important;
+      background-color: #0878f9 !important;
     }
 
     body > main > div > div:last-child {
@@ -268,7 +269,11 @@
     }
 
     body > main form input:not([type='submit']) {
+      display: block;
+      width: 100%;
+      height: 60px;
       min-height: 60px;
+      box-sizing: border-box;
       border: 1px solid #c4d8ff !important;
       border-radius: 11px !important;
       background-color: #fff !important;
@@ -285,13 +290,47 @@
     }
 
     body > main form input[type='password'] {
-      background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2358769f' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='10' width='16' height='11' rx='2'/%3E%3Cpath d='M8 10V7a4 4 0 0 1 8 0v3m-4 4v3'/%3E%3C/svg%3E"),
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2358769f' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 3l18 18M10.6 10.6a2 2 0 0 0 2.8 2.8'/%3E%3Cpath d='M9.9 5.2A10.8 10.8 0 0 1 12 5c5 0 8.5 4.5 9.5 7-.4 1.1-1.2 2.2-2.2 3.2M6.2 6.2C3.8 7.7 2.6 10.2 2.5 12c.5 1.2 3.8 7 9.5 7 1 0 2-.2 2.9-.5'/%3E%3C/svg%3E");
-      background-repeat: no-repeat, no-repeat !important;
-      background-position: 20px center, right 18px center !important;
-      background-size: 22px, 20px !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2358769f' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='10' width='16' height='11' rx='2'/%3E%3Cpath d='M8 10V7a4 4 0 0 1 8 0v3m-4 4v3'/%3E%3C/svg%3E") !important;
+      background-repeat: no-repeat !important;
+      background-position: 20px center !important;
+      background-size: 22px !important;
       padding-right: 52px !important;
+    }
+
+    .password-field {
+      position: relative;
+    }
+
+    .password-toggle {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      display: inline-flex;
+      width: 36px;
+      height: 36px;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      transform: translateY(-50%);
+      border: 0;
+      border-radius: 8px;
+      background: transparent;
+      color: #58769f;
+      cursor: pointer;
+    }
+
+    .password-toggle:hover {
+      background: #eef5ff;
+    }
+
+    .password-toggle:focus-visible {
+      outline: 2px solid #1b42da;
+      outline-offset: 2px;
+    }
+
+    .password-toggle svg {
+      width: 20px;
+      height: 20px;
     }
 
     body > main form input:not([type='submit']):focus {
@@ -300,7 +339,10 @@
     }
 
     body > main form input[type='submit'] {
+      width: 100%;
+      height: 60px;
       min-height: 60px;
+      box-sizing: border-box;
       border: 1px solid #c4d8ff !important;
       border-radius: 11px !important;
       background-color: #19179a !important;
@@ -368,9 +410,14 @@
         min-height: 420px;
       }
 
-      body > main > div > div:first-child img:not(.route-illustration) {
+      body > main > div > div:first-child img:not(.route-illustration):not(.panel-map) {
         width: 190px !important;
         height: 50px !important;
+      }
+
+      body > main > div > div:first-child img.panel-map {
+        width: 150% !important;
+        height: 150% !important;
       }
 
       body > main > div > div:first-child > div:last-child > div:first-child {
@@ -394,12 +441,6 @@
       body > main > div > div:first-child .route-illustration {
         width: 100% !important;
         max-height: 90px;
-      }
-
-      body > main > div > div:first-child > div:last-child > div:last-child {
-        width: 52%;
-        right: 10px;
-        bottom: 6px;
       }
 
       body > main > div > div:last-child > div:first-child {
@@ -502,10 +543,11 @@
       <div class="md:w-[45%] bg-[#F37B1D] p-10 flex flex-col justify-center relative overflow-hidden text-white">
 
         <!-- IMAGEM FUNDO -->
-        <div
-          class="absolute inset-0 bg-no-repeat bg-contain bg-bottom brightness-0 invert opacity-30"
-          style="background-image: url('<?= BASE_URL ?>/img/CabecalhoSem.png');">
-        </div>
+        <img
+          src="<?= BASE_URL ?>/img/Mapa.png"
+          alt=""
+          aria-hidden="true"
+          class="panel-map absolute inset-0 w-[150%] h-[150%] max-w-none -left-[20%] -top-[10%] object-contain opacity-40 pointer-events-none z-0 mix-blend-overlay animate-float">
 
         <div class="relative z-10 flex flex-col h-full">
 
@@ -518,26 +560,13 @@
           </div>
 
           <!-- TEXTO -->
-          <h2
-            class="text-3xl font-black leading-tight drop-shadow-sm mb-4"
-            style="font-family: 'Inter', sans-serif;">
-
-            Bem-vindo ao<br>
-            <span>GUIAR</span>
-
-          </h2>
-
-          <p class="panel-description">
-            Conectamos sua operação com mais eficiência, controle e agilidade.
-          </p>
-
-          <div class="w-16 h-[3px] bg-[#FFD400] mt-2 mb-8"></div>
-
-          <div class="mt-auto">
-            <img
-              src="<?= BASE_URL ?>/img/Rota de Entrega com Camião e Pins.png"
-              alt="Rota de entrega com caminhão e pontos no mapa"
-              class="route-illustration">
+          <div class="my-auto">
+            <h2
+              class="text-white text-[2rem] leading-[1.2] font-bold mb-5 tracking-tight"
+              style="font-family: 'Inter', sans-serif;">
+              Entre e deixe o Guiar<br>te mostrar a direção.
+            </h2>
+            <div class="h-1 w-20 bg-[#0878F9]"></div>
           </div>
 
         </div>
@@ -615,12 +644,24 @@
 
             </label>
 
-            <input
-              type="password"
-              class="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-[#F37B1D] transition font-medium"
-              id="exampleInputPassword1"
-              name="senha"
-              required>
+            <div class="password-field">
+              <input
+                type="password"
+                class="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-[#F37B1D] transition font-medium"
+                id="exampleInputPassword1"
+                name="senha"
+                required>
+              <button id="toggleCourierPassword" class="password-toggle" type="button" aria-label="Mostrar senha" aria-controls="exampleInputPassword1" aria-pressed="false">
+                <svg data-eye-hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M3 3l18 18M10.6 10.6a2 2 0 0 0 2.8 2.8" />
+                  <path d="M9.9 5.2A10.8 10.8 0 0 1 12 5c5 0 8.5 4.5 9.5 7-.4 1.1-1.2 2.2-2.2 3.2M6.2 6.2C3.8 7.7 2.6 10.2 2.5 12c.5 1.2 3.8 7 9.5 7 1 0 2-.2 2.9-.5" />
+                </svg>
+                <svg data-eye-visible hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M2.5 12s3.5-7 9.5-7 9.5 7 9.5 7-3.5 7-9.5 7-9.5-7-9.5-7Z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+              </button>
+            </div>
 
           </div>
 
@@ -665,6 +706,20 @@
         menu.classList.toggle('flex');
       });
     }
+
+    const courierPassword = document.getElementById('exampleInputPassword1');
+    const toggleCourierPassword = document.getElementById('toggleCourierPassword');
+    const hiddenEye = toggleCourierPassword.querySelector('[data-eye-hidden]');
+    const visibleEye = toggleCourierPassword.querySelector('[data-eye-visible]');
+
+    toggleCourierPassword.addEventListener('click', () => {
+      const showPassword = courierPassword.type === 'password';
+      courierPassword.type = showPassword ? 'text' : 'password';
+      toggleCourierPassword.setAttribute('aria-label', showPassword ? 'Ocultar senha' : 'Mostrar senha');
+      toggleCourierPassword.setAttribute('aria-pressed', String(showPassword));
+      hiddenEye.hidden = showPassword;
+      visibleEye.hidden = !showPassword;
+    });
   </script>
 
 </body>

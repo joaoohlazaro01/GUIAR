@@ -372,6 +372,338 @@ select:focus {
         width: 100%;
     }
 }
+
+/* Lista de pedidos em tabela */
+.main > form#sendOrdersForm {
+    min-width: 0;
+}
+
+#sendOrdersForm .container {
+    display: block;
+    width: 100%;
+    max-width: none;
+    padding-bottom: 150px;
+}
+
+.orders-results {
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid #edf0f6;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 8px 22px rgba(27, 48, 82, .045);
+}
+
+.orders-list-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 20px;
+    border-bottom: 1px solid #edf0f6;
+}
+
+.orders-list-title {
+    color: #172b4d;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.orders-count {
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: #fff0f3;
+    color: #e91e42;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.orders-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.orders-table thead {
+    background: #f8fafc;
+    color: #8290a7;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .045em;
+    text-transform: uppercase;
+}
+
+.orders-table th {
+    padding: 12px 14px;
+    white-space: nowrap;
+}
+
+.orders-table th:first-child,
+.orders-table td:first-child { padding-left: 20px; }
+
+.orders-table th:last-child,
+.orders-table td:last-child { padding-right: 20px; }
+
+.order-row {
+    border-bottom: 1px solid #edf0f6;
+    border-left: 3px solid #f3243e;
+    transition: background-color .18s ease;
+}
+
+.order-row:last-child { border-bottom: 0; }
+.order-row:hover { background: #fafbfe; }
+
+.orders-table td {
+    min-width: 0;
+    padding: 15px 14px;
+    color: #263957;
+    font-size: 12px;
+    vertical-align: middle;
+}
+
+.order-id-cell {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #172b4d;
+    font-size: 12px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.order-id-cell input {
+    width: 15px;
+    height: 15px;
+    margin: 0;
+    accent-color: #e91e42;
+}
+
+.order-client {
+    color: #172b4d;
+    font-size: 12px;
+    font-weight: 800;
+    overflow-wrap: anywhere;
+}
+
+.order-address,
+.order-description,
+.order-delivery {
+    color: #263957;
+    font-size: 12px;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.order-description {
+    display: block;
+    max-width: 260px;
+    color: #52627c;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.order-secondary {
+    display: block;
+    margin-top: 3px;
+    color: #8793a9;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.order-price {
+    color: #263957;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.order-status {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    gap: 5px;
+    padding: 5px 9px;
+    border-radius: 999px;
+    background: #fff0f3;
+    color: #e91e42;
+    font-size: 10px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.order-status::before {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    content: "";
+}
+
+.order-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.order-actions .btn-edit,
+.order-actions .btn-delete {
+    flex: 0 0 auto;
+    min-height: 32px;
+    padding: 6px 10px;
+    border: 1px solid #edf0f6;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.order-actions .btn-edit {
+    background: #f8fafc;
+    color: #52627c;
+}
+
+.order-actions .btn-delete {
+    background: #fff1f3;
+    color: #d91d39;
+}
+
+.orders-empty {
+    padding: 34px 20px !important;
+    color: #8793a9 !important;
+    text-align: center;
+}
+
+@media (max-width: 1100px) {
+    .orders-table th,
+    .orders-table td { padding-right: 10px; padding-left: 10px; }
+    .orders-table th:first-child,
+    .orders-table td:first-child { padding-left: 14px; }
+    .orders-table th:last-child,
+    .orders-table td:last-child { padding-right: 14px; }
+}
+
+@media (max-width: 768px) {
+    .orders-table thead { display: none; }
+    .orders-table,
+    .orders-table tbody { display: block; }
+    .orders-table tbody .order-row {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0 12px;
+        padding: 8px 14px;
+    }
+    .orders-table td,
+    .orders-table td:first-child,
+    .orders-table td:last-child {
+        display: block;
+        min-width: 0;
+        padding: 9px 4px;
+        overflow-wrap: anywhere;
+    }
+    .orders-table td::before {
+        display: block;
+        margin-bottom: 4px;
+        color: #8793a9;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: .04em;
+        text-transform: uppercase;
+        content: attr(data-label);
+    }
+    .orders-table td.order-id-column {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 4px;
+    }
+    .orders-table td.order-id-column::before { margin-bottom: 0; }
+    .orders-table td.order-actions-column { grid-column: 1 / -1; }
+    .order-actions { flex-wrap: wrap; }
+}
+
+@media (max-width: 480px) {
+    .orders-list-heading { padding: 13px 12px; }
+    .orders-list-title { font-size: 13px; }
+    .orders-table tbody .order-row { gap: 0 8px; padding: 8px 10px; }
+    .orders-table td,
+    .orders-table td:first-child,
+    .orders-table td:last-child { padding: 8px 3px; }
+    .orders-table td.order-actions-column { grid-column: 1 / -1; }
+}
+
+.orders-topbar {
+    min-height: 74px;
+    padding: 14px clamp(16px, 2.4vw, 36px);
+}
+
+.orders-topbar-title {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+}
+
+.orders-topbar-icon {
+    display: flex;
+    width: 28px;
+    height: 32px;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    color: #f3243e;
+}
+
+.orders-topbar-copy { min-width: 0; }
+.orders-topbar-copy .page-heading { margin: 0; }
+.orders-topbar-copy .page-subheading { margin-top: 3px; }
+
+.orders-topbar-action {
+    display: inline-flex;
+    min-height: 38px;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 9px 16px;
+    border: 0;
+    border-radius: 11px;
+    background: #f3243e;
+    box-shadow: 0 6px 16px rgba(243, 36, 62, .2);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: background-color .18s ease, transform .18s ease;
+}
+
+.orders-topbar-action:hover {
+    background: #d91d39;
+    transform: translateY(-1px);
+}
+
+.orders-topbar-action svg { width: 15px; height: 15px; }
+
+@media (max-width: 640px) {
+    .orders-topbar {
+        padding: 12px 14px;
+    }
+
+    .orders-topbar-title { gap: 9px; }
+    .orders-topbar-icon { width: 24px; }
+    .orders-topbar-copy .page-heading { font-size: 18px; }
+    .orders-topbar-copy .page-subheading { font-size: 10px; }
+    .orders-topbar-action { min-height: 36px; gap: 5px; padding: 8px 10px; font-size: 11px; }
+}
     </style>
 </head>
 
@@ -581,128 +913,105 @@ $nomeAdmin = $_SESSION['nome_usuario'] ?? ($admin["nome_adm"] ?? "Admin");
     <div class="main">
 
         <!-- HEADER DA PÁGINA (Com campo de busca, sino e logout) -->
-        <header class="bg-white border-b border-[#E2E8F0] px-8 py-5 flex items-center justify-between sticky top-0 z-30 shadow-sm gap-4">
-            <div class="flex items-center gap-4 min-w-0">
+        <header class="orders-topbar bg-white border-b border-[#E2E8F0] flex items-center justify-between sticky top-0 z-30 shadow-sm gap-4">
+            <div class="orders-topbar-title">
                 <button id="hamburger" class="md:hidden p-2 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
                 </button>
-                <div class="min-w-0">
+                <span class="orders-topbar-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 11V7a4 4 0 0 0-8 0v4M5 9h14l1 12H4L5 9Z" />
+                    </svg>
+                </span>
+                <div class="orders-topbar-copy">
                     <h1 class="page-heading">
                         Gestão de Pedidos
                     </h1>
                     <p class="page-subheading">Aqui está o status das suas entregas hoje.</p>
                 </div>
             </div>
+            <button type="button" id="openNewOrderModal" class="orders-topbar-action">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" d="M12 5v14m-7-7h14" />
+                </svg>
+                Novo Pedido
+            </button>
         </header>
 
         <form id="sendOrdersForm"
               method="POST"
               action="<?= BASE_URL ?>/routes.php?action=enviarPedidos">
 
-            <div class="container">
-
-                <?php
-                if (!empty($result) && count($result) > 0) {
-                    foreach ($result as $row) {
-        ?>
-        <div class="card">
-
-    <input type="checkbox"
-        name="pedido_ids[]"
-        value="<?= htmlspecialchars($row["id_pedido"]) ?>">
-
-    <h3>
-        <?= htmlspecialchars($row["nome_cliente"]) ?>
-    </h3>
-
-    <p>
-        <strong>Preço:</strong>
-        R$ <?= htmlspecialchars($row["preco"]) ?>
-    </p>
-
-    <p>
-        <strong>Endereço:</strong>
-        <?= htmlspecialchars($row["endereco"]) ?>
-    </p>
-
-    <p>
-        <strong>Bairro:</strong>
-        <?= htmlspecialchars($row["bairro"]) ?>
-    </p>
-
-    <p>
-        <strong>Descrição:</strong>
-        <?= htmlspecialchars($row["descricao"]) ?>
-    </p>
-
-    <p class="status">
-        <strong>Status:</strong>
-        <?= htmlspecialchars($row["status"]) ?>
-    </p>
-
-    <?php if (!empty($row["nome_entregador"])): ?>
-        <p>
-            <strong>Entregador:</strong>
-            <?= htmlspecialchars($row["nome_entregador"]) ?>
-        </p>
-    <?php else: ?>
-        <p>
-            <strong>Entregador:</strong>
-            <span style="color:#94A3B8;">
-                Não atribuído
-            </span>
-        </p>
-    <?php endif; ?>
-
-    <div class="card-actions">
-
-        <button type="button"
-            class="btn-edit"
-            data-id="<?= htmlspecialchars($row["id_pedido"]) ?>">
-            Editar
-        </button>
-
-        <button type="button"
-            class="btn-delete"
-            data-id="<?= htmlspecialchars($row["id_pedido"]) ?>">
-            Excluir
-        </button>
-
-    </div>
-
-</div>
-
-<?php
-        }
-    } else {
-?>
-
-<div style="
-    background:white;
-    border-radius:28px;
-    padding:50px;
-    text-align:center;
-    color:#94A3B8;
-    font-size:18px;
-    grid-column:1/-1;
-    box-shadow:0 8px 30px rgba(0,0,0,.05);
-">
-    Nenhum pedido encontrado
-</div>
-
-<?php } ?>
-
-</div>
+            <section class="orders-results" aria-live="polite">
+                <div class="orders-list-heading">
+                    <h2 class="orders-list-title">Pedidos cadastrados</h2>
+                    <span class="orders-count"><?= count($result ?? []) ?> pedidos</span>
+                </div>
+                <div class="orders-table-wrap">
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Pedido</th>
+                                <th>Cliente</th>
+                                <th>Endereço</th>
+                                <th>Descrição</th>
+                                <th>Entregador</th>
+                                <th>Valor</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (!empty($result)): ?>
+                                <?php foreach ($result as $row): ?>
+                                    <tr class="order-row" data-price="<?= htmlspecialchars((string) $row['preco'], ENT_QUOTES, 'UTF-8') ?>">
+                                        <td class="order-id-column" data-label="Pedido">
+                                            <span class="order-id-cell">
+                                                <input type="checkbox" name="pedido_ids[]" value="<?= htmlspecialchars($row["id_pedido"]) ?>">
+                                                #<?= htmlspecialchars($row["id_pedido"]) ?>
+                                            </span>
+                                        </td>
+                                        <td data-label="Cliente">
+                                            <h3 class="order-client"><?= htmlspecialchars($row["nome_cliente"]) ?></h3>
+                                        </td>
+                                        <td data-label="Endereço">
+                                            <span class="order-address"><?= htmlspecialchars($row["endereco"]) ?></span>
+                                            <span class="order-secondary"><?= htmlspecialchars($row["bairro"]) ?></span>
+                                        </td>
+                                        <td data-label="Descrição">
+                                            <span class="order-description"><?= htmlspecialchars($row["descricao"]) ?></span>
+                                        </td>
+                                        <td data-label="Entregador">
+                                            <span class="order-delivery"><?= !empty($row["nome_entregador"]) ? htmlspecialchars($row["nome_entregador"]) : 'Não atribuído' ?></span>
+                                        </td>
+                                        <td data-label="Valor">
+                                            <span class="order-price">R$ <?= number_format((float) $row["preco"], 2, ',', '.') ?></span>
+                                        </td>
+                                        <td data-label="Status">
+                                            <span class="order-status"><?= htmlspecialchars($row["status"]) ?></span>
+                                        </td>
+                                        <td class="order-actions-column" data-label="Ações">
+                                            <div class="order-actions">
+                                                <button type="button" class="btn-edit" data-id="<?= htmlspecialchars($row["id_pedido"]) ?>">Editar</button>
+                                                <button type="button" class="btn-delete" data-id="<?= htmlspecialchars($row["id_pedido"]) ?>">Excluir</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td class="orders-empty" colspan="8">Nenhum pedido encontrado</td>
+                                </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
 
 <!-- BOTÕES FIXOS -->
 <div class="fixed-buttons">
-
-    <button type="button"
-        id="openNewOrderModal">
-        + Adicionar Novo Pedido
-    </button>
 
     <button type="button"
         id="openSendOrdersModal">
@@ -1203,45 +1512,27 @@ $nomeAdmin = $_SESSION['nome_usuario'] ?? ($admin["nome_adm"] ?? "Admin");
             const pedidoId =
                 this.getAttribute('data-id');
 
-            const card =
-                this.closest('.card');
+            const orderRow =
+                this.closest('.order-row');
 
             const nomeCliente =
-                card.querySelector('h3')
+                orderRow.querySelector('.order-client')
                 .innerText;
 
             const preco =
-                card.querySelector(
-                    'p:nth-of-type(1)'
-                )
-                .innerText
-                .replace('Preço:', '')
-                .replace('R$', '')
-                .trim();
+                orderRow.dataset.price;
 
             const endereco =
-                card.querySelector(
-                    'p:nth-of-type(2)'
-                )
-                .innerText
-                .replace('Endereço:', '')
-                .trim();
+                orderRow.querySelector('.order-address')
+                .innerText;
 
             const bairro =
-                card.querySelector(
-                    'p:nth-of-type(3)'
-                )
-                .innerText
-                .replace('Bairro:', '')
-                .trim();
+                orderRow.querySelector('.order-secondary')
+                .innerText;
 
             const descricao =
-                card.querySelector(
-                    'p:nth-of-type(4)'
-                )
-                .innerText
-                .replace('Descrição:', '')
-                .trim();
+                orderRow.querySelector('.order-description')
+                .innerText;
 
             document.getElementById(
                 'edit_id_pedido'

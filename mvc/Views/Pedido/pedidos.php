@@ -23,197 +23,537 @@
             src: url('<?= BASE_URL ?>/fonts/Brice-SemiBoldSemiCondensed.ttf');
         }
 
-        *{
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body{
-            background-color: #fefaf1 !important;
-            font-family: 'BasisGrotesque-Regular';
-        }
-        /* cards */
-        .card {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            padding: 15px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-            border-left: 7px solid #e06c00;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            background-color: #f9f9f9;
-            min-width: 35%;
+        :root {
+            color-scheme: light;
+            --orders-ink: #172b4d;
+            --orders-muted: #8390a8;
+            --orders-border: #edf0f6;
+            --orders-surface: #fff;
+            --orders-primary: var(--emp-primary, #4f46e5);
+            --orders-primary-light: var(--emp-primary-light, #eef2ff);
         }
 
-        .card h3 {
-            font-family: 'Brice-SemiBoldSemi';
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+            background:
+                radial-gradient(ellipse at 60% -10%, rgba(255, 255, 255, .98), transparent 48%),
+                #f1f4fa !important;
+            color: #263957;
+            font-family: 'BasisGrotesque-Regular', Arial, sans-serif;
+        }
+
+        .sidebar {
+            z-index: 20;
+            width: 250px;
+            height: 100vh;
+            padding: 18px 12px;
+            overflow-y: auto;
+            background: #fff;
+            border-right: 1px solid var(--orders-border);
+            box-shadow: 6px 0 24px rgba(27, 48, 82, .035);
+        }
+
+        .sidebar a {
+            margin: 3px 0;
+            padding: 12px 14px;
+            border-radius: 12px;
+            color: #718096;
+            font-size: 13px;
+            font-weight: 600;
+            transition: color .18s ease, background-color .18s ease;
+        }
+
+        .sidebar a:hover,
+        .sidebar a[href*="action=pedidos"]:not([href*="pedidosEntregues"]) {
+            background: var(--orders-primary-light);
+            color: var(--orders-primary);
+        }
+
+        .sidebar .spacer { flex: 1; }
+
+        .main {
+            min-width: 0;
+            min-height: 100vh;
+            margin-left: 250px;
+            padding: 0 clamp(12px, 2vw, 36px) 118px;
+        }
+
+        .orders-header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            min-height: 74px;
+            margin: 0 calc(clamp(12px, 2vw, 36px) * -1) 22px;
+            padding: 14px clamp(12px, 2vw, 36px);
+            border-bottom: 1px solid rgba(237, 240, 246, .8);
+            background: rgba(255, 255, 255, .82);
+            backdrop-filter: blur(14px);
+        }
+
+        .orders-header h1 {
+            color: var(--orders-ink);
+            font-size: clamp(18px, 1.5vw, 22px);
+            font-weight: 800;
+            letter-spacing: -.035em;
+        }
+
+        .orders-header p {
+            margin-top: 3px;
+            color: var(--orders-muted);
+            font-size: 12px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1760px;
+            margin: 0 auto;
+        }
+
+        .orders-results {
+            width: 100%;
+            min-width: 0;
+            border: 1px solid var(--orders-border);
+            border-radius: 16px;
+            background: #fff;
+            box-shadow: 0 8px 22px rgba(27, 48, 82, .045);
+        }
+
+        .orders-list-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--orders-border);
+        }
+
+        .orders-list-title {
+            color: var(--orders-ink);
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .orders-count {
+            padding: 5px 10px;
+            border-radius: 999px;
+            background: var(--orders-primary-light);
+            color: var(--orders-primary);
+            font-size: 11px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .orders-table-wrap {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .orders-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .orders-table thead {
+            background: #f8fafc;
+            color: var(--orders-muted);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .045em;
+        }
+
+        .orders-table th {
+            padding: 12px 14px;
+            white-space: nowrap;
+        }
+
+        .orders-table th:first-child,
+        .orders-table td:first-child { padding-left: 20px; }
+
+        .orders-table th:last-child,
+        .orders-table td:last-child { padding-right: 20px; }
+
+        .orders-table tbody tr {
+            border-bottom: 1px solid var(--orders-border);
+            transition: background-color .18s ease;
+        }
+
+        .orders-table tbody tr:last-child { border-bottom: 0; }
+        .orders-table tbody tr.card:hover { background: #fafbfe; }
+
+        .orders-table td {
+            min-width: 0;
+            padding: 15px 14px;
+            color: #263957;
+            font-size: 12px;
+            vertical-align: middle;
+        }
+
+        .order-reference {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            color: var(--orders-ink);
+            font-size: 12px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .card input[type="checkbox"] {
+            width: 15px;
+            height: 15px;
+            accent-color: var(--orders-primary);
+            cursor: pointer;
+        }
+
+        .orders-table .card-client {
+            color: var(--orders-ink);
+            font-size: 12px;
+            font-weight: 800;
+            overflow-wrap: anywhere;
+        }
+
+        .orders-table p {
+            margin: 0;
+            color: #52627c;
+            font-size: 12px;
+            line-height: 1.45;
+            overflow-wrap: anywhere;
+        }
+
+        .orders-table p strong { display: none; }
+
+        .orders-table .card-bairro,
+        .orders-table .card-desc {
+            display: block;
+            margin-top: 3px;
+            color: var(--orders-muted);
+            font-size: 10px;
+            line-height: 1.4;
+            overflow-wrap: anywhere;
+        }
+
+        .orders-table .card-price {
+            color: #263957;
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .orders-table .status {
+            display: inline-flex;
+            align-items: center;
+            width: fit-content;
+            gap: 5px;
+            padding: 5px 9px;
+            border-radius: 999px;
+            background: var(--orders-primary-light);
+            color: var(--orders-primary);
+            font-size: 10px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .orders-table .status::before {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+            content: "";
         }
 
         .card-actions {
             display: flex;
-            gap: 10px;
-            margin-top: 10px;
+            align-items: center;
+            gap: 8px;
         }
 
-        .card input[type="checkbox"] {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            border-radius: 5px;
+        .card-actions button {
+            min-height: 32px;
+            padding: 6px 10px;
+            border: 1px solid var(--orders-border);
+            border-radius: 8px;
+            background: #f8fafc;
+            color: #52627c;
+            font-size: 11px;
+            font-weight: 700;
+            transition: color .18s ease, background-color .18s ease, border-color .18s ease;
         }
 
-        .status {
-            font-weight: bold;
-            color: #ff7b00;
+        .card-actions .btn-edit:hover {
+            border-color: var(--orders-primary-light);
+            background: var(--orders-primary-light);
+            color: var(--orders-primary);
+        }
+
+        .card-actions .btn-delete:hover {
+            border-color: #ffe4e8;
+            background: #fff1f3;
+            color: #d91d39;
         }
 
         .fixed-buttons {
-            font-family: 'BasisGrotesque-Regular';
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            right: clamp(12px, 2vw, 32px);
+            bottom: clamp(12px, 2vh, 24px);
+            z-index: 20;
             display: flex;
-            flex-direction: column;
-            gap: 10px;
-            transition: 0.5s;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 8px;
         }
 
         .fixed-buttons button {
-            font-family: 'BasisGrotesque-Regular';
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            background-color: #fc8835;
-            color: white;
+            min-height: 42px;
+            padding: 10px 16px;
             border: none;
-            border-radius: 5px;
-            transition: 0.5s;
-        }
-
-        .fixed-buttons button:hover {
-            background-color: #ff7b00;
-            transform: scale(1.05);
-            border-bottom-right-radius: 0px;
-            border-top-left-radius: 0px;
-        }
-
-        /* Estilo para o formulário dentro do modal */
-        #sendOrdersToDeliveryForm {
-            font-family: 'BasisGrotesque-Regular';
-            display: flex;
-            flex-direction: column;
-        }
-
-        #entregadoresContainer {
-            font-family: 'BasisGrotesque-Regular';
-            margin-bottom: 15px;
-        }
-
-        select {
-            font-family: 'BasisGrotesque-Regular';
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            width: 100%;
-        }
-
-        button {
-            font-family: 'BasisGrotesque-Regular';
-            background-color: #fc8835;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
+            border-radius: 12px;
+            background: var(--emp-secondary, #fc8835);
+            box-shadow: 0 8px 24px var(--emp-secondary-light, rgba(252, 136, 53, .2));
+            color: var(--emp-secondary-contrast, #fff);
             cursor: pointer;
-            font-size: 16px;
+            font-size: 12px;
+            font-weight: 700;
+            transition: background-color .18s ease, transform .18s ease;
         }
 
-        button:hover {
-            background-color: #ff7b00;
-            transform: scale(1.05);
-            border-bottom-right-radius: 0px;
-            border-top-left-radius: 0px;
-        }
+        .fixed-buttons button:hover { background: var(--emp-secondary-hover, #e06c00); }
 
-        /* Estilo para campos ocultos */
-        input[type="hidden"] {
-            display: none;
-        }
-
-         /* Estilo para posicionar o botão no canto superior direito */
-         .logout-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 10px 20px;
-            background-color: #fc8835;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
+        .logout-btn {
+            position: fixed;
+            top: 16px;
+            right: clamp(12px, 2vw, 36px);
+            z-index: 15;
+            padding: 8px 14px;
+            border: 1px solid var(--orders-border);
+            border-radius: 999px;
+            background: #fff;
+            color: #52627c;
+            font-size: 12px;
+            font-weight: 700;
             text-decoration: none;
-            display: inline-block;
+            transition: color .18s ease, background-color .18s ease;
         }
 
         .logout-btn:hover {
-            background-color: #ff7b00;
-            transform: scale(1.05);
-            border-bottom-right-radius: 0px;
-            border-top-left-radius: 0px;
+            background: var(--orders-primary-light);
+            color: var(--orders-primary);
         }
 
-        .main {
-            margin-left: 260px;
-            padding: 20px;
+        #sendOrdersToDeliveryForm {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
 
-        /* Modal Styles */
+        #entregadoresContainer {
+            margin-bottom: 2px;
+        }
+
+        select,
+        .form-group input,
+        .form-group textarea {
+            min-height: 42px;
+            padding: 10px 12px;
+            border: 1px solid #dfe5ef;
+            border-radius: 9px;
+            background: #fff;
+            color: #263957;
+            font: inherit;
+            font-size: 13px;
+            width: 100%;
+        }
+
+        select:focus,
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--orders-primary);
+            box-shadow: 0 0 0 3px var(--orders-primary-light);
+        }
+
+        button {
+            font-family: 'BasisGrotesque-Regular', Arial, sans-serif;
+            background: var(--emp-secondary, #fc8835);
+            color: var(--emp-secondary-contrast, #fff);
+            padding: 10px 14px;
+            border: none;
+            border-radius: 9px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
         .modal {
             display: none;
             position: fixed;
             z-index: 1000;
-            left: 0;
-            top: 0;
+            inset: 0;
+            overflow-y: auto;
             width: 100%;
             height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.4);
+            padding: 18px;
+            background: rgba(15, 23, 42, .42);
+            backdrop-filter: blur(4px);
         }
 
         .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 50%;
-            border-radius: 10px;
+            position: relative;
+            width: min(100%, 560px);
+            max-height: calc(100vh - 36px);
+            margin: 4vh auto;
+            padding: clamp(18px, 3vw, 28px);
+            overflow-y: auto;
+            border: 1px solid var(--orders-border);
+            border-radius: 16px;
+            background: #fff;
+            box-shadow: 0 20px 60px rgba(20, 38, 68, .2);
+        }
+
+        .modal-content h2 {
+            margin: 0 36px 20px 0;
+            color: var(--orders-ink);
+            font-size: 18px;
+            font-weight: 800;
         }
 
         .close {
-            color: #aaa;
-            float: right;
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            color: #8793a9;
             font-size: 28px;
-            font-weight: bold;
+            font-weight: 700;
             cursor: pointer;
         }
 
-        .form-group {
-            margin-bottom: 15px;
-        }
-
+        .form-group { margin-bottom: 14px; }
         .form-group label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
+            color: #52627c;
+            font-size: 12px;
+            font-weight: 700;
         }
 
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+        .form-group textarea { min-height: 90px; resize: vertical; }
+
+        .orders-empty {
+            padding: 34px 20px !important;
+            border: 1px solid var(--orders-border);
+            background: #fff;
+            color: var(--orders-muted);
+            text-align: center;
+        }
+
+        @media (max-width: 1100px) {
+            .orders-table th,
+            .orders-table td { padding-right: 10px; padding-left: 10px; }
+            .orders-table th:first-child,
+            .orders-table td:first-child { padding-left: 14px; }
+            .orders-table th:last-child,
+            .orders-table td:last-child { padding-right: 14px; }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                min-height: 0;
+                padding: 8px;
+                flex-direction: row;
+                gap: 4px;
+                overflow-x: auto;
+                border-right: 0;
+                border-bottom: 1px solid var(--orders-border);
+                box-shadow: 0 4px 14px rgba(27, 48, 82, .04);
+            }
+
+            .sidebar a {
+                flex: 0 0 auto;
+                margin: 0;
+                padding: 10px 12px;
+                font-size: 12px;
+                white-space: nowrap;
+            }
+
+            .sidebar .spacer { display: none; }
+            .main { margin-left: 0; padding: 0 14px 120px; }
+            .orders-header { margin: 0 -14px 16px; padding: 16px 14px; }
+            .logout-btn { top: 10px; right: 14px; }
+
+            .orders-table thead { display: none; }
+            .orders-table,
+            .orders-table tbody { display: block; }
+            .orders-table tbody tr.card {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 0 12px;
+                padding: 10px 14px;
+                border-left: 3px solid var(--orders-primary);
+            }
+            .orders-table td,
+            .orders-table td:first-child,
+            .orders-table td:last-child {
+                display: block;
+                min-width: 0;
+                padding: 9px 4px;
+                overflow-wrap: anywhere;
+            }
+            .orders-table td::before {
+                display: block;
+                margin-bottom: 4px;
+                color: var(--orders-muted);
+                font-size: 9px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: .04em;
+                content: attr(data-label);
+            }
+            .orders-table td:first-child {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: center;
+                gap: 4px;
+            }
+            .orders-table td:first-child::before { margin-bottom: 0; }
+            .orders-table td:last-child { grid-column: 1 / -1; }
+        }
+
+        @media (max-width: 480px) {
+            .main { padding: 0 10px 150px; }
+            .orders-header { margin: 0 -10px 14px; padding: 14px 10px; }
+            .orders-header h1 { font-size: 17px; }
+            .orders-header p { max-width: 230px; font-size: 10px; }
+            .orders-list-heading { padding: 13px 12px; }
+            .orders-list-title { font-size: 13px; }
+            .orders-table tbody tr.card { gap: 0 8px; padding: 8px 10px; }
+            .orders-table td,
+            .orders-table td:first-child,
+            .orders-table td:last-child { padding: 8px 3px; }
+            .card-actions { flex-wrap: wrap; }
+            .fixed-buttons {
+                right: 10px;
+                bottom: 10px;
+                left: 10px;
+                flex-direction: column;
+                gap: 7px;
+            }
+            .fixed-buttons button { width: 100%; min-height: 40px; }
+            .modal { padding: 10px; }
+            .modal-content { max-height: calc(100vh - 20px); margin: 10px auto; }
         }
     </style>
 </head>
@@ -233,31 +573,77 @@
     <a href="<?= BASE_URL ?>/routes.php?action=logoutAdm" class="logout-btn">Logout</a>
 
     <div class="main">
+        <header class="orders-header">
+            <div>
+                <h1>Pedidos</h1>
+                <p>Acompanhe e gerencie os pedidos cadastrados.</p>
+            </div>
+        </header>
         <div class="container">
+            <section class="orders-results" aria-live="polite">
+                <div class="orders-list-heading">
+                    <h2 class="orders-list-title">Pedidos cadastrados</h2>
+                    <span class="orders-count"><?= count($result ?? []) ?> pedidos</span>
+                </div>
+                <div class="orders-table-wrap">
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Pedido</th>
+                                <th>Cliente</th>
+                                <th>Endereço</th>
+                                <th>Entregador</th>
+                                <th>Valor</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
             <?php if (!empty($result)): ?>
                 <?php foreach ($result as $row): ?>
-                    <div class='card'>
-                        <input type='checkbox' name='pedido_ids[]' value='<?= htmlspecialchars($row["id_pedido"]) ?>'>
-                        <h3><?= htmlspecialchars($row["nome_cliente"]) ?></h3>
-                        <p><strong>Preço:</strong> R$<?= number_format($row["preco"], 2, ',', '.') ?></p>
-                        <p><strong>Endereço:</strong> <span class="card-address"><?= htmlspecialchars($row["endereco"]) ?></span></p>
-                        <p><strong>Bairro:</strong> <span class="card-bairro"><?= htmlspecialchars($row["bairro"]) ?></span></p>
-                        <p><strong>Descrição:</strong> <span class="card-desc"><?= htmlspecialchars($row["descricao"]) ?></span></p>
-                        <p class='status'><strong>Status:</strong> <?= htmlspecialchars($row["status"]) ?></p>
+                    <tr class="card">
+                        <td data-label="Pedido">
+                            <input type="checkbox" name="pedido_ids[]" value="<?= htmlspecialchars($row["id_pedido"]) ?>">
+                            <span class="order-reference">#<?= htmlspecialchars($row["id_pedido"]) ?></span>
+                        </td>
+                        <td data-label="Cliente">
+                            <h3 class="card-client"><?= htmlspecialchars($row["nome_cliente"]) ?></h3>
+                        </td>
+                        <td data-label="Endereço">
+                            <p><strong>Endereço:</strong><span class="card-address"><?= htmlspecialchars($row["endereco"]) ?></span></p>
+                            <span class="card-bairro"><?= htmlspecialchars($row["bairro"]) ?></span>
+                            <span class="card-desc"><?= htmlspecialchars($row["descricao"]) ?></span>
+                        </td>
+                        <td data-label="Entregador">
                         <?php if (!empty($row["nome_entregador"])): ?>
                             <p><strong>Entregador:</strong> <?= htmlspecialchars($row["nome_entregador"]) ?></p>
                         <?php else: ?>
                             <p><strong>Entregador:</strong> Não atribuído</p>
                         <?php endif; ?>
-                        <div class='card-actions'>
+                        </td>
+                        <td data-label="Valor">
+                            <p class="card-price"><strong>Preço:</strong> R$<?= number_format($row["preco"], 2, ',', '.') ?></p>
+                        </td>
+                        <td data-label="Status">
+                            <span class="status"><?= htmlspecialchars($row["status"]) ?></span>
+                        </td>
+                        <td data-label="Ações">
+                        <div class="card-actions">
                             <button type='button' class='btn-edit' data-id='<?= htmlspecialchars($row["id_pedido"]) ?>'>Editar</button>
                             <button type='button' class='btn-delete' data-id='<?= htmlspecialchars($row["id_pedido"]) ?>'>Excluir</button>
                         </div>
-                    </div>
+                        </td>
+                    </tr>
                 <?php endforeach; ?>
             <?php else: ?>
-                <p>Nenhum pedido encontrado</p>
+                <tr>
+                    <td class="orders-empty" colspan="7">Nenhum pedido encontrado</td>
+                </tr>
             <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
         </div>
 
         <!-- Botões fixos no canto inferior direito -->
@@ -418,8 +804,8 @@
                 const id = this.dataset.id;
                 const card = this.closest('.card');
                 document.getElementById('edit_id_pedido').value = id;
-                document.getElementById('edit_nome_cliente').value = card.querySelector('h3').innerText;
-                document.getElementById('edit_preco').value = card.querySelector('p:nth-of-type(1)').innerText.replace('Preço: R$', '').replace('.', '').replace(',', '.').trim();
+                document.getElementById('edit_nome_cliente').value = card.querySelector('.card-client').innerText;
+                document.getElementById('edit_preco').value = card.querySelector('.card-price').innerText.replace(/[^\d,.-]/g, '').replace(/\./g, '').replace(',', '.').trim();
                 document.getElementById('edit_endereco').value = card.querySelector('.card-address').innerText;
                 document.getElementById('edit_bairro').value = card.querySelector('.card-bairro').innerText;
                 document.getElementById('edit_descricao').value = card.querySelector('.card-desc').innerText;
