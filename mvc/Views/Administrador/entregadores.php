@@ -783,8 +783,8 @@
                 </button>
 
                 <div class="entregadores-title-group flex min-w-0 flex-1 items-center gap-3.5">
-                    <div class="hidden sm:flex w-10 h-10 rounded-xl items-center justify-center flex-shrink-0 transition-transform hover:scale-105"
-                        style="background-color: var(--emp-primary-light, #EEF2FF); color: var(--emp-primary, #4F46E5); border: 1px solid var(--emp-primary-light-border, #C7D2FE);">
+                    <div class="hidden sm:flex items-center justify-center flex-shrink-0 transition-transform hover:scale-105"
+                        style="color: var(--emp-primary, #4F46E5);">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-4-4h-1M9 20H4v-2a4 4 0 014-4h1m4-4a4 4 0 100-8 4 4 0 000 8zm6 4a2 2 0 100-4 2 2 0 000 4zM3 20v-2a2 2 0 012-2h1" />
                         </svg>

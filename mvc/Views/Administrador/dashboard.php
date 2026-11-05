@@ -376,8 +376,8 @@
                     </svg>
                 </button>
 
-                <div class="hidden sm:flex w-10 h-10 rounded-xl items-center justify-center flex-shrink-0 transition-transform hover:scale-105"
-                    style="background-color: var(--emp-primary-light, #EEF2FF); color: var(--emp-primary, #4F46E5); border: 1px solid var(--emp-primary-light-border, #C7D2FE);">
+                <div class="hidden sm:flex items-center justify-center flex-shrink-0 transition-transform hover:scale-105"
+                    style="color: var(--emp-primary, #4F46E5);">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                     </svg>
@@ -615,7 +615,7 @@
                                             $badge = '
                             <span class="inline-flex items-center justify-center whitespace-nowrap
                      bg-blue-100 text-blue-700 px-3 py-1 rounded-full
-                     text-[11px] font-bold shrink-0>
+                     text-[11px] font-bold shrink-0">
                                 A caminho
                             </span>';
                                         } else {
@@ -940,74 +940,7 @@
             </div>
 
             <!-- ================= DICAS E MELHORES PRÁTICAS DO SISTEMA ================= -->
-            <section class="space-y-6 pt-4">
-
-                <div class="flex items-center justify-between">
-                    <h2 class="text-xl font-extrabold text-slate-900" style="font-family: 'Brice-Bold', sans-serif;">Dicas e Melhores Práticas</h2>
-                    <span class="h-px bg-slate-200 flex-grow mx-6 hidden md:block"></span>
-                    <span class="text-xs font-bold text-[#1B138F] tracking-wider uppercase">GUIAR Academy</span>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5">
-
-                    <!-- Dica 1 -->
-                    <div class="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm flex flex-col justify-between hover-card">
-                        <div class="w-11 h-11 rounded-2xl bg-amber-50 text-amber-500 flex items-center justify-center shadow-inner mb-4">
-                            <img src="<?= BASE_URL ?>/img/icon1.png" alt="Organize seus pedidos" class="w-6 h-6 object-contain">
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-sm text-slate-900">Organize seus pedidos</h3>
-                            <p class="text-xs text-slate-400 leading-relaxed mt-1.5 font-medium">Utilize filtros para visualizar pedidos específicos.</p>
-                        </div>
-                    </div>
-
-                    <!-- Dica 2 -->
-                    <div class="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm flex flex-col justify-between hover-card">
-                        <div class="w-11 h-11 rounded-2xl bg-sky-50 text-sky-500 flex items-center justify-center shadow-inner mb-4">
-                            <img src="<?= BASE_URL ?>/img/icon2.png" alt="Comunique-se com os entregadores" class="w-6 h-6 object-contain">
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-sm text-slate-900">Comunique-se com os entregadores</h3>
-                            <p class="text-xs text-slate-400 leading-relaxed mt-1.5 font-medium">Mantenha contato direto para evitar atrasos.</p>
-                        </div>
-                    </div>
-
-                    <!-- Dica 3 -->
-                    <div class="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm flex flex-col justify-between hover-card">
-                        <div class="w-11 h-11 rounded-2xl bg-indigo-50 text-indigo-500 flex items-center justify-center shadow-inner mb-4">
-                            <img src="<?= BASE_URL ?>/img/icon3.png" alt="Revise feedbacks" class="w-6 h-6 object-contain">
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-sm text-slate-900">Revise feedbacks</h3>
-                            <p class="text-xs text-slate-400 leading-relaxed mt-1.5 font-medium">Analise as avaliações dos clientes para melhorar o serviço.</p>
-                        </div>
-                    </div>
-
-                    <!-- Dica 4 -->
-                    <div class="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm flex flex-col justify-between hover-card">
-                        <div class="w-11 h-11 rounded-2xl bg-emerald-50 text-emerald-500 flex items-center justify-center shadow-inner mb-4">
-                            <img src="<?= BASE_URL ?>/img/icon4.png" alt="Mantenha registros atualizados" class="w-6 h-6 object-contain">
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-sm text-slate-900">Mantenha registros atualizados</h3>
-                            <p class="text-xs text-slate-400 leading-relaxed mt-1.5 font-medium">Certeza de que todos os dados dos motoboys estejam corretos.</p>
-                        </div>
-                    </div>
-
-                    <!-- Dica 5 -->
-                    <div class="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm flex flex-col justify-between hover-card">
-                        <div class="w-11 h-11 rounded-2xl bg-rose-50 text-rose-500 flex items-center justify-center shadow-inner mb-4">
-                            <img src="<?= BASE_URL ?>/img/icon5.png" alt="Use relatórios" class="w-6 h-6 object-contain">
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-sm text-slate-900">Use relatórios</h3>
-                            <p class="text-xs text-slate-400 leading-relaxed mt-1.5 font-medium">Gere relatórios periódicos para acompanhar o desempenho das entregas.</p>
-                        </div>
-                    </div>
-
-                </div>
-
-            </section>
+           
 
         </main>
 

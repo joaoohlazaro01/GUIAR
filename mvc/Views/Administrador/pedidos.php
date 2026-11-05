@@ -853,8 +853,8 @@ select:focus {
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
                 </button>
-                <div class="hidden sm:flex w-10 h-10 rounded-xl items-center justify-center flex-shrink-0 transition-transform hover:scale-105"
-                    style="background-color: var(--emp-primary-light, #EEF2FF); color: var(--emp-primary, #4F46E5); border: 1px solid var(--emp-primary-light-border, #C7D2FE);">
+                <div class="hidden sm:flex items-center justify-center flex-shrink-0 transition-transform hover:scale-105"
+                    style="color: var(--emp-primary, #4F46E5);">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                     </svg>

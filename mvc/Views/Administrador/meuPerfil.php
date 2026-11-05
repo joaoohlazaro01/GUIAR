@@ -220,9 +220,9 @@
                     </svg>
                 </button>
 
-                <!-- ÍCONE EM DESTAQUE COM AS CORES DA EMPRESA -->
-                <div class="hidden sm:flex w-10 h-10 rounded-xl items-center justify-center flex-shrink-0 transition-transform hover:scale-105"
-                    style="background-color: var(--emp-primary-light, #EEF2FF); color: var(--emp-primary, #4F46E5); border: 1px solid var(--emp-primary-light-border, #C7D2FE);">
+                <!-- ÍCONE DA ABA -->
+                <div class="hidden sm:flex items-center justify-center flex-shrink-0 transition-transform hover:scale-105"
+                    style="color: var(--emp-primary, #4F46E5);">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
