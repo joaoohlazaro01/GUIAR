@@ -414,10 +414,12 @@ $nomeAdmin = $_SESSION['nome_usuario'] ?? ($admin["nome_adm"] ?? "Admin");
         </button>
 
         <!-- LOGO -->
-        <div class="p-8 mb-4 flex justify-center">
-            <img src="<?= htmlspecialchars($logoEmpresaSidebar, ENT_QUOTES, 'UTF-8') ?>"
-                alt="Logo da empresa"
-                class="w-32 h-auto object-contain">
+        <div class="px-5 pt-6 pb-4 mb-2 flex justify-start">
+            <div style="width: 68px; height: 68px; border-radius: 50%; overflow: hidden; flex-shrink: 0; background: #fff; border: 2px solid rgba(79,70,229,0.15); box-shadow: 0 2px 10px rgba(79,70,229,0.12); display: flex; align-items: center; justify-content: center; padding: 6px;">
+                <img src="<?= htmlspecialchars($logoEmpresaSidebar, ENT_QUOTES, 'UTF-8') ?>"
+                    alt="Logo da empresa"
+                    style="width: 100%; height: 100%; object-fit: contain; object-position: center; display: block;">
+            </div>
         </div>
 
         <!-- MENU -->
