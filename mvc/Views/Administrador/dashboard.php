@@ -485,7 +485,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l2.414 2.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
                         </svg>
                     </div>
-                    <div>
+                    <div class="status-pedido">
                         <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Em andamento</p>
                         <h4 class="text-2xl font-black text-slate-900 mt-1"><?= $pedidosEmAndamento ?></h4>
                         <span class="text-[10px] font-medium text-slate-400 mt-1 block">A caminho agora</span>
@@ -613,7 +613,9 @@
                                         } elseif ($status === 'a caminho') {
 
                                             $badge = '
-                            <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-xl text-[11px] font-bold">
+                            <span class="inline-flex items-center justify-center whitespace-nowrap
+                     bg-blue-100 text-blue-700 px-3 py-1 rounded-full
+                     text-[11px] font-bold shrink-0>
                                 A caminho
                             </span>';
                                         } else {
@@ -745,6 +747,12 @@
 
 
                                     <?php endforeach; ?>
+
+                                    <tr id="pedidoSemResultados" class="hidden">
+                                        <td colspan="7" class="py-12 text-center text-slate-400 font-semibold">
+                                            Nenhum pedido corresponde ao filtro selecionado.
+                                        </td>
+                                    </tr>
 
                                 <?php endif; ?>
 
@@ -910,25 +918,6 @@
                     </div>
                 </div>
 
-                <!-- Satisfação -->
-                <div class="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm flex items-center gap-4 hover-card">
-                    <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-500 flex items-center justify-center shadow-inner flex-shrink-0">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
-                        </svg>
-                    </div>
-                    <div>
-                        <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Satisfação</p>
-                        <h4 class="text-xl font-black text-slate-900 mt-1">4.8 <span class="text-xs text-slate-400 font-bold">/ 5</span></h4>
-                        <span class="text-[10px] font-bold text-emerald-500 flex items-center gap-0.5 mt-0.5">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18" />
-                            </svg>
-                            0.3 <span class="text-slate-400 font-medium">vs mês passado</span>
-                        </span>
-                    </div>
-                </div>
-
                 <!-- Dica do Dia -->
                 <div class="bg-gradient-to-br from-amber-50 to-amber-100/50 rounded-3xl p-5 border border-amber-200/40 shadow-sm flex items-start gap-4 hover-card relative overflow-hidden">
                     <div class="absolute -right-4 -bottom-4 w-16 h-16 bg-amber-200/20 rounded-full blur-lg"></div>
@@ -1029,8 +1018,8 @@
         // ELEMENTOS
         // =========================
 
-        const campoBuscaTabela = document.getElementById('campoBusca');
         const campoBuscaGeral = document.getElementById('campoBuscaPedidos');
+        const campoBuscaTabela = campoBuscaGeral;
         const filtroStatus = document.getElementById('filtroStatus');
 
         // =========================
@@ -1039,64 +1028,29 @@
 
         function filtrarTabela() {
 
-            const textoBusca = campoBuscaTabela.value.toLowerCase().trim();
-            const statusFiltro = filtroStatus.value;
+            const textoBusca = campoBuscaTabela ? campoBuscaTabela.value.toLowerCase().trim() : '';
+            const statusFiltro = filtroStatus ? filtroStatus.value : 'todos';
 
             const linhas = document.querySelectorAll('.pedido-linha');
+            const linhaSemResultados = document.getElementById('pedidoSemResultados');
+            let pedidosVisiveis = 0;
 
             linhas.forEach((linha) => {
 
                 const conteudo = linha.textContent.toLowerCase();
                 const status = linha.dataset.status;
-
                 const buscaOk = conteudo.includes(textoBusca);
+                const statusOk = statusFiltro === 'todos' || status === statusFiltro;
+                const linhaVisivel = buscaOk && statusOk;
 
-                const statusOk =
-                    statusFiltro === 'todos' ||
-                    status === statusFiltro;
-
-                // RESET
-                linha.style.display = '';
-                linha.style.filter = '';
-                linha.style.opacity = '';
-                linha.style.transform = '';
-                linha.style.transition = 'all 0.25s ease';
-                linha.style.backgroundColor = '';
-                linha.style.zIndex = '';
-
-                // FILTRO DE STATUS
-                if (!statusOk) {
-
-                    linha.style.display = 'none';
-                    return;
-
-                }
-
-                // SE TIVER TEXTO NA BUSCA
-                if (textoBusca !== '') {
-
-                    if (buscaOk) {
-
-                        // DESTACA A LINHA ENCONTRADA
-                        linha.style.filter = 'blur(0px)';
-                        linha.style.opacity = '1';
-                        linha.style.transform = 'scale(1.01)';
-                        linha.style.backgroundColor = '#ffffff';
-                        linha.style.position = 'relative';
-                        linha.style.zIndex = '10';
-
-                    } else {
-
-                        // DESFOCA AS OUTRAS
-                        linha.style.filter = 'blur(2px)';
-                        linha.style.opacity = '0.2';
-                        linha.style.transform = 'scale(0.98)';
-
-                    }
-
-                }
+                linha.hidden = !linhaVisivel;
+                if (linhaVisivel) pedidosVisiveis += 1;
 
             });
+
+            if (linhaSemResultados) {
+                linhaSemResultados.classList.toggle('hidden', pedidosVisiveis > 0);
+            }
 
         }
 
@@ -1155,9 +1109,13 @@
         // =========================
 
         // BUSCA DA TABELA
-        campoBuscaTabela.addEventListener('keyup', filtrarTabela);
+        if (campoBuscaTabela) {
+            campoBuscaTabela.addEventListener('input', filtrarTabela);
+        }
 
-        filtroStatus.addEventListener('change', filtrarTabela);
+        if (filtroStatus) {
+            filtroStatus.addEventListener('change', filtrarTabela);
+        }
 
         // BUSCA GERAL
         campoBuscaGeral.addEventListener('keyup', buscaGeralPagina);
