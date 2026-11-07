@@ -314,6 +314,12 @@
                     Acompanhar Rotas
                 </a>
 
+                <a href="<?= BASE_URL ?>/routes.php?action=simuladorGPS"
+                    class="menu-item flex items-center gap-3.5 px-4 py-3 rounded-xl font-semibold text-sm text-slate-500 hover:text-slate-900 hover:bg-slate-100/80 transition-all">
+                    <span aria-hidden="true">◎</span>
+                    Simulador GPS
+                </a>
+
                 <!-- PERFIL -->
                 <a href="<?= BASE_URL ?>/routes.php?action=perfilAdm"
                     class="menu-item flex items-center gap-3.5 px-4 py-3 rounded-xl font-semibold text-sm text-slate-500 hover:text-slate-900 hover:bg-slate-100/80 transition-all">
