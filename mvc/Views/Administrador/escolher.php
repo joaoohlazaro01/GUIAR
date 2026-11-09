@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Administradores | GUIAR</title>
-  <link rel="Shortcut Icon" type="image/png" href="<?= BASE_URL ?>/img/G.png">
+  <link rel="Shortcut Icon" type="image/png" href="img/logoIcon.png" class=" w-50 h-60 object-contain">
 
   <!-- Scripts para os Modais funcionarem (jQuery e Bootstrap JS) -->
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

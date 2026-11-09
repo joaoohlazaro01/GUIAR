@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | GUIAR</title>
-    <link rel="Shortcut Icon" type="image/png" href="img/Glogo.png">
+    <link rel="Shortcut Icon" type="image/png" href="img/logoIcon.png" class=" w-50 h-60 object-contain">
 
     <!-- CSS do Dashboard -->
     <link rel="stylesheet" href="<?= BASE_URL ?>/style/dashboard.css">

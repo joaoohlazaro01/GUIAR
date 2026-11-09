@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="Shortcut Icon" type="image/png" href="<?= BASE_URL ?>/img/Glogo.png">
+  <link rel="Shortcut Icon" type="image/png" href="img/logoIcon.png" class=" w-50 h-60 object-contain">
 
  <link rel="Shortcut Icon" type="image/png" href="<?= BASE_URL ?>/img/quero deixr essa " class=" w-50 h-60 object-contain">
 
