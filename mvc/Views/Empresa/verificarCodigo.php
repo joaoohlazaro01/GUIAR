@@ -81,7 +81,6 @@
                 <a href="<?= BASE_URL ?>/index.html" class="text-white/90 hover:text-brand-yellow transition duration-300">Home</a>
                 <a href="<?= BASE_URL ?>/routes.php?action=loginEmpresa" class="text-brand-yellow font-bold underline decoration-2 underline-offset-4 transition duration-300">Empresa</a>
                 <a href="<?= BASE_URL ?>/routes.php?action=loginEntregador" class="text-white/90 hover:text-brand-yellow transition duration-300">Entregador</a>
-                <a href="<?= BASE_URL ?>/contato.php" class="text-white/90 hover:text-brand-yellow transition duration-300">Contato</a>
             </nav>
         </div>
     </header>
