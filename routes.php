@@ -116,6 +116,16 @@ switch ($action) {
         $controller->mapa();
         break;
 
+    case 'simuladorGPS':
+        $controller = new \mvc\Controllers\AdministradorController($pdo);
+        $controller->simuladorGPS();
+        break;
+
+    case 'apiSimuladorGPS':
+        $controller = new \mvc\Controllers\AdministradorController($pdo);
+        $controller->apiSimuladorGPS();
+        break;
+
     case 'apiAcompanharEntregadores':
         $controller = new \mvc\Controllers\AdministradorController($pdo);
         $controller->apiAcompanharEntregadores();

@@ -238,6 +238,107 @@ class AdministradorController
         exit;
     }
 
+    private function simuladorAdminAutenticado()
+    {
+        return isset($_SESSION['company_id'], $_SESSION['id_adm'], $_SESSION['nome_usuario']);
+    }
+
+    public function simuladorGPS()
+    {
+        if (!$this->simuladorAdminAutenticado()) {
+            header("Location: " . BASE_URL . "/routes.php?action=loginEmpresa");
+            exit;
+        }
+        if (empty($_SESSION['gps_simulator_csrf'])) {
+            $_SESSION['gps_simulator_csrf'] = bin2hex(random_bytes(32));
+        }
+        $entregadores = $this->entregadorModel->getAllByEmpresa((int)$_SESSION['company_id']);
+        $csrfToken = $_SESSION['gps_simulator_csrf'];
+        require __DIR__ . '/../Views/Administrador/simuladorGPS.php';
+    }
+
+    public function apiSimuladorGPS()
+    {
+        header('Content-Type: application/json; charset=utf-8');
+        if (!$this->simuladorAdminAutenticado()) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'error' => 'Sessão administrativa necessária.']);
+            exit;
+        }
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            http_response_code(405);
+            echo json_encode(['success' => false, 'error' => 'Método não permitido.']);
+            exit;
+        }
+        $input = json_decode(file_get_contents('php://input'), true);
+        if (!is_array($input) || empty($_SESSION['gps_simulator_csrf']) ||
+            !hash_equals($_SESSION['gps_simulator_csrf'], (string)($input['csrf'] ?? ''))) {
+            http_response_code(403);
+            echo json_encode(['success' => false, 'error' => 'Token CSRF inválido.']);
+            exit;
+        }
+        $id = filter_var($input['id_entregador'] ?? null, FILTER_VALIDATE_INT);
+        $action = $input['operation'] ?? '';
+        if (!$id || !in_array($action, ['destinations', 'start', 'update', 'restore'], true)) {
+            http_response_code(400);
+            echo json_encode(['success' => false, 'error' => 'Operação ou entregador inválido.']);
+            exit;
+        }
+        $company = (int)$_SESSION['company_id'];
+        $q = $this->pdo->prepare('SELECT id_entregador, nome_completo, latitude, longitude FROM entregador WHERE id_entregador = :id AND FK_EMPRESA_id_empresa = :company');
+        $q->execute(['id' => $id, 'company' => $company]);
+        $driver = $q->fetch(\PDO::FETCH_ASSOC);
+        if (!$driver) {
+            http_response_code(404);
+            echo json_encode(['success' => false, 'error' => 'Entregador não pertence à empresa autenticada.']);
+            exit;
+        }
+        if ($action === 'destinations') {
+            $dest = $this->pdo->prepare("SELECT p.id_pedido, p.nome_cliente, p.endereco, p.latitude, p.longitude FROM pedido p WHERE p.id_entregador = :id AND p.id_empresa = :company AND LOWER(p.status) <> 'entregue' AND p.latitude IS NOT NULL AND p.longitude IS NOT NULL ORDER BY p.id_pedido");
+            $dest->execute(['id' => $id, 'company' => $company]);
+            $points = [];
+            foreach ($dest->fetchAll(\PDO::FETCH_ASSOC) as $point) {
+                $lat = filter_var($point['latitude'], FILTER_VALIDATE_FLOAT);
+                $lng = filter_var($point['longitude'], FILTER_VALIDATE_FLOAT);
+                if ($lat !== false && $lng !== false && $lat >= -90 && $lat <= 90 && $lng >= -180 && $lng <= 180) {
+                    $points[] = ['latitude' => (float)$lat, 'longitude' => (float)$lng, 'label' => 'Pedido #' . $point['id_pedido'] . ' — ' . $point['nome_cliente'] . ' (' . $point['endereco'] . ')'];
+                }
+            }
+            echo json_encode(['success' => true, 'driver' => $driver['nome_completo'], 'current' => ['latitude' => $driver['latitude'] === null ? null : (float)$driver['latitude'], 'longitude' => $driver['longitude'] === null ? null : (float)$driver['longitude']], 'points' => $points]);
+            exit;
+        }
+        $key = $company . ':' . $id;
+        if ($action === 'start') {
+            if (!isset($_SESSION['gps_simulator_original'][$key])) {
+                $_SESSION['gps_simulator_original'][$key] = ['latitude' => $driver['latitude'], 'longitude' => $driver['longitude']];
+            }
+        } elseif ($action === 'restore') {
+            if (!isset($_SESSION['gps_simulator_original'][$key])) {
+                http_response_code(409);
+                echo json_encode(['success' => false, 'error' => 'Nenhuma posição original salva nesta sessão.']);
+                exit;
+            }
+            $original = $_SESSION['gps_simulator_original'][$key];
+            $u = $this->pdo->prepare('UPDATE entregador SET latitude = :lat, longitude = :lng WHERE id_entregador = :id AND FK_EMPRESA_id_empresa = :company');
+            $u->execute(['lat' => $original['latitude'], 'lng' => $original['longitude'], 'id' => $id, 'company' => $company]);
+            unset($_SESSION['gps_simulator_original'][$key]);
+            echo json_encode(['success' => true, 'latitude' => $original['latitude'], 'longitude' => $original['longitude']]);
+            exit;
+        } else {
+            $lat = filter_var($input['latitude'] ?? null, FILTER_VALIDATE_FLOAT);
+            $lng = filter_var($input['longitude'] ?? null, FILTER_VALIDATE_FLOAT);
+            if ($lat === false || $lng === false || $lat < -90 || $lat > 90 || $lng < -180 || $lng > 180) {
+                http_response_code(400);
+                echo json_encode(['success' => false, 'error' => 'Latitude ou longitude fora dos limites válidos.']);
+                exit;
+            }
+            $u = $this->pdo->prepare('UPDATE entregador SET latitude = :lat, longitude = :lng WHERE id_entregador = :id AND FK_EMPRESA_id_empresa = :company');
+            $u->execute(['lat' => $lat, 'lng' => $lng, 'id' => $id, 'company' => $company]);
+        }
+        echo json_encode(['success' => true, 'latitude' => $action === 'update' ? $lat : $driver['latitude'], 'longitude' => $action === 'update' ? $lng : $driver['longitude'], 'nome' => $driver['nome_completo']]);
+        exit;
+    }
+
     public function perfil()
     {
         if (!isset($_SESSION['company_id'])) {
