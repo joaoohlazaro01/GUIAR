@@ -25,6 +25,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
+
+      - name: Instalar dependências do frontend
+        run: npm ci
 
       - name: Configurar PHP para o servidor local
         uses: shivammathur/setup-php@v2
@@ -34,7 +38,7 @@ jobs:
           coverage: none
 
       - name: Instalar navegador de testes
-        run: npx --yes @playwright/test@1.52.0 install --with-deps chromium
+        run: npx playwright install --with-deps chromium
 
       - name: Iniciar aplicação
         shell: bash
@@ -51,7 +55,7 @@ jobs:
           exit 1
 
       - name: Executar testes do navegador
-        run: npx --yes @playwright/test@1.52.0 test
+        run: npm run test:frontend
 
       - name: Publicar evidências do navegador
         if: always()
