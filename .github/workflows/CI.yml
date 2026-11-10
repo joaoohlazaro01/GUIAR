@@ -1,0 +1,155 @@
+name: Testes do GUIAR
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  frontend:
+    name: Testes funcionais do frontend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Configurar PHP para o servidor local
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, pdo, pdo_mysql
+          coverage: none
+
+      - name: Instalar navegador de testes
+        run: npx --yes @playwright/test@1.52.0 install --with-deps chromium
+
+      - name: Iniciar aplicação
+        shell: bash
+        run: |
+          php -S 127.0.0.1:8080 -t . > /tmp/guiar-php-server.log 2>&1 &
+          echo $! > /tmp/guiar-php-server.pid
+          for attempt in {1..20}; do
+            if curl --silent --fail http://127.0.0.1:8080/index.html > /dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/guiar-php-server.log
+          exit 1
+
+      - name: Executar testes do navegador
+        run: npx --yes @playwright/test@1.52.0 test
+
+      - name: Publicar evidências do navegador
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: relatorio-frontend
+          path: test-results/
+          if-no-files-found: ignore
+
+      - name: Encerrar aplicação
+        if: always()
+        shell: bash
+        run: kill "$(cat /tmp/guiar-php-server.pid)" 2>/dev/null || true
+
+  backend:
+    name: Testes funcionais do backend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v4
+
+      - name: Configurar PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, pdo, pdo_mysql, pdo_sqlite
+          tools: composer:v2
+          coverage: none
+
+      - name: Validar Composer e instalar dependências
+        run: |
+          composer validate
+          composer install --no-interaction --no-progress --prefer-dist
+
+      - name: Verificar sintaxe PHP
+        shell: bash
+        run: |
+          set -euo pipefail
+          while IFS= read -r file; do
+            php -l "$file" > /dev/null
+          done < <(find . -path './.git' -prune -o -path './vendor' -prune -o -type f -name '*.php' -print)
+
+      - name: Testar Models com SQLite em memória
+        run: php tests/backend/model_smoke.php
+
+      - name: Iniciar aplicação
+        shell: bash
+        run: |
+          php -S 127.0.0.1:8080 -t . > /tmp/guiar-php-server.log 2>&1 &
+          echo $! > /tmp/guiar-php-server.pid
+          for attempt in {1..20}; do
+            if curl --silent --fail http://127.0.0.1:8080/routes.php?action=loginEmpresa > /dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/guiar-php-server.log
+          exit 1
+
+      - name: Testar Controllers e Views principais
+        shell: bash
+        run: |
+          set -euo pipefail
+          for action in loginEmpresa loginEntregador termosUso; do
+            response="$(curl --silent --show-error --fail "http://127.0.0.1:8080/routes.php?action=$action")"
+            test -n "$response"
+            grep -Eiq '<html|<!doctype html|<form' <<< "$response"
+          done
+
+      - name: Testar Service de contato e validações da API
+        shell: bash
+        run: |
+          set -euo pipefail
+          cookie_jar="$(mktemp)"
+          token_response="$(curl --silent --show-error --fail --cookie-jar "$cookie_jar" --cookie "$cookie_jar" http://127.0.0.1:8080/enviarContato.php)"
+          token="$(php -r '$data=json_decode(stream_get_contents(STDIN), true); echo $data["csrf_token"] ?? "";' <<< "$token_response")"
+          test -n "$token"
+
+          status="$(curl --silent --output /tmp/contact-response.json --write-out '%{http_code}' \
+            --cookie "$cookie_jar" \
+            --data-urlencode "csrf_token=$token" \
+            --data-urlencode 'nome=Teste CI' \
+            --data-urlencode 'email=email-invalido' \
+            --data-urlencode 'mensagem=Mensagem de teste' \
+            http://127.0.0.1:8080/enviarContato.php)"
+          test "$status" = 422
+          grep -q 'success' /tmp/contact-response.json
+
+      - name: Publicar log da aplicação
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: log-backend
+          path: /tmp/guiar-php-server.log
+          if-no-files-found: ignore
+
+      - name: Encerrar aplicação
+        if: always()
+        shell: bash
+        run: kill "$(cat /tmp/guiar-php-server.pid)" 2>/dev/null || true
