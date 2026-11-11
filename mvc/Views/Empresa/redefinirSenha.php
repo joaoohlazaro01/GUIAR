@@ -1,223 +1,89 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redefinir Senha | Empresa</title>
-
-       <link rel="Shortcut Icon" type="image/png" href="img/logoIcon.png" class=" w-50 h-60 object-contain">
-    <!-- Tailwind CSS CDN -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Redefinir senha | Guiar</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
+    <link rel="shortcut icon" type="image/png" href="<?= BASE_URL ?>/img/logoIcon.png">
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        brand: {
-                            blue: '#001b69',
-                            yellow: '#ffd400',
-                            inputborder: '#c3d2e6',
-                            link: '#00288a'
-                        }
-                    },
-                    animation: {
-                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
-                        'float': 'float 6s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(30px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-15px)' },
-                        }
-                    }
-                }
-            }
-        }
+        tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'] }, animation: { float: 'float 6s ease-in-out infinite' }, keyframes: { float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-15px)' } } } } } };
     </script>
     <style>
-        body {
-            background: linear-gradient(135deg, #e6eaf0 0%, #f0f4f8 100%);
-        }
+        body { background-color: #eef5ff; color: #102b61; font-family: 'Inter', sans-serif; }
+        body > header { min-height: 80px; background: #fff; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -2px rgb(0 0 0 / 10%); }
+        body > header img { height: 56px; width: auto; }
+        body > header nav { gap: 48px; font-size: 24px; }
+        body > header nav a, body > header #nav-menu a { color: #1b138f; }
+        body > header nav a:hover, body > header #nav-menu a:hover { color: #2b6dd6; }
+        body > header #nav-toggle { color: #fff; background: #1b138f; }
+        body > main { min-height: calc(100vh - 164px); background: #eef5ff; }
+        .reset-card { max-width: 1024px; min-height: 496px; border-radius: 14px; box-shadow: 0 24px 60px rgb(31 91 166 / 16%); }
+        .reset-panel { position: relative; width: 48%; background: linear-gradient(135deg, transparent 0 73%, rgb(10 42 151 / 88%) 73% 84%, transparent 84%), linear-gradient(135deg, transparent 0 86%, #101c8b 86% 100%), #111979; }
+        .reset-panel .panel-map { position: absolute; top: -10%; left: -20%; width: 150%; height: 150%; max-width: none; object-fit: contain; opacity: .16; filter: brightness(0) invert(1); mix-blend-mode: overlay; }
+        .reset-form-panel { width: 52%; }
+        .reset-form-panel input[name="password"] { height: 60px; border: 1px solid #c4d8ff; border-radius: 11px; background: #fff; color: #102b61; box-shadow: 0 1px 3px rgb(16 43 97 / 5%); }
+        .reset-form-panel input[name="password"]:focus { border-color: #1b42da; box-shadow: 0 0 0 3px rgb(27 66 218 / 12%); }
+        body > footer { border-color: #e1ebf8; background: #fff; color: #58769f; box-shadow: 0 -2px 12px rgb(16 43 97 / 4%); }
+        body > footer a { color: #31567f; } body > footer a:hover { color: #0878f9; }
+        @media (max-width: 767px) { body > header img { height: 40px; } body > header nav { font-size: 20px; } body > main { min-height: 0; } .reset-card { max-width: 520px; min-height: 0; border-radius: 12px; } .reset-panel, .reset-form-panel { width: 100%; } .reset-panel { min-height: 340px; } .reset-panel .panel-map { width: 150%; height: 150%; } body > footer > div { gap: 8px; text-align: center; } }
     </style>
 </head>
 
-<body class="min-h-screen flex flex-col font-sans">
-
-    <!-- HEADER -->
-    <header class="bg-brand-blue shadow-md py-0 px-8 sticky top-0 z-50">
-
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-
-            <!-- LOGO -->
-            <div class="flex items-center -my-6">
-                <a href="<?= BASE_URL ?>/index.html">
-                    <img src="<?= BASE_URL ?>/img/LogoGuiar.png" alt="LOGO" class="w-52 h-auto object-contain brightness-0 invert">
-                </a>
-            </div>
-
-            <!-- MENU DESKTOP -->
-            <nav class="hidden md:flex items-center gap-12 font-semibold text-xl">
-                <a href="<?= BASE_URL ?>/index.html" class="text-white/90 hover:text-brand-yellow transition duration-300">Home</a>
-                <a href="<?= BASE_URL ?>/routes.php?action=loginEmpresa" class="text-brand-yellow font-bold underline decoration-2 underline-offset-4 transition duration-300">Empresa</a>
-                <a href="<?= BASE_URL ?>/routes.php?action=loginEntregador" class="text-white/90 hover:text-brand-yellow transition duration-300">Entregador</a>
+<body class="overflow-x-hidden text-gray-900 flex flex-col min-h-screen">
+    <header class="bg-white shadow-md py-0 px-4 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex min-h-20 items-center justify-between">
+            <div class="flex items-center"><a href="<?= BASE_URL ?>/index.html"><img src="<?= BASE_URL ?>/img/LogoGAzul.png" alt="Logo GUIAR" class="h-10 md:h-14 w-auto object-contain"></a></div>
+            <nav class="hidden md:flex items-center font-semibold">
+                <a href="<?= BASE_URL ?>/index.html" class="transition duration-300">Home</a>
+                <a href="<?= BASE_URL ?>/routes.php?action=loginEmpresa" class="transition duration-300">Empresa</a>
+                <a href="<?= BASE_URL ?>/routes.php?action=loginEntregador" class="transition duration-300">Entregador</a>
             </nav>
-
-            <!-- BOTÃO MOBILE -->
-            <button id="nav-toggle" class="md:hidden p-2 text-white focus:outline-none hover:bg-white/10 rounded-lg transition-colors" type="button">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
-            </button>
+            <button id="nav-toggle" class="md:hidden p-2 focus:outline-none rounded-lg transition-colors" type="button" aria-label="Abrir menu"><svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
         </div>
-
-        <!-- MENU MOBILE -->
-        <div id="nav-menu" class="hidden w-full md:hidden pb-4">
-            <div class="flex flex-col gap-4 text-lg font-semibold mt-4">
-                <a href="<?= BASE_URL ?>/index.html" class="text-white/90">Home</a>
-                <a href="<?= BASE_URL ?>/routes.php?action=loginEmpresa" class="text-brand-yellow font-bold">Empresa</a>
-                <a href="<?= BASE_URL ?>/routes.php?action=loginEntregador" class="text-white/90">Entregador</a>
-            </div>
-        </div>
-
+        <div id="nav-menu" class="hidden w-full md:hidden pb-4"><div class="flex flex-col gap-4 text-lg font-semibold mt-4"><a href="<?= BASE_URL ?>/index.html">Home</a><a href="<?= BASE_URL ?>/routes.php?action=loginEmpresa">Empresa</a><a href="<?= BASE_URL ?>/routes.php?action=loginEntregador" class="font-bold">Entregador</a></div></div>
     </header>
 
-    <!-- Container centralizador do formulário -->
-    <div class="flex-grow flex items-center justify-center p-4 sm:p-8">
-
-        <!-- Card Principal com Bordas Arredondadas -->
-        <div class="bg-white rounded-[2rem] shadow-2xl flex flex-col md:flex-row w-full max-w-[950px] min-h-[580px] overflow-hidden opacity-0 animate-fade-in-up">
-
-            <!-- Painel Esquerdo (Azul) -->
-            <div class="bg-brand-blue w-full md:w-[45%] p-10 flex flex-col relative overflow-hidden">
-                <!-- Imagem do Mapa de Fundo -->
-                 <img src="<?= BASE_URL ?>/img/Mapa.png" alt="Mapa Background" class="absolute inset-0 w-[150%] h-[150%] max-w-none -left-[20%] -top-[10%] object-contain opacity-40 pointer-events-none z-0 mix-blend-overlay animate-float">
-
-
-                <div class="hidden md:block absolute top-[75%] left-[25%] transform -translate-x-1/2 -translate-y-1/2 z-0 opacity-80 pointer-events-none">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-[4.5rem] w-[4.5rem] text-brand-yellow drop-shadow-md" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-                    </svg>
-                </div>
-
-                <!-- Conteúdo da Lateral Esquerda -->
+    <main class="flex-grow flex items-center justify-center px-6 py-16">
+        <div class="reset-card flex flex-col md:flex-row w-full my-10 bg-white overflow-hidden">
+            <div class="reset-panel p-10 flex flex-col justify-center relative overflow-hidden text-white">
+                <img src="<?= BASE_URL ?>/img/Mapa.png" alt="" aria-hidden="true" class="panel-map animate-float pointer-events-none z-0">
                 <div class="relative z-10 flex flex-col h-full">
-                    <!-- Logo GUIAR -->
-                    <div class="mb-8">
-            <img
-              src="<?= BASE_URL ?>/img/LogoGuiar.png"
-              alt="Logo GUIAR"
-              class="w-32 brightness-0 invert">
-          </div>
-                    <!-- Slogan e Linha Amarela -->
-                    <div class="my-auto">
-                        <h1 class="text-white text-[2rem] leading-[1.2] font-bold mb-5 tracking-tight">
-                            Um novo começo.<br>Sua conta segura.
-                        </h1>
-                        <div class="h-1 w-20 bg-brand-yellow"></div>
-                    </div>
+                    <div class="mb-8"><img src="<?= BASE_URL ?>/img/LogoGuiar.png" alt="Logo GUIAR" class="w-32 brightness-0 invert"></div>
+                    <div class="my-auto"><h1 class="text-white text-[2rem] leading-[1.2] font-bold mb-5 tracking-tight">Um novo começo.<br>Sua conta segura.</h1><div class="h-1 w-20 bg-[#0878F9]"></div></div>
                 </div>
             </div>
 
-            <!-- Painel Direito (Formulário) -->
-            <div class="w-full md:w-[55%] bg-white p-8 sm:p-14 flex flex-col justify-center items-center relative">
+            <div class="reset-form-panel p-8 md:p-12 flex flex-col justify-center bg-white relative">
+                <div class="w-full max-w-[508px] mx-auto">
+                    <div class="flex items-center gap-4 mb-8"><div class="flex items-center justify-center flex-shrink-0 text-[#001b69]"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" /></svg></div><h2 class="text-2xl font-black text-gray-900">Redefinir senha</h2></div>
 
-                <div class="w-full max-w-[360px]">
-
-                    <!-- Cabeçalho: Ícone e Título -->
-                    <div class="flex items-center justify-center gap-3 mb-10">
-                        <!-- Ícone de Key -->
-                        <div class="w-[4.5rem] h-[4.5rem] rounded-full bg-[#d6e0f5] flex items-center justify-center text-brand-blue shrink-0">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
-                            </svg>
-                        </div>
-                        <h2 class="text-[1.8rem] font-bold text-gray-900 tracking-tight leading-none pt-2">Redefinir <span class="text-brand-blue font-semibold">| Senha</span></h2>
-                    </div>
-
-                    <!-- Lógica PHP Inalterada para mensagens -->
                     <?php if (isset($erro)): ?>
-                        <div class="bg-red-50 border border-red-300 text-red-600 px-4 py-3 rounded-xl text-sm text-center font-medium shadow-sm mb-4" role="alert">
-                            <?php echo htmlspecialchars($erro); ?>
-                        </div>
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-xl mb-6 font-semibold" role="alert"><?= htmlspecialchars($erro); ?></div>
                     <?php endif; ?>
 
                     <?php if (isset($sucesso)): ?>
-                        <div class="bg-green-50 border border-green-300 text-green-700 px-4 py-3 rounded-xl text-sm text-center font-medium shadow-sm mb-4" role="alert">
-                            <?php echo htmlspecialchars($sucesso); ?>
-                        </div>
-                        <div class="text-center mt-3 mb-4">
-                            <a href="<?= BASE_URL ?>/routes.php?action=loginEmpresa" class="inline-block w-full bg-brand-yellow text-gray-900 font-bold text-lg py-3.5 rounded-xl hover:bg-[#eacc00] hover:shadow-md transform hover:-translate-y-[1px] transition-all">
-                                Voltar ao Login
-                            </a>
-                        </div>
+                        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-xl mb-6 font-semibold" role="alert"><?= htmlspecialchars($sucesso); ?></div>
                     <?php else: ?>
-
-                        <!-- Lógica PHP do Formulário inalterada -->
-                        <form class="flex flex-col gap-5" method="POST">
-                            <!-- Token hidden -->
-                            <input type="hidden" name="token" value="<?php echo htmlspecialchars($_GET['token'] ?? $_POST['token'] ?? ''); ?>">
-
-                            <!-- Input Nova Senha -->
-                            <div>
-                                <label for="password" class="block text-[0.85rem] font-medium text-gray-700 mb-1.5 ml-1">Nova senha</label>
-                                <input type="password" name="password" id="password" required
-                                    class="w-full px-4 py-3 rounded-xl border border-brand-inputborder focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-blue-100 transition-all text-gray-800 shadow-[0_2px_10px_rgba(0,0,0,0.02)]"
-                                    placeholder="Digite sua nova senha">
-                            </div>
-
-                            <!-- Botão Redefinir -->
-                            <button type="submit"
-                                class="w-full bg-brand-yellow text-gray-900 font-bold text-lg py-3.5 rounded-xl hover:bg-[#eacc00] hover:shadow-md transform hover:-translate-y-[1px] transition-all mt-1">
-                                Redefinir Senha
-                            </button>
-
-                            <!-- Link Voltar ao Login -->
-                            <div class="text-center mt-3">
-                                <p class="text-sm font-medium text-gray-800">
-                                    <a href="<?= BASE_URL ?>/routes.php?action=loginEmpresa" class="text-brand-link font-bold hover:underline">Voltar para o Login</a>
-                                </p>
-                            </div>
+                        <form method="POST" class="space-y-6">
+                            <input type="hidden" name="token" value="<?= htmlspecialchars($_GET['token'] ?? $_POST['token'] ?? ''); ?>">
+                            <div><label for="password" class="block text-sm font-semibold text-gray-600 mb-2">Nova senha</label><input type="password" name="password" id="password" required placeholder="Digite sua nova senha" class="w-full bg-gray-50 text-gray-900 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-[#F37B1D] transition font-medium"></div>
+                            <div class="pt-2"><button type="submit" class="w-full bg-[#FFB800] text-gray-900 py-4 rounded-2xl font-black text-xl hover:bg-[#F5B000] hover:scale-[1.02] hover:shadow-lg transition cursor-pointer">Redefinir Senha</button></div>
                         </form>
                     <?php endif; ?>
-
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
-    <!-- RODAPÉ -->
-    <footer class="w-full bg-brand-blue px-6 py-4 mt-auto border-t border-white/10 shadow-inner z-50">
-        <div class="w-full flex flex-col md:flex-row items-center justify-between text-[0.85rem] text-white/80">
-            <p class="mb-2 md:mb-0">&copy; <?= date('Y') ?> GUIAR. Todos os direitos reservados.</p>
-            <div class="flex space-x-4 font-medium">
-                <a href="#" class="hover:text-brand-yellow transition-colors">Política de Privacidade</a>
-                <a href="<?= BASE_URL ?>/routes.php?action=termosUso" class="hover:text-brand-yellow transition-colors">Termos de Serviço</a>
-            </div>
-        </div>
-    </footer>
+    <footer class="w-full px-6 py-4 mt-auto border-t shadow-inner z-50"><div class="w-full flex flex-col md:flex-row items-center justify-between text-[0.85rem]"><p class="mb-2 md:mb-0">&copy; <?= date('Y') ?> GUIAR. Todos os direitos reservados.</p><div class="flex space-x-4 font-medium"><a href="#" class="transition-colors">Política de Privacidade</a><a href="<?= BASE_URL ?>/routes.php?action=termosUso" class="transition-colors">Termos de Serviço</a></div></div></footer>
 
     <script>
-        // Toggle do menu mobile
         const btn = document.getElementById('nav-toggle');
         const menu = document.getElementById('nav-menu');
-        if (btn && menu) {
-            btn.addEventListener('click', () => {
-                menu.classList.toggle('hidden');
-                menu.classList.toggle('flex');
-            });
-        }
+        if (btn && menu) { btn.addEventListener('click', () => { menu.classList.toggle('hidden'); menu.classList.toggle('flex'); }); }
     </script>
 </body>
-
 </html>

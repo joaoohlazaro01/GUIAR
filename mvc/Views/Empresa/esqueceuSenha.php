@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Esqueceu sua senha | Empresa</title>
 
-      <link rel="Shortcut Icon" type="image/png" href="img/logoIcon.png" class=" w-50 h-60 object-contain">
+      <link rel="Shortcut Icon" type="image/png" href="<?= BASE_URL ?>/img/logoIcon.png" class=" w-50 h-60 object-contain">
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -57,7 +57,343 @@
     </script>
     <style>
         body {
-            background: linear-gradient(135deg, #e6eaf0 0%, #f0f4f8 100%);
+            background: #eef5ff !important;
+            color: #102b61;
+            font-family: 'Inter', sans-serif !important;
+        }
+
+        body > header {
+            min-height: 80px;
+            background: #fff !important;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -2px rgb(0 0 0 / 10%) !important;
+        }
+
+        body > header > div:first-child {
+            min-height: 80px;
+        }
+
+        body > header > div:first-child > div {
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+        body > header img {
+            width: auto !important;
+            height: 56px !important;
+            max-height: none;
+            filter: none !important;
+            object-fit: contain;
+        }
+
+        body > header nav {
+            gap: 48px !important;
+            font-size: 24px !important;
+            font-weight: 600 !important;
+            font-family: ui-sans-serif, system-ui, sans-serif !important;
+        }
+
+        body > header nav a,
+        body > header #nav-menu a {
+            color: #1b138f !important;
+            text-decoration: none !important;
+            transition: color 300ms ease;
+        }
+
+        body > header nav a {
+            position: relative;
+        }
+
+        body > header nav a::after {
+            position: absolute;
+            right: 0;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: #1b138f;
+            content: '';
+            transition: width 300ms ease;
+        }
+
+        body > header nav a:hover,
+        body > header #nav-menu a:hover {
+            color: #2b6dd6 !important;
+        }
+
+        body > header nav a:hover::after {
+            width: 100%;
+        }
+
+        body > header nav a.text-brand-yellow,
+        body > header #nav-menu a.text-brand-yellow {
+            color: #111979 !important;
+        }
+
+        body > header #nav-toggle {
+            color: #fff !important;
+            background: #1b138f !important;
+        }
+
+        body > header #nav-menu {
+            padding-bottom: 16px;
+        }
+
+        body > header #nav-menu > div {
+            gap: 16px;
+            margin-top: 16px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        body > .flex-grow {
+            position: relative;
+            isolation: isolate;
+            min-height: calc(100vh - 164px);
+            padding: 52px 24px !important;
+            background: #eef5ff !important;
+        }
+
+        body > .flex-grow > div {
+            width: 100% !important;
+            max-width: 1240px !important;
+            min-height: 510px !important;
+            border-radius: 14px !important;
+            box-shadow: 0 24px 60px rgb(31 91 166 / 16%) !important;
+            animation: none !important;
+            opacity: 1 !important;
+        }
+
+        body > .flex-grow > div > div:first-child {
+            position: relative !important;
+            width: 48% !important;
+            padding: 52px !important;
+            background:
+                linear-gradient(135deg, transparent 0 73%, rgb(10 42 151 / 88%) 73% 84%, transparent 84%),
+                linear-gradient(135deg, transparent 0 86%, #101c8b 86% 100%),
+                #111979 !important;
+        }
+
+        body > .flex-grow > div > div:first-child > img {
+            width: 150% !important;
+            height: 150% !important;
+            max-width: none;
+            object-fit: contain;
+            opacity: .16 !important;
+            filter: brightness(0) invert(1) !important;
+        }
+
+        body > .flex-grow > div > div:first-child > div:first-of-type {
+            display: none;
+        }
+
+        body > .flex-grow > div > div:first-child > div:last-child {
+            position: relative;
+            width: 100%;
+        }
+
+        body > .flex-grow > div > div:first-child > div:last-child > div:first-child {
+            margin-bottom: 40px !important;
+        }
+
+        body > .flex-grow > div > div:first-child > div:last-child > div:first-child img {
+            width: 230px !important;
+            height: 58px !important;
+            max-height: 58px;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        body > .flex-grow > div > div:first-child h1 {
+            color: #fff !important;
+            font-size: 29px !important;
+            line-height: 1.15 !important;
+        }
+
+        body > .flex-grow > div > div:first-child .h-1 {
+            width: 62px !important;
+            height: 4px !important;
+            margin: 0 !important;
+            background: #0878f9 !important;
+        }
+
+        body > .flex-grow > div > div:last-child {
+            width: 52% !important;
+            padding: 56px !important;
+            background: #fff !important;
+        }
+
+        .login-form-heading {
+            display: block !important;
+            position: relative;
+            width: 100%;
+            max-width: 508px;
+            margin: 0 0 34px !important;
+            padding-top: 21px;
+        }
+
+        .login-form-heading > div:first-child {
+            display: none !important;
+        }
+
+        .login-form-title {
+            display: block !important;
+            visibility: visible !important;
+            position: static !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            color: #102b61 !important;
+            font-size: 24px !important;
+            letter-spacing: .025em;
+            text-transform: uppercase;
+            font-weight: 900 !important;
+            line-height: 1.25 !important;
+        }
+
+        .login-form-heading::before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 46px;
+            height: 5px;
+            border-radius: 3px;
+            background: #111979;
+            content: '';
+        }
+
+        body > .flex-grow form label {
+            color: #102b61 !important;
+            font-size: 16px !important;
+            font-weight: 500 !important;
+        }
+
+        body > .flex-grow form input:not([type='submit']) {
+            display: block;
+            width: 100%;
+            height: 60px;
+            min-height: 60px;
+            box-sizing: border-box;
+            border: 1px solid #c4d8ff !important;
+            border-radius: 11px !important;
+            background-color: #fff !important;
+            color: #102b61 !important;
+            padding-left: 50px !important;
+            box-shadow: 0 1px 3px rgb(16 43 97 / 5%);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2358769f' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 6h18v12H3z'/%3E%3Cpath d='m3 7 9 6 9-6'/%3E%3C/svg%3E") !important;
+            background-repeat: no-repeat !important;
+            background-position: 16px center !important;
+            background-size: 22px !important;
+        }
+
+        body > .flex-grow form input:not([type='submit']):focus {
+            border-color: #1b42da !important;
+            box-shadow: 0 0 0 3px rgb(27 66 218 / 12%) !important;
+        }
+
+        body > .flex-grow form button[type='submit'] {
+            width: 100%;
+            height: 60px;
+            min-height: 60px;
+            box-sizing: border-box;
+            border: 0 !important;
+            border-radius: 11px !important;
+            background: #19179a !important;
+            color: #fff !important;
+            font-size: 16px !important;
+            box-shadow: none !important;
+        }
+
+        body > .flex-grow form button[type='submit']:hover {
+            background: #111078 !important;
+            transform: translateY(-1px) !important;
+        }
+
+        body > footer {
+            border-color: #e1ebf8 !important;
+            background: #fff !important;
+            color: #58769f !important;
+            box-shadow: 0 -2px 12px rgb(16 43 97 / 4%) !important;
+        }
+
+        body > footer a {
+            color: #31567f !important;
+        }
+
+        body > footer a:hover {
+            color: #0878f9 !important;
+        }
+
+        @media (max-width: 767px) {
+            body > header,
+            body > header > div:first-child {
+                min-height: 80px;
+            }
+
+            body > header img {
+                height: 40px !important;
+            }
+
+            body > header nav {
+                font-size: 20px !important;
+            }
+
+            body > .flex-grow {
+                min-height: 0;
+                padding: 32px 18px !important;
+            }
+
+            body > .flex-grow > div {
+                max-width: 520px !important;
+                min-height: 0 !important;
+                border-radius: 12px !important;
+            }
+
+            body > .flex-grow > div > div:first-child,
+            body > .flex-grow > div > div:last-child {
+                width: 100% !important;
+                padding: 30px !important;
+            }
+
+            body > .flex-grow > div > div:first-child {
+                min-height: 340px;
+            }
+
+            body > .flex-grow > div > div:first-child > div:last-child > div:first-child img {
+                width: 190px !important;
+                height: 50px !important;
+            }
+
+            body > .flex-grow > div > div:first-child > div:last-child > div:first-child {
+                margin-bottom: 24px !important;
+            }
+
+            body > .flex-grow > div > div:first-child h1 {
+                font-size: 26px !important;
+            }
+
+            .login-form-heading {
+                margin-bottom: 24px !important;
+            }
+
+            body > footer > div {
+                gap: 8px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 380px) {
+            body > .flex-grow {
+                padding: 20px 12px !important;
+            }
+
+            body > .flex-grow > div > div:first-child,
+            body > .flex-grow > div > div:last-child {
+                padding: 24px 20px !important;
+            }
+
+            body > footer > div > div {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -72,7 +408,7 @@
             <!-- LOGO -->
              <div class="flex items-center -my-6">
                 <a href="<?= BASE_URL ?>/index.html">
-                    <img src="<?= BASE_URL ?>/img/LogoGuiar.png" alt="LOGO" class="w-52 h-auto object-contain brightness-0 invert">
+                    <img src="<?= BASE_URL ?>/img/LogoGAzul.png" alt="LOGO" class="h-10 md:h-14 w-auto object-contain">
                 </a>
             </div>
 
@@ -144,17 +480,17 @@
             <!-- Painel Direito (Formulário) -->
             <div class="w-full md:w-[55%] bg-white p-8 sm:p-14 flex flex-col justify-center items-center relative">
 
-                <div class="w-full max-w-[360px]">
+                <div class="login-form-content w-full max-w-[508px]">
 
                     <!-- Cabeçalho: Ícone e Título -->
-                    <div class="flex items-center justify-center gap-3 mb-10">
+                    <div class="login-form-heading flex items-center justify-center gap-3 mb-10">
                         <!-- Ícone de E-mail/Recuperação -->
                         <div class="w-[4.5rem] h-[4.5rem] rounded-full bg-[#d6e0f5] flex items-center justify-center text-brand-blue shrink-0">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                             </svg>
                         </div>
-                        <h2 class="text-[1.8rem] font-bold text-gray-900 tracking-tight leading-none pt-2">Recuperar <span class="text-brand-blue font-semibold">| Senha</span></h2>
+                        <h2 class="login-form-title text-[1.8rem] font-bold text-gray-900 tracking-tight leading-none pt-2">Recuperar <span class="text-brand-blue font-semibold">| Senha</span></h2>
                     </div>
 
                     <!-- Lógica PHP Inalterada para mensagens -->
