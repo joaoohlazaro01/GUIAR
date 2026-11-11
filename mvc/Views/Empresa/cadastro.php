@@ -23,7 +23,7 @@
                     colors: {
                         brand: {
                             blue: '#001b69',
-                            yellow: '#ffd400',
+                            darkblue: '#111979',
                             inputborder: '#c3d2e6',
                             link: '#00288a'
                         }
@@ -60,6 +60,182 @@
         body {
             background: linear-gradient(135deg, #e6eaf0 0%, #f0f4f8 100%);
         }
+
+        body {
+            background-color: #eef5ff !important;
+            background-image: none !important;
+            color: #102b61;
+            font-family: 'Inter', sans-serif !important;
+        }
+
+        body > header {
+        min-height: 80px;
+        background: #fff !important;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -2px rgb(0 0 0 / 10%) !important;
+    }
+
+     body > header > div:first-child {
+      min-height: 80px;
+    }
+
+    body > header > div:first-child > div {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+    }
+
+    body > header img {
+      width: auto !important;
+      height: 56px !important;
+      max-height: none;
+      filter: none !important;
+    }
+
+     body > header nav {
+      gap: 48px !important;
+      font-size: 24px !important;
+      font-weight: 600 !important;
+      font-family: ui-sans-serif, system-ui, sans-serif !important;
+    }
+
+    body > header nav a,
+    body > header #nav-menu a {
+      color: #1b138f !important;
+      text-decoration: none !important;
+      transition: color 300ms ease;
+    }
+
+    body > header nav a,
+    body > header #nav-menu a {
+      color: #1b138f !important;
+      text-decoration: none !important;
+      transition: color 300ms ease;
+    }
+
+    body > header nav a:hover,
+    body > header #nav-menu a:hover {
+      color: #2b6dd6 !important;
+    }
+
+    body > header #nav-toggle {
+      color: #fff !important;
+      background: #1b138f !important;
+    }
+
+     body > header #nav-menu {
+      padding-bottom: 16px;
+    }
+
+    body > header #nav-menu > div {
+      gap: 16px;
+      margin-top: 16px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    ody > .flex-grow > div {
+      width: 100% !important;
+      max-width: 1240px !important;
+      min-height: 510px !important;
+      border-radius: 14px !important;
+      box-shadow: 0 24px 60px rgb(31 91 166 / 16%) !important;
+      animation: none !important;
+      opacity: 1 !important;
+    }
+
+    body > .flex-grow > div > div:first-child {
+      position: relative !important;
+      width: 48% !important;
+      padding: 152px !important;
+      background:
+        linear-gradient(135deg, transparent 0 73%, rgb(10 42 151 / 88%) 73% 84%, transparent 84%),
+        linear-gradient(135deg, transparent 0 86%, #101c8b 86% 100%),
+        #111979 !important;
+    }
+
+    body > .flex-grow > div > div:first-child > img {
+      width: 150% !important;
+      height: 150% !important;
+      max-width: none;
+      object-fit: contain;
+      opacity: .16 !important;
+      filter: brightness(0) invert(1) !important;
+    }
+
+    body > .flex-grow > div > div:first-child > div:first-of-type {
+      display: none;
+    }
+
+    body > .flex-grow > div > div:first-child > div:last-child {
+      position: relative;
+      width: 100%;
+    }
+
+    body > .flex-grow > div > div:first-child > div:last-child > div:first-child {
+      margin-bottom: 40px !important;
+    }
+
+    body > .flex-grow > div > div:first-child > div:last-child > div:first-child img {
+      width: 230px !important;
+      height: 58px !important;
+      max-height: 58px;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    body > .flex-grow > div > div:first-child h1 {
+      color: #fff !important;
+      font-size: 29px !important;
+      line-height: 1.15 !important;
+    }
+
+    body > .flex-grow > div > div:first-child .h-1 {
+      width: 62px !important;
+      height: 4px !important;
+      margin: 0 !important;
+      background: #0878f9 !important;
+    }
+
+    body > .flex-grow > div > div:last-child {
+      width: 52% !important;
+      padding: 56px !important;
+      background: #fff !important;
+    }
+
+    body > .flex-grow form label {
+      color: #102b61 !important;
+      font-size: 16px !important;
+      font-weight: 500 !important;
+    }
+
+    body > footer {
+      border-color: #e1ebf8 !important;
+      background: #fff !important;
+      color: #58769f !important;
+      box-shadow: 0 -2px 12px rgb(16 43 97 / 4%) !important;
+    }
+
+    body > footer a {
+      color: #31567f !important;
+    }
+
+     body > footer a:hover {
+      color: #0878f9 !important;
+    }
+
+    body > .flex-grow > div > div:first-child,
+      body > .flex-grow > div > div:last-child {
+        padding: 24px 20px !important;
+      }
+
+    body > main {
+      position: relative;
+      isolation: isolate;
+      min-height: calc(100vh - 164px);
+      padding: 52px 24px !important;
+      background-color: #eef5ff !important;
+      background-image: none !important;
+    }
+
     </style>
 
     <script>
@@ -124,14 +300,14 @@
             <!-- LOGO -->
             <div class="flex items-center -my-6">
                 <a href="<?= BASE_URL ?>/index.html">
-                    <img src="<?= BASE_URL ?>/img/LogoGuiar.png" alt="LOGO" class="w-52 h-auto object-contain brightness-0 invert">
+                    <img src="<?= BASE_URL ?>/img/LogoGAzul.png" alt="LOGO" class="w-52 h-auto object-contain brightness-0 invert">
                 </a>
             </div>
 
             <!-- MENU DESKTOP -->
             <nav class="hidden md:flex items-center gap-12 font-semibold text-xl">
                 <a href="<?= BASE_URL ?>/index.html" class="text-white/90 hover:text-brand-yellow transition duration-300">Home</a>
-                <a href="<?= BASE_URL ?>/routes.php?action=loginEmpresa" class="text-brand-yellow font-bold underline decoration-2 underline-offset-4 transition duration-300">Empresa</a>
+                <a href="<?= BASE_URL ?>/routes.php?action=loginEmpresa" class="text-brand-yellow underline decoration-2 underline-offset-4 transition duration-300">Empresa</a>
                 <a href="<?= BASE_URL ?>/routes.php?action=loginEntregador" class="text-white/90 hover:text-brand-yellow transition duration-300">Entregador</a>
             </nav>
 
@@ -180,7 +356,7 @@
                     <!-- Logo GUIAR -->
             <div class="mb-8">
             <img
-              src="<?= BASE_URL ?>/img/LogoGuiar.png"
+              src="<?= BASE_URL ?> /img/LogoGAzul.png"
               alt="Logo GUIAR"
               class="w-32 brightness-0 invert">
           </div>
@@ -254,7 +430,7 @@
                             <!-- Imagem da Empresa -->
                             <div>
                                 <label for="formFile" class="block text-[0.85rem] font-medium text-gray-700 mb-1 ml-1">Imagem da Empresa</label>
-                                <input type="file" id="formFile" name="foto_logo"
+                                <input type="file" id="formFile" name="LogoGAzul.png"
                                     class="w-full px-3 py-2 rounded-xl border border-brand-inputborder focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-blue-100 transition-all text-gray-800 shadow-[0_2px_10px_rgba(0,0,0,0.02)] file:mr-3 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-[0.75rem] file:font-bold file:bg-blue-50 file:text-brand-blue hover:file:bg-blue-100 bg-white">
                             </div>
                         </div>
@@ -275,7 +451,8 @@
 
                         <!-- Botão Fazer Cadastro -->
                         <button type="submit" id="botao"
-                            class="w-full bg-brand-yellow text-gray-900 font-bold text-lg py-3 rounded-xl hover:bg-[#eacc00] hover:shadow-md transform hover:-translate-y-[1px] transition-all mt-4">
+                            class="w-full bg-[#1B138F] text-white py-4 rounded-2xl font-white text-xl 
+                            hover:bg-[#111979] hover:shadow-md transform hover:-translate-y-[1px] transition-all mt-4">
                             Fazer Cadastro
                         </button>
 

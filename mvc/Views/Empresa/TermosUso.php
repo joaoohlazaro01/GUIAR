@@ -57,6 +57,165 @@
     body {
       background: linear-gradient(135deg, #e6eaf0 0%, #f0f4f8 100%);
     }
+
+    body > header {
+        min-height: 80px;
+        background: #fff !important;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -2px rgb(0 0 0 / 10%) !important;
+    }
+
+    body > header > div:first-child {
+      min-height: 80px;
+    }
+
+    body > header > div:first-child > div {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+    }
+
+     body > header img {
+      width: auto !important;
+      height: 56px !important;
+      max-height: none;
+      filter: none !important;
+    }
+
+    body > header nav {
+      gap: 48px !important;
+      font-size: 24px !important;
+      font-weight: 600 !important;
+      font-family: ui-sans-serif, system-ui, sans-serif !important;
+    }
+
+     body > header nav a,
+     body > header #nav-menu a {
+      color: #1b138f !important;
+      text-decoration: none !important;
+      transition: color 300ms ease;
+    }
+    
+    body > header nav a,
+    body > header #nav-menu a {
+      color: #1b138f !important;
+      text-decoration: none !important;
+      transition: color 300ms ease;
+    }
+
+    body > header nav a:hover,
+    body > header #nav-menu a:hover {
+      color: #2b6dd6 !important;
+    }
+
+    body > header #nav-toggle {
+      color: #fff !important;
+      background: #1b138f !important;
+    }
+
+    body > header #nav-menu {
+      padding-bottom: 16px;
+    }
+
+    body > header #nav-menu > div {
+      gap: 16px;
+      margin-top: 16px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+     body > .flex-grow > div > div:first-child {
+      position: relative !important;
+      width: 48% !important;
+      padding: 100px !important;
+      background:
+        linear-gradient(135deg, transparent 0 73%, rgb(10 42 151 / 88%) 73% 84%, transparent 84%),
+        linear-gradient(135deg, transparent 0 86%, #101c8b 86% 100%),
+        #111979 !important;
+    }
+
+    body > .flex-grow > div > div:first-child > img {
+      width: 150% !important;
+      height: 150% !important;
+      max-width: none;
+      object-fit: contain;
+      opacity: .16 !important;
+      filter: brightness(0) invert(1) !important;
+    }
+
+    body > .flex-grow > div > div:first-child > div:first-of-type {
+      display: none;
+    }
+
+    body > .flex-grow > div > div:first-child > div:last-child {
+      position: relative;
+      width: 100%;
+    }
+
+    body > .flex-grow > div > div:first-child > div:last-child > div:first-child {
+      margin-bottom: 40px !important;
+    }
+
+    body > .flex-grow > div > div:first-child > div:last-child > div:first-child img {
+      width: 230px !important;
+      height: 58px !important;
+      max-height: 58px;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    body > .flex-grow > div > div:first-child h1 {
+      color: #fff !important;
+      font-size: 29px !important;
+      line-height: 1.15 !important;
+    }
+
+    body > .flex-grow > div > div:first-child .h-1 {
+      width: 62px !important;
+      height: 4px !important;
+      margin: 0 !important;
+      background: #0878f9 !important;
+    }
+
+    body > .flex-grow > div > div:last-child {
+      width: 52% !important;
+      padding: 56px !important;
+      background: #fff !important;
+    }
+
+    body > .flex-grow form label {
+      color: #102b61 !important;
+      font-size: 16px !important;
+      font-weight: 500 !important;
+    }
+
+    body > footer {
+      border-color: #e1ebf8 !important;
+      background: #fff !important;
+      color: #58769f !important;
+      box-shadow: 0 -2px 12px rgb(16 43 97 / 4%) !important;
+    }
+
+     body > footer a {
+      color: #31567f !important;
+    }
+
+    body > footer a:hover {
+      color: #0878f9 !important;
+    }
+
+    body > .flex-grow > div > div:first-child,
+      body > .flex-grow > div > div:last-child {
+        padding: 24px 20px !important;
+      }
+
+      body > main {
+      position: relative;
+      isolation: isolate;
+      min-height: calc(100vh - 164px);
+      padding: 52px 24px !important;
+      background-color: #eef5ff !important;
+      background-image: none !important;
+    }
+
     /* Estilização suave para a barra de rolagem dos termos */
     .custom-scrollbar::-webkit-scrollbar {
       width: 6px;
@@ -85,14 +244,14 @@
       <!-- LOGO -->
       <div class="flex items-center -my-6">
         <a href="<?= BASE_URL ?>/index.html">
-          <img src="<?= BASE_URL ?>/img/LogoGuiar.png" alt="LOGO" class="w-52 h-auto object-contain brightness-0 invert">
+          <img src="<?= BASE_URL ?>/img/LogoGAzul.png" alt="LOGO" class="w-52 h-auto object-contain brightness-0 invert">
         </a>
       </div>
 
       <!-- MENU DESKTOP -->
       <nav class="hidden md:flex items-center gap-12 font-semibold text-xl">
         <a href="<?= BASE_URL ?>/index.html" class="text-white/90 hover:text-brand-yellow transition duration-300">Home</a>
-        <a href="<?= BASE_URL ?>/routes.php?action=loginEmpresa" class="text-brand-yellow font-bold underline decoration-2 underline-offset-4 transition duration-300">Empresa</a>
+        <a href="<?= BASE_URL ?>/routes.php?action=loginEmpresa" class="text-brand-yellow underline decoration-2 underline-offset-4 transition duration-300">Empresa</a>
         <a href="<?= BASE_URL ?>/routes.php?action=loginEntregador" class="text-white/90 hover:text-brand-yellow transition duration-300">Entregador</a>
       </nav>
 
@@ -138,7 +297,7 @@
         <div class="relative z-10 flex flex-col h-full">
           <!-- Logo GUIAR -->
           <div class="mb-8">
-            <img src="<?= BASE_URL ?>/img/LogoGuiar.png" alt="Logo GUIAR" class="w-32 brightness-0 invert">
+            <img src="<?= BASE_URL ?>/img/LogoGAzul.png" alt="Logo GUIAR" class="w-32 brightness-0 invert">
           </div>
 
           <!-- Slogan e Linha Amarela -->
@@ -224,7 +383,8 @@
           <?php else: ?>
             <div class="flex flex-col gap-3">
               <a href="<?= BASE_URL ?>/routes.php?action=cadastroEmpresa"
-                class="w-full bg-brand-yellow text-gray-900 font-bold text-base py-3 rounded-xl hover:bg-[#eacc00] hover:shadow-md transform hover:-translate-y-[0.5px] transition-all flex items-center justify-center gap-2">
+                class="w-full bg-[#1B138F] text-white text-base py-3 rounded-xl hover:bg-[#111979]
+                 hover:shadow-md transform hover:-translate-y-[0.5px] transition-all flex items-center justify-center gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
