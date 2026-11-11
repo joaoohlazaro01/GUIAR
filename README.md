@@ -10,6 +10,8 @@ O envio usa PHPMailer, já instalado no projeto, com a mesma configuração SMTP
 
 O workflow do GitHub Actions executa os testes ao enviar um `push` ou abrir um `pull request` para `master`. Também pode ser iniciado manualmente em **Actions > Testes do GUIAR > Run workflow**.
 
+Quando os testes de frontend e backend passam, o workflow gera um pacote `guiar-build.zip` e publica-o como artefato para download na página da execução do GitHub Actions.
+
 Para executar os testes localmente, instale Node.js 22, PHP 8.2 com as extensões PDO SQLite e mbstring, e Composer. Depois rode:
 
 ```sh

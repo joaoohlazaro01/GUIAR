@@ -157,3 +157,42 @@ jobs:
         if: always()
         shell: bash
         run: kill "$(cat /tmp/guiar-php-server.pid)" 2>/dev/null || true
+
+  build:
+    name: Gerar pacote do sistema
+    runs-on: ubuntu-latest
+    needs:
+      - frontend
+      - backend
+
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v4
+
+      - name: Gerar pacote ZIP
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          zip -r dist/guiar-build.zip . \
+            -x './.git/*' '*/.git/*' \
+               './.github/*' '*/.github/*' \
+               './node_modules/*' '*/node_modules/*' \
+               './playwright-report/*' '*/playwright-report/*' \
+               './test-results/*' '*/test-results/*' \
+               './tests/*' '*/tests/*' \
+               './scratch/*' '*/scratch/*' \
+               './Prototipo_GUIAR/*' '*/Prototipo_GUIAR/*' \
+               './Documento_GUIAR*' '*/Documento_GUIAR*' \
+               './package.json' '*/package.json' \
+               './package-lock.json' '*/package-lock.json' \
+               './playwright.config.mjs' '*/playwright.config.mjs' \
+               './dist/*' '*/dist/*'
+          unzip -t dist/guiar-build.zip
+
+      - name: Publicar pacote do sistema
+        uses: actions/upload-artifact@v4
+        with:
+          name: guiar-build-${{ github.sha }}
+          path: dist/guiar-build.zip
+          if-no-files-found: error
