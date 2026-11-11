@@ -3,19 +3,33 @@ name: Deploy Serv00
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Validar chave SSH
+        shell: bash
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          set -euo pipefail
+          if [[ -z "${SSH_PRIVATE_KEY//[[:space:]]/}" ]]; then
+            echo "O secret SSH_PRIVATE_KEY não está configurado neste repositório." >&2
+            exit 1
+          fi
+
       - name: Deploy via SSH
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v1.2.2
         with:
           host: repo11.serv00.com
           username: GuiarTCCrotas
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          timeout: 30s
+          command_timeout: 5m
           script: |
             cd ~/domains
             ls

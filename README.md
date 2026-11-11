@@ -6,6 +6,33 @@ Na página inicial, o botão **Fale com o GUIAR** abre um formulário que envia 
 
 O envio usa PHPMailer, já instalado no projeto, com a mesma configuração SMTP do cadastro e da recuperação de senha. Essa configuração está centralizada em `mvc/Services/EmailService.php` e é reutilizada pelo `EmpresaController` e por `enviarContato.php`; não é necessário configurar novas variáveis de ambiente para o contato. O e-mail informado no formulário é usado como endereço de resposta.
 
+## Testes automatizados
+
+O workflow do GitHub Actions executa os testes ao enviar um `push` ou abrir um `pull request` para `master`. Também pode ser iniciado manualmente em **Actions > Testes do GUIAR > Run workflow**.
+
+Quando os testes de frontend e backend passam, o workflow gera um pacote `guiar-build.zip` e publica-o como artefato para download na página da execução do GitHub Actions.
+
+Para executar os testes localmente, instale Node.js 22, PHP 8.2 com as extensões PDO SQLite e mbstring, e Composer. Depois rode:
+
+```sh
+npm ci
+npx playwright install chromium
+composer install
+php tests/backend/model_smoke.php
+```
+
+Para o teste do navegador, inicie o servidor PHP em um terminal:
+
+```sh
+php -S 127.0.0.1:8080 -t .
+```
+
+Em outro terminal, execute:
+
+```sh
+npm run test:frontend
+```
+
 O **GUIAR** é um sistema web desenvolvido com foco em tecnologia e inovação, integrando **Internet das Coisas (IoT)** para oferecer uma solução moderna, automatizada e eficiente.
 
 O projeto tem como objetivo unir aplicações web com dispositivos inteligentes, proporcionando monitoramento, automação e controle em tempo real.
